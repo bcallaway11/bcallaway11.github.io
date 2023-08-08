@@ -32,6 +32,8 @@ permalink: /students/
   
   * First Placement: Assistant Professor, Mohammed VI Polytechnic University
   
+  * Co-authored Papers: Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends
+  
 <br><br>  
   
 **Qin Wei**, Temple University, Ph.D. 2020

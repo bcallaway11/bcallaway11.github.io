@@ -48,13 +48,15 @@ permalink: /research/
 
 ## Working Papers
 
+* **Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends** (with Emmanuel Tsyawo)
+
+* **Regulation, Emissions, and Productivity: Evidence from China's Eleventh Five-Year Plan** (with Tong Li, Joel Rodrigue, Yuya Sasaki, and Yong Tan)
+
 * [**Difference-in-Differences when Parallel Trends Holds Conditional on Covariates**](https://arxiv.org/abs/2202.02903) (with Carolina Caetano)
 
 * [**Nonlinear Approaches to Intergenerational Income Mobility allowing for Measurement Error**](http://arxiv.org/abs/2107.09235) (with Tong Li and Irina Murtazashvili, submitted)
 
 * [**Difference-in-Differences with a Continuous Treatment**](https://arxiv.org/abs/2107.02637) [[5 Minute Summary](/posts/five-minute-did-continuous-treatment)] [[Slides](/files/DID-Continuous-Treatment/slides/did_reading_group.html)] (with Andrew Goodman-Bacon and Pedro H.C. Sant'Anna) 
-
-* **Regulation, Emissions, and Productivity: Evidence from China's Eleventh Five-Year Plan** (with Tong Li, Joel Rodrigue, Yuya Sasaki, and Yong Tan)
 
 ## Work in Progress
 

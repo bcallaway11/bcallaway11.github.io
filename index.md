@@ -12,7 +12,7 @@ author_profile: true
   </tr>
 </table>
 
-I am an Assistant Professor in the Economics Department at the University of Georgia.
+I am an Associate Professor in the Economics Department at the University of Georgia.
 
 My primary research interests are Microeconometrics and Labor Economics. Most of my research has concerned how to use panel data (repeated observations on the same individual or firm over time) to think about causal effects of economic policies.  I have been particularly interested in developing methods related to understanding how effects of policies vary across different individuals.  I am also interested in applications in labor economics.  Specifically, I have worked on understanding the effects of job displacement, minimum wage policies, intergenerational mobility, and unions.  Recently, I have been working on developing methods to understand the effects of Covid-19 related policies.
 
