@@ -48,7 +48,7 @@ permalink: /research/
 
 ## Working Papers
 
-* **Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends** (with Emmanuel Tsyawo)
+* **[Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends**](https://arxiv.org/abs/2308.02899) (with Emmanuel Tsyawo)
 
 * **Regulation, Emissions, and Productivity: Evidence from China's Eleventh Five-Year Plan** (with Tong Li, Joel Rodrigue, Yuya Sasaki, and Yong Tan)
 
