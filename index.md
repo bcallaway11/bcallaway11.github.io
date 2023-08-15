@@ -24,12 +24,11 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 **Recent Updates:**
 
+* Slides and code for my presentation at the [Northwestern Causal Inference Workshop](https://www.law.northwestern.edu/research-faculty/events/conferences/causalinference/advanced/) are available [here](files/presentations/northwestern-causal-inference-workshop)
+
 * Slides and code for my presentation at NEXT-D are available [here](files/presentations/NEXT-D)
 
 * My DID chapter in the *Handbook of Labor, Human Resources and Population Economics*.  Here is a [short summary](/posts/did-chapter) of the chapter.
-
-* Carol Caetano, Stroud Payne, Hugo Sant'Anna Rodrigues, and I just posted a new working paper [Difference in differences with Time-Varying Covariates](https://arxiv.org/abs/2202.02903).  Here is a [five minute summary of the paper](/posts/fms-did-time-varying-covariates)
-
 
 <br>
 
