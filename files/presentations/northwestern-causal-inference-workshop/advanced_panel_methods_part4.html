@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Advanced Panel Data Methods</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Brantly Callaway, University of Georgia" />
+    <script src="libs/header-attrs-2.24/header-attrs.js"></script>
+    <link rel="stylesheet" href="metropolis_alt.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Advanced Panel Data Methods
+]
+.author[
+### Brantly Callaway, University of Georgia
+]
+.date[
+### August 16, 2023 <br><br>Advanced Causal Inference Workshop at Northwestern University
+]
+
+---
+
+
+class: inverse, middle, center
+count: false
+
+# Part 4: More Complicated Treatment Regimes
+
+
+`$$\newcommand{\E}{\mathbb{E}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\Var}{\mathrm{var}}
+\newcommand{\Cov}{\mathrm{cov}}
+\newcommand{\Corr}{\mathrm{corr}}
+\newcommand{\corr}{\mathrm{corr}}
+\newcommand{\L}{\mathrm{L}}
+\renewcommand{\P}{\mathrm{P}}
+\newcommand{\independent}{{\perp\!\!\!\perp}}
+\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$`
+
+
+&lt;style type="text/css"&gt;
+
+border-top: 80px solid #BA0C2F;
+
+.inverse {
+  background-color: #BA0C2F;
+}
+
+.alert {
+    font-weight:bold; 
+    color: #BA0C2F;
+}
+
+.alert-blue {
+    font-weight: bold;
+    color: #004E60;
+}
+
+.remark-slide-content {
+    font-size: 23px;
+    padding: 1em 4em 1em 4em;
+}
+
+.highlight-red {
+  background-color:red;
+  padding:0.1em 0.2em;
+}
+
+.highlight {
+  background-color: yellow;
+  padding:0.1em 0.2em;
+}
+
+.assumption-box {
+    background-color: rgba(222,222,222,.5);
+    font-size: x-large;
+    padding: 10px; 
+    border: 10px solid lightgray; 
+    margin: 10px;
+}
+
+.assumption-title {
+    font-size: x-large;
+    font-weight: bold;
+    display: block;
+    margin: 10px;
+    text-decoration: underline;
+    color: #BA0C2F;
+}
+&lt;/style&gt;
+
+
+
+
+---
+
+# Introduction
+
+The discussion (and much of the recent DID literature) has focused on the setting with staggered treatment adoption.
+
+--
+
+However, this certainly does not cover the full range of possible treatments.  In Part 4, we'll primarily consider two leading extensions:
+
+1. A treatment that is multi-valued or continuous (e.g., minimum wage has this flavor)
+
+2. A treatment that can turn on and off (e.g., union status)
+
+&lt;!-- we'll discuss in the context of parallel trends, but tentatively, I think the most interesting issues here are due to complexity of the treatment (not the first step identification strategy) --&gt;
+
+--
+
+A couple of things to notice as we go along:
+
+* I'm not going to cover much on TWFE regressions here.  They have even more sources of things that can go wrong.  
+
+* Try to pay attention to the pattern.  Even though the arguments are getting more complicated, we are still following the idea of (i) target disaggregated parameters, (ii) combine them into lower dimensional objects, (3) here there will be some additional interpretation issues that also emphasize
+
+
+---
+
+# Continuous Treatment Notation
+
+Potential outcomes notation
+
+* Two time periods: `\(t^*\)` and `\(t^*-1\)`
+  
+  * No one treated until period `\(t^*\)`
+    
+  * Some units remain untreated in period `\(t^*\)`
+  
+* Potential outcomes: `\(Y_{it^*}(d)\)`
+
+* Observed outcomes: `\(Y_{it^*}\)` and `\(Y_{it^*-1}\)`
+
+  `$$Y_{it^*}=Y_{it^*}(D_i) \quad \textrm{and} \quad Y_{it^*-1}=Y_{it^*-1}(0)$$`
+
+---
+
+# Parameters of Interest (ATT-type)
+
+* &lt;span class="alert"&gt;Level Effects&lt;/span&gt; (Average Treatment Effect on the Treated)
+
+  `$$ATT(d|d) := \E[Y_{t^*}(d) - Y_{t^*}(0) | D=d]$$`
+
+  * Interpretation: The average effect of dose `\(d\)` relative to not being treated *local to the group that actually experienced dose `\(d\)`*
+  
+  * This is the natural analogue of `\(ATT\)` in the binary treatment case
+
+---
+
+# Parameters of Interest (ATT-type)
+
+* &lt;span class="alert"&gt;Slope Effect&lt;span&gt; (Average Causal Response on the Treated)
+
+  `$$ACRT(d|d) := \frac{\partial ATT(l|d)}{\partial l} \Big|_{l=d}$$`
+  
+  * Interpretation: `\(ACRT(d|d)\)` is the causal effect of a marginal increase in dose *local to units that actually experienced dose `\(d\)`*
+
+--
+
+We can view `\(ACRT(d|d)\)` as the "building block" here.  An aggregated version of it (into a single number) is
+`\begin{align*}
+  ACRT^O := \E[ACRT(D|D)|D&gt;0]
+\end{align*}`
+
+* `\(ACRT^O\)` averages `\(ACRT(d|d)\)` over the population distribution of the dose
+
+* Like `\(ATT^O\)` for staggered treatment adoption, `\(ACRT^O\)` is the natural target parameter for the TWFE regression in this case
+
+---
+
+# Identification
+&lt;div class="assumption-box"&gt; &lt;span class="assumption-title"&gt;"Standard" Parallel Trends Assumption&lt;/span&gt;
+
+For all `d`,
+
+&lt;p style="text-align:center"&gt;
+`\mathbb{E}[\Delta Y_{t^*}(0) | D=d] = \mathbb{E}[\Delta Y_{t^*}(0) | D=0]`
+&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+
+--
+
+Then,
+
+--
+
+$$
+`\begin{aligned}
+ATT(d|d) &amp;= \E[Y_{t^*}(d) - Y_{t^*}(0) | D=d] \hspace{150pt}
+\end{aligned}`
+$$
+
+---
+
+count:false
+# Identification
+&lt;div class="assumption-box"&gt; &lt;span class="assumption-title"&gt;"Standard" Parallel Trends Assumption&lt;/span&gt;
+
+For all `d`,
+
+&lt;p style="text-align:center"&gt;
+`\mathbb{E}[\Delta Y_{t^*}(0) | D=d] = \mathbb{E}[\Delta Y_{t^*}(0) | D=0]`
+&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+
+
+
+Then,
+
+
+
+$$
+`\begin{aligned}
+ATT(d|d) &amp;= \E[Y_{t^*}(d) - Y_{t^*}(0) | D=d] \hspace{150pt}\\
+&amp;= \E[Y_{t^*}(d) - Y_{t^*-1}(0) | D=d] - \E[Y_{t^*}(0) - Y_{t^*-1}(0) | D=d]
+\end{aligned}`
+$$
+
+---
+
+count:false
+# Identification
+&lt;div class="assumption-box"&gt; &lt;span class="assumption-title"&gt;"Standard" Parallel Trends Assumption&lt;/span&gt;
+
+For all `d`,
+
+&lt;p style="text-align:center"&gt;
+`\mathbb{E}[\Delta Y_{t^*}(0) | D=d] = \mathbb{E}[\Delta Y_{t^*}(0) | D=0]`
+&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+
+
+
+Then,
+
+
+
+$$
+`\begin{aligned}
+ATT(d|d) &amp;= \E[Y_{t^*}(d) - Y_{t^*}(0) | D=d] \hspace{150pt}\\
+&amp;= \E[Y_{t^*}(d) - Y_{t^*-1}(0) | D=d] - \E[Y_{t^*}(0) - Y_{t^*-1}(0) | D=d]\\
+&amp;= \E[Y_{t^*}(d) - Y_{t^*-1}(0) | D=d] - \E[\Delta Y_{t^*}(0) | D=0]
+\end{aligned}`
+$$
+
+---
+
+count:false
+# Identification
+&lt;div class="assumption-box"&gt; &lt;span class="assumption-title"&gt;"Standard" Parallel Trends Assumption&lt;/span&gt;
+
+For all `d`,
+
+&lt;p style="text-align:center"&gt;
+`\mathbb{E}[\Delta Y_{t^*}(0) | D=d] = \mathbb{E}[\Delta Y_{t^*}(0) | D=0]`
+&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+
+
+
+Then,
+
+
+
+$$
+`\begin{aligned}
+ATT(d|d) &amp;= \E[Y_{t^*}(d) - Y_{t^*}(0) | D=d] \hspace{150pt}\\
+&amp;= \E[Y_{t^*}(d) - Y_{t^*-1}(0) | D=d] - \E[Y_{t^*}(0) - Y_{t^*-1}(0) | D=d]\\
+&amp;= \E[Y_{t^*}(d) - Y_{t^*-1}(0) | D=d] - \E[\Delta Y_{t^*}(0) | D=0]\\
+&amp;= \E[\Delta Y_{t^*} | D=d] - \E[\Delta Y_{t^*} | D=0]
+\end{aligned}`
+$$
+
+&lt;mark&gt;This is exactly what you would expect&lt;/mark&gt;
+---
+
+# Are we done?
+
+&lt;mark&gt;Unfortunately, no&lt;/mark&gt;
+
+--
+
+Most applied work with a multi-valued or continuous treatment wants to think about how causal responses vary across dose
+
+* For example, plot treatment effects as a function of dose
+
+  * Does more dose tends to increase/decrease/not effect outcomes?
+  
+* Average causal response parameters *inherently* involve comparisons across slightly different doses
+
+---
+
+# Interpretation Issues
+Consider comparing `\(ATT(d|d)\)` for two different doses
+--
+
+$$
+`\begin{aligned}
+&amp; ATT(d_h|d_h) - ATT(d_l|d_l) \hspace{350pt}
+\end{aligned}`
+$$
+
+---
+
+count:false
+# Interpretation Issues
+Consider comparing `\(ATT(d|d)\)` for two different doses
+
+
+$$
+`\begin{aligned}
+&amp; ATT(d_h|d_h) - ATT(d_l|d_l) \hspace{350pt}\\
+&amp; \hspace{25pt} = \underbrace{\E[Y_{t^*}(d_h) - Y_{t^*}(d_l) | D=d_h]}_{\textrm{Causal Response}} + \underbrace{ATT(d_l|d_h) - ATT(d_l|d_l)}_{\textrm{Selection Bias}}
+\end{aligned}`
+$$
+
+
+--
+
+"Standard" Parallel Trends is not strong enough to rule out the selection bias terms here
+
+* Implication: If you want to interpret differences in treatment effects across different doses, then you will need stronger assumptions than standard parallel trends
+
+* This problem spills over into identifying `\(ACRT(d|d)\)` 
+
+--
+
+&lt;span class="alert"&gt;Positive side-comment:&lt;/span&gt; `\(ATT(d_h|d_h) - ATT(d_l|d_l) = \E[\Delta Y_{t^*} | D=d_h] - \E[\Delta Y_{t^*} | D=d_l]\)` (which doesn't involve the untreated group)
+
+
+---
+
+# Interpretation Issues
+
+&lt;span class="alert"&gt;Intuition: &lt;/span&gt;
+
+* Difference-in-differences identification strategies result in `\(ATT(d|d)\)` parameters.  These are &lt;span class="highlight"&gt;local parameters&lt;/span&gt; and difficult to compare to each
+
+* This explanation is similar to thinking about LATEs with two different instruments
+
+* Thus, comparing `\(ATT(d|d)\)` across different values is tricky and not for free
+
+--
+
+&lt;span class="alert"&gt;What can you do?&lt;/span&gt;
+
+* One idea, just recover `\(ATT(d|d)\)` and interpret it cautiously (interpret it by itself not relative to different values of `\(d\)`)
+
+* If you want to compare them to each other, it will come with the cost of additional (structural) assumptions
+
+---
+
+
+
+# Introduce Stronger Assumptions
+
+&lt;div class="assumption-box"&gt;&lt;span class="assumption-title"&gt;"Strong" Parallel Trends&lt;/span&gt;
+
+For all doses `d` and `l`,
+
+&lt;p style="text-align: center"&gt;
+`\mathbb{E}[Y_{t^*}(d) - Y_{t^*-1}(0) | D=l] = \mathbb{E}[Y_{t^*}(d) - Y_{t^*-1}(0) | D=d]`
+&lt;/p&gt;
+
+&lt;/div&gt;
+
+--
+
+* This is notably different from "Standard" Parallel Trends
+
+* It involves potential outcomes for all values of the dose (not just untreated potential outcomes)
+  
+* All dose groups would have experienced the same path of outcomes had they been assigned the same dose
+
+---
+
+
+# Introduce Stronger Assumptions
+
+
+Under strong parallel trends, we have that 
+
+
+$$
+`\begin{aligned}
+ATT(d|d) &amp;= \E[Y_{t^*}(d) - Y_{t^*}(0) | D=d] \hspace{200pt} \
+\end{aligned}`
+$$
+
+---
+
+count:false
+# Introduce Stronger Assumptions
+
+
+Under strong parallel trends, we have that 
+
+
+$$
+`\begin{aligned}
+ATT(d|d) &amp;= \E[Y_{t^*}(d) - Y_{t^*}(0) | D=d] \hspace{200pt} \\\
+&amp;= \E[Y_{t^*}(d) - Y_{t^*-1}(0) | D=d] - \E[Y_{t^*}(0) - Y_{t^*-1}(0) | D=d] \
+\end{aligned}`
+$$
+
+---
+
+count:false
+# Introduce Stronger Assumptions
+
+
+Under strong parallel trends, we have that 
+
+
+$$
+`\begin{aligned}
+ATT(d|d) &amp;= \E[Y_{t^*}(d) - Y_{t^*}(0) | D=d] \hspace{200pt} \\\
+&amp;= \E[Y_{t^*}(d) - Y_{t^*-1}(0) | D=d] - \E[Y_{t^*}(0) - Y_{t^*-1}(0) | D=d] \\\
+&amp;= \E[Y_{t^*}(d) - Y_{t^*-1}(0) | D=l] - \E[Y_{t^*}(0) - Y_{t^*-1}(0) | D=l] \
+\end{aligned}`
+$$
+
+---
+
+count:false
+# Introduce Stronger Assumptions
+
+
+Under strong parallel trends, we have that 
+
+
+$$
+`\begin{aligned}
+ATT(d|d) &amp;= \E[Y_{t^*}(d) - Y_{t^*}(0) | D=d] \hspace{200pt} \\\
+&amp;= \E[Y_{t^*}(d) - Y_{t^*-1}(0) | D=d] - \E[Y_{t^*}(0) - Y_{t^*-1}(0) | D=d] \\\
+&amp;= \E[Y_{t^*}(d) - Y_{t^*-1}(0) | D=l] - \E[Y_{t^*}(0) - Y_{t^*-1}(0) | D=l] \\\
+&amp;= \E[Y_{t^*}(d) - Y_{t^*}(0) | D=l] = ATT(d|l)
+\end{aligned}`
+$$
+
+
+
+--
+
+Since this holds for all `\(d\)` and `\(l\)`, it also implies that `\(ATT(d|d) = ATE(d) = \E[Y_{t^*}(d) - Y_{t^*}(0)]\)`.  Thus, under strong parallel trends, we have that
+
+`$$ATE(d) = \E[\Delta Y_{t^*}|D=d] - \E[\Delta Y_{t^*}|D=0]$$`
+
+RHS is exactly the same expression as for `\(ATT(d|d)\)` under "standard" parallel trends, but here
+
+* assumptions are different
+
+* parameter interpretation is different
+
+
+
+---
+
+
+
+# Comparisons across dose
+ATE-type parameters do not suffer from the same issues as ATT-type parameters when making comparisons across dose
+
+--
+
+
+$$
+`\begin{aligned}
+ATE(d_h) - ATE(d_l) &amp;= \E[Y_{t^*}(d_h) - Y_{t^*}(0)] - \E[Y_{t^*}(d_l) - Y_{t^*}(0)]
+\end{aligned}`
+$$
+
+---
+
+count:false
+# Comparisons across dose
+ATE-type parameters do not suffer from the same issues as ATT-type parameters when making comparisons across dose
+
+
+
+
+$$
+`\begin{aligned}
+ATE(d_h) - ATE(d_l) &amp;= \E[Y_{t^*}(d_h) - Y_{t^*}(0)] - \E[Y_{t^*}(d_l) - Y_{t^*}(0)]\\
+&amp;= \underbrace{\E[Y_{t^*}(d_h) - Y_{t^*}(d_l)]}_{\textrm{Causal Response}}
+\end{aligned}`
+$$
+
+ 
+
+--
+
+&lt;mark&gt;Thus, recovering `\(ATE(d)\)` side-steps the issues about comparing treatment effects across doses, but it comes at the cost of needing a (potentially very strong) extra assumption&lt;/mark&gt;
+
+--
+
+Given that we can compare `\(ATE(d)\)`'s across dose, we can recover slope effects in this setting
+
+$$
+`\begin{aligned}
+  ACR(d) := \frac{\partial ATE(d)}{\partial d} \qquad &amp;\textrm{or} \qquad ACR^O := \E[ACR(D) | D&gt;0]
+\end{aligned}`
+$$
+
+
+---
+
+# TWFE Regressions in this Context
+
+Consider the same TWFE regression (but now `\(D_{it}\)` is continuous):
+`\begin{align*}
+  Y_{it} = \theta_t + \eta_i + \alpha D_{it} + e_{it}
+\end{align*}`
+You can show that
+`\begin{align*}
+  \alpha = \int_{\mathcal{D}_+} w(l) m'_\Delta(l) \, dl
+\end{align*}`
+where `\(m_\Delta(l) := \E[\Delta Y_{t^*}|D=l] - \E[\Delta Y_{t^*}|D=0]\)`.
+
+--
+
+* Under standard parallel trends, `\(m'_{\Delta}(l) = ACRT(l|l) + \textrm{local selection bias}\)`
+
+* Under strong parallel trends, `\(m'_{\Delta}(l) = ACR(l)\)`.
+
+Thus, issues related to selection bias continue to show up here
+
+--
+
+`\(w_1(l)\)` are weights: they are all positive, but have some strange properties (e.g., always maximized at `\(l = \E[D]\)` (even if this is not a common value for the dose))
+
+* `\(\implies\)` even under strong parallel trends, `\(\alpha \neq ACR^O\)`.
+
+---
+
+
+# TWFE Regressions in this Context
+
+Other issues can arise in more complicated cases
+
+* For example, suppose you have a staggered continuous treatment, then you will *additionally* get issues that are analogous to the ones we discussed earlier for a binary staggered treatment
+
+* In general, things get worse for TWFE regressions with more complications
+
+---
+
+name:summarizing
+
+# Summarizing
+
+* It is straightforward/familiar to identify ATT-type parameters with a multi-valued or continuous dose
+
+--
+
+* However, comparison of ATT-type parameters across different doses are hard to interpret
+
+  * They include selection bias terms
+  
+  * This issues extends to identifying ACRT parameters
+  
+  * These issues extend to TWFE regressions
+
+--
+
+* This suggests targeting ATE-type parameters
+
+  * Comparisons across doses do not contain selection bias terms
+  
+  * But identifying ATE-type parameters requires stronger assumptions
+  
+  * [[Ideas for weakening strong parallel trends](#weaken-spt)]
+  
+---
+
+# Example 2: Units can move in and out of the treatment
+
+"Scarring" vs. Moving in and out of treatment
+
+&lt;span class="alert"&gt;Example treatments: &lt;/span&gt;
+
+* Union status (Vella and Verbeek, 1998)
+
+* Whether or not location hit by hurricane (Deryugina, 2017)
+
+* Whether or not a district shares the same ethnicity as the president of the country (Burgess, et al., 2015)
+
+--
+
+&lt;span class="alert"&gt;Additional Notation: &lt;/span&gt;
+
+We can make a lot of progress by redefining our notion of a "group"
+
+* Keep track of entire treatment regime `\(\mathbf{D}_i := (D_{i1}, \ldots, D_{i\mathcal{T}})'\)` and/or treatment history up to period `\(t\)`: `\(\mathbf{D}_{it} := (D_{i1}, \ldots, D_{it})'\)`. 
+
+* Potential outcomes `\(Y_{it}(\mathbf{d}_t)\)` where `\(\mathbf{d}_t\)` is some treatment history up to period `\(t\)` (this notation imposes "no anticipation" --- potential outcomes do not depend on future treatments).  Observed outcomes: `\(Y_{it}(\mathbf{D}_{it})\)`
+
+---
+
+# Example 2: Units can move in and out of the treatment 
+
+&lt;span class="alert"&gt;A little more notation...&lt;/span&gt;
+
+* `\(\mathcal{D}_t \subseteq \{0,1\}^t\)` is the set of all possible treatment histories in period `\(t\)`.  As earlier, we will exclude units that are treated in the first period, (I'll briefly come back to this later)
+
+* `\(\mathbf{0}_t\)` denotes not participating in the treatment in any period up to period `\(t\)`
+
+--
+
+In this case, we'll define groups by their treatment histories `\(\mathbf{d}_t\)`.  Thus, we can consider group-time average treatment effects defined by
+`\begin{align*}
+  ATT(\mathbf{d}_t, t) := \E[Y_{it}(\mathbf{d}_t) - Y_{it}(\mathbf{0}_t) | \mathbf{D}_{it} = \mathbf{d}_t]
+\end{align*}`
+
+---
+
+# Example 2: Units can move in and out of the treatment 
+
+&lt;span class="alert"&gt;Parallel Trends Assumption:&lt;/span&gt; For all `\(t=2,\ldots,\mathcal{T}\)`, and for all `\(\mathbf{d}_t \in \mathcal{D}_t\)`,
+`\begin{align*}
+  \E[\Delta Y_{it}(\mathbf{0}_t) | \mathbf{D}_{it} = \mathbf{d}_t] = \E[\Delta Y_{it}(\mathbf{0}_t) | \mathbf{D}_{it} = \mathbf{0}_t]
+\end{align*}`
+
+--
+
+&lt;span class="alert"&gt;Identification: &lt;/span&gt; In this setting, under the parallel trends assumption, we have that
+`\begin{align*}
+  ATT(\mathbf{d}_t, t) = \E[Y_{it} - Y_{i1} | \mathbf{D}_{it} = \mathbf{d}_t] - \E[Y_{it} - Y_{i1} | \mathbf{D}_{it} = \mathbf{0}_t]
+\end{align*}`
+
+--
+
+This argument is straightforward and analogous to what we have done before.  &lt;span class="highlight"&gt;However...&lt;/span&gt;
+
+---
+
+# Example 2: Units can move in and out of the treatment 
+
+There are a number of additional complications that arise here.
+
+1. There are way more possible groups here than in the staggered treatment case (you can think of this as leading to a kind of curse of dimensionality)
+
+    * `\(\implies\)` small groups `\(\implies\)` imprecise estimates and (possibly) invalid inferences
+    
+    * also makes it harder to report the results
+    
+--
+
+2. The previous point provides an additional reason to try to aggregate the group-time average treatment effects.  However, this is also not so straightforward.  
+
+   * This is an area of active research (e.g., de Chaisemartin and d'Haultfoeuille (2023) and Yanagi (2023))
+   
+   * Some ideas below...but the literature has not converged here yet
+   
+---
+
+# Example 2: Units can move in and out of the treatment 
+
+Probably the simplest approach is to just make groups on the basis of the first period when a unit experiences the treatment
+
+* We have (kind of) been doing this in our minimum wage application
+
+* Lots of papers (e.g., job displacement, hospitalization) have used this idea
+
+* Formally, it amounts to averaging over all subsequent treatments decisions (de Chaisemartin and d'Haultfoeuille (2023))
+
+--
+
+But there are other ideas too.  Suppose that you were interested in the average treatment effect of experiencing some cumulative number of treatment effects over time (e.g., how many years someone was in a union).
+
+---
+
+# Example 2: Units can move in and out of the treatment 
+
+Define `\(\sigma_t(\mathbf{d}_t) := \displaystyle \sum_{s=1}^t d_s\)` --- `\(\sigma_t(\cdot)\)` is a function that adds up the cumulative number of treatments up to period `\(t\)` for treatment history `\(\mathbf{d}_t\)`.  
+
+--
+
+We will target the average treatment effect of having experienced exactly `\(\sigma\)` treatments by period `\(t\)`.
+
+--
+
+Towards this end, also define `\(\mathcal{D}_t^\sigma = \{\mathbf{d}_t \in \mathcal{D}_t : \sigma_t(\mathbf{d}_t) = \sigma\}\)` --- this is the set of treatment histories that result in `\(\sigma\)` cumulative treatments in period `\(t\)`.  Then, consider
+
+--
+
+`\begin{align*}
+  ATT^{sum}(\sigma, t) = \sum_{\mathbf{d}_t \in \mathcal{D}_t^\sigma} ATT(\mathbf{d}_t, t) \P(D_{it}=\mathbf{d}_t | \mathbf{D}_{it} \in \mathcal{D}_t^\sigma)
+\end{align*}`
+
+--
+
+This is the average `\(ATT(\mathbf{d}_t,t)\)` across treatment regimes that lead to exactly `\(\sigma\)` treatments by period `\(t\)`
+
+Similar to previous cases, `\(ATT^{sum}(\sigma,t)\)` is a weighted average of underlying 2x2 DID parameters
+
+Averaging like this reduces the number of groups, and makes the estimation problem discussed above easier (the "effective" number of units is larger)
+---
+
+# Example 2: Units can move in and out of the treatment
+
+Even though `\(ATT^{sum}(\sigma,t)\)` (possibly substantially) reduces the dimensionality of the underlying group-time average treatment effect parameters, we might want to reduce more.
+
+--
+
+This is tricky though because the composition of the effective groups changes over time (just because you have two groups have the same number of cumulative treatments in one period doesn't mean that they have the same number in subsequent periods)
+
+---
+
+# Example 2: Units can move in and out of the treatment
+
+An alternative idea is to just report treatment effect parameters in the last period: `\(ATT^{sum}(\sigma,\mathcal{T})\)` as a function of `\(\sigma\)`.  
+
+* This would be something that you could report in a two-dimensional plot
+
+--
+
+Unlike the staggered treatment adoption case, where `\(ATT^{ES}(e)\)` and `\(ATT^O\)` seem like good default parameters to report, it is not clear to me what (or if there is) a good default choice here.
+
+* However, if I were writing a paper, I would (i) show disaggregated results, (ii) argue for some particular aggregated parameter and choose weights on the disaggregated parameters that target this parameter
+
+--
+
+Another caution is that (I presume) the issues about interpreting `\(ATT\)`-type parameters across different amounts of the treatment (here across `\(\sigma\)`) will introduce selection bias terms except under additional assumptions
+
+* e.g., saying that, on average participating in a union for 10 years increased earnings by some amount and participating in a union for for 5 years increased by another amount is one thing; causally attributing the difference to "longer union participation" (probably) takes more assumptions
+
+---
+
+name: extensions
+
+# Extensions
+
+Notice that above, we only invoked parallel trends with respect to untreated potential outcomes. 
+
+--
+
+But it seems within the spirit of DID to assume parallel trends for *staying* at the same treatment over time
+
+* Then we can recover group-time average treatment effects for switchers relative to stayers
+
+* See de Chaisemartin et al. (2022) and de Chaisemartin and d'Haultfoeuille (2023) for approaches along these lines
+
+--
+
+This results in *many* more disaggregated treatment effect parameters
+
+[[Details](#stayers)]
+
+---
+
+# Summary
+
+We've covered a number of different settings, but we certainly haven't covered all of them
+
+* Ex. Suppose you have a multi-valued treatment that can change values over time
+
+* I'm not sure what exactly to do off the top of my head (and the exact thing to do likely depends on the particular goals of the application), but I think that you can get some ideas from extrapolating our discussion:
+
+  * Step 1: Target disaggregated parameters
+  
+  * Step 2: If desired, choose aggregated target parameter suitable to the application, combine underlying disaggregateed parameters directly to recover this parameter
+
+
+---
+
+count: false
+
+---
+
+name: weaken-spt
+count: false
+
+# Ideas for Weakening Strong Parallel Trends
+
+&lt;span class="alert"&gt;Idea 1: Partial Identification&lt;/span&gt; In some application, it may seem reasonable to think that you know the sign of the selection bias.  If this "works against" the sign of differences in `\(m_\Delta(d)\)` as `\(d\)` increases, this implies that you could still sign differences in `\(ATT(d|d)\)` as `\(d\)` increases
+
+--
+
+&lt;span class="alert"&gt;Idea 2: Strong PT Conditional on Covariate&lt;/span&gt; It might be reasonable to assume strong parallel trends conditional on some other variable.
+
+* Example: For the minimum wage, it might be reasonable to assume that strong parallel trends holds across states within the same region of the country (say, West or South)
+
+    * Evidence in favor of this is much different distributions of MW policy across regions
+    
+    * Wouldn't be able to make "full" comparison across all doses here, but could learn about employment effects of a \$15.75 MW (Washington) relative to \$13.20 (Oregon).
+    
+[[Back](#summarize)]
+
+---
+
+name: stayers
+
+# DID using Stayers and Switchers
+
+&lt;span class="alert"&gt;Parallel Trends for Stayers&lt;/span&gt;:
+`\begin{align*}
+    \E[Y_t(d_{t-1},\mathbf{d}_{t-1}) - Y_{t-1}(\mathbf{d}_{t-1}) | \mathbf{D}_{it-1} = \mathbf{d}_{t-1})] = \E[Y_t(d_{t-1},\mathbf{d}_{t-1}) - Y_{t-1}(\mathbf{d}_{t-1}) | \mathbf{D}_{it} = (d_{t-1},\mathbf{d}_{t-1})]
+\end{align*}`
+
+--
+
+In this case, you can recover the `\(ATT\)` for &lt;span class="alert"&gt;switchers&lt;/span&gt;: (here we are supposing that `\(d_{t-1}=0\)`, but can make an analogous argument in the opposite case)
+`\begin{align*}
+  ATT^{switchers}(\mathbf{d}_{t-1},t) &amp;= \E[Y_{it}(1,\mathbf{d}_{t-1}) - Y_{it}(0,\mathbf{d}_{t-1}) | \mathbf{D}_{it} = (1,\mathbf{d}_{t-1})] \\
+  &amp;\overset{\textrm{PTA}}{=} \E[\Delta Y_{it} | \mathbf{D}_{it}=(1,\mathbf{d}_{t-1})] - \E[\Delta Y_{it} | \mathbf{D}_{it}=(0,\mathbf{d}_{t-1})]
+\end{align*}`
+That is, you can recover `\(ATT^{switchers}\)` by comparing the paths of outcomes for switchers to the path of outcomes for stayers (exactly what you'd expect!)
+
+--
+
+Given this sort of assumption, there may be a huge number of `\(ATT^{switchers}(\mathbf{d}_{t-1},t)\)` in realistic applications.  
+
+* You could use these to further understand treatment effect heterogeneity
+
+* You could also propose some way to aggregate them into a lower dimensional argument [[Back](#extensions)]
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

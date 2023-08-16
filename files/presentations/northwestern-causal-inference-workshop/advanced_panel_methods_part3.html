@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Advanced Panel Data Methods</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Brantly Callaway, University of Georgia" />
+    <script src="libs/header-attrs-2.24/header-attrs.js"></script>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="metropolis_alt.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Advanced Panel Data Methods
+]
+.author[
+### Brantly Callaway, University of Georgia
+]
+.date[
+### August 16, 2023 <br><br>Advanced Causal Inference Workshop at Northwestern University
+]
+
+---
+
+
+
+class: inverse, middle, center
+count: false
+
+# Part 3: Relaxing the Parallel Trends Assumption
+
+
+`$$\newcommand{\E}{\mathbb{E}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\Var}{\mathrm{var}}
+\newcommand{\Cov}{\mathrm{cov}}
+\newcommand{\Corr}{\mathrm{corr}}
+\newcommand{\corr}{\mathrm{corr}}
+\newcommand{\L}{\mathrm{L}}
+\renewcommand{\P}{\mathrm{P}}
+\newcommand{\independent}{{\perp\!\!\!\perp}}
+\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$`
+
+
+&lt;style type="text/css"&gt;
+
+border-top: 80px solid #BA0C2F;
+
+.inverse {
+  background-color: #BA0C2F;
+}
+
+.alert {
+    font-weight:bold; 
+    color: #BA0C2F;
+}
+
+.alert-blue {
+    font-weight: bold;
+    color: #004E60;
+}
+
+.remark-slide-content {
+    font-size: 23px;
+    padding: 1em 4em 1em 4em;
+}
+
+.highlight-red {
+  background-color:red;
+  padding:0.1em 0.2em;
+}
+
+.highlight {
+  background-color: yellow;
+  padding:0.1em 0.2em;
+}
+
+.assumption-box {
+    background-color: rgba(222,222,222,.5);
+    font-size: x-large;
+    padding: 10px; 
+    border: 10px solid lightgray; 
+    margin: 10px;
+}
+
+.assumption-title {
+    font-size: x-large;
+    font-weight: bold;
+    display: block;
+    margin: 10px;
+    text-decoration: underline;
+    color: #BA0C2F;
+}
+&lt;/style&gt;
+
+
+
+
+
+---
+
+name: covs
+
+
+# Covariates in the Parallel Trends Assumption
+
+
+
+## Conditional Parallel Trends Assumption
+
+For all time periods,
+
+`$$\E[\Delta Y_t(0) | X_t, X_{t-1},Z,D=1] = \E[\Delta Y_t(0) | X_t, X_{t-1},Z,D=0]$$`
+--
+
+In words: Parallel trends holds conditional on having the same covariates `\(X\)`.
+
+--
+
+Minimum wage example: path of teen employment may depend on a state's population / population growth / region of the country
+
+Job displacement example: path of earnings may depend on year's of education / race / occupation
+
+---
+
+
+
+# Limitations of TWFE Regressions
+
+In this setting, it is common to run the following TWFE regression:
+
+`$$Y_{it} = \theta_t + \eta_i + \alpha D_{it} + X_{it}'\beta + e_{it}$$`
+
+--
+
+However, there are a number of issues: &lt;!--(most of these apply even in the friendly setting with two periods)--&gt;
+
+Issue 1: Issues related to multiple periods and variation in treatment timing still arise
+
+--
+
+Issue 2:. Hard to allow parallel trends to depend on time-invariant covariates
+
+--
+
+Issue 3. Hard to allow for covariates that could be affected by the treatment
+
+---
+
+# Limitations of TWFE Regressions
+
+In this setting, it is common to run the following TWFE regression:
+
+`$$Y_{it} = \theta_t + \eta_i + \alpha D_{it} + X_{it}'\beta + e_{it}$$`
+
+
+However, there are a number of issues: &lt;!--(most of these apply even in the friendly setting with two periods)--&gt;
+
+Issue 4: Linearity results in mixing identification and estimation...e.g., with 2 periods
+`\begin{align*}
+\Delta Y_{it} = \Delta \theta_t + \alpha D_{it} + \Delta X_{it}'\beta + \Delta e_{it}
+\end{align*}`
+`\(\implies\)` differencing out unit fixed effects can have implications about what researcher controls for
+
+* This doesn't matter if model for untreated potential outcomes is truly linear
+
+* However, if we think of linear model as an approximation, this may have meaningful implications.
+
+---
+
+# Limitations of TWFE Regressions
+
+Even if none of the previous 4 issues apply, `\(\alpha\)` will still be equal to a weighted average of underlying (conditional-on-covariates) treatment effect parameters.
+
+  * The weights can be negative, and suffer from "weight reversal" (as discussed in Sloczynski (2020))
+  
+  * In other words, weights `\(\alpha\)` is a weighted average of `\(ATT(X)\)` where (relative to a baseline of weighting based on the distribution of `\(X\)` for the treated group), the weights put larger weight on `\(ATT(X)\)` for values of the covariates that are *uncommon* for the treated group relative to the untreated group and smaller weight on `\(ATT(X)\)` for values of the covariates that are *common* for the treated group relative to the untreated group
+    
+See Caetano and Callaway (2023) for more details
+
+---
+
+
+
+# Identification under Conditional Parallel Trends
+Under conditional parallel trends, we have that
+$$
+`\begin{aligned}
+ATT &amp;= \E[\Delta Y_t | D=1] - \E[\Delta Y_t(0) | D=1] \hspace{150pt}
+\end{aligned}`
+$$
+
+---
+
+count:false
+# Identification under Conditional Parallel Trends
+Under conditional parallel trends, we have that
+$$
+`\begin{aligned}
+ATT &amp;= \E[\Delta Y_t | D=1] - \E[\Delta Y_t(0) | D=1] \hspace{150pt}\\
+&amp;=\E[\Delta Y_t | D=1] - \E\Big[ \E[\Delta Y_t(0) | X, D=1] \Big| D=1\Big]
+\end{aligned}`
+$$
+
+---
+
+count:false
+# Identification under Conditional Parallel Trends
+Under conditional parallel trends, we have that
+$$
+`\begin{aligned}
+ATT &amp;= \E[\Delta Y_t | D=1] - \E[\Delta Y_t(0) | D=1] \hspace{150pt}\\
+&amp;=\E[\Delta Y_t | D=1] - \E\Big[ \E[\Delta Y_t(0) | X, D=1] \Big| D=1\Big]\\
+&amp;= \E[\Delta Y_t | D=1] - \E\Big[ \underbrace{\E[\Delta Y_t(0) | X, D=0]}_{=:m_0(X)} \Big| D=1\Big]
+\end{aligned}`
+$$
+
+
+
+--
+
+Intuition: (i) Compare path of outcomes for treated group to (conditional on covariates) path of outcomes for untreated group, (ii) adjust for differences in the distribution of covariates between groups.
+
+--
+
+This expression suggests a "regression adjustment" estimator.  For example, if we assume that `\(m_0(X) = X'\beta_0\)`, then we have that
+
+`$$ATT = \E[\Delta Y_t | D=1] - \E[X'|D=1]\beta_0$$`
+
+--
+
+It is easy to extend these arguments to multiple periods and variation in treatment timing (just change the base period)
+
+
+---
+
+# Covariate Balancing
+
+Alternatively, if we could choose "balancing weights" `\(\nu_0(X)\)` such that the distribution of `\(X\)` was the same in the untreated group as it is in the treated group after applying the balancing weights, then we would have that (from the second term above)
+`\begin{align*}
+  \E\Big[ \E[\Delta Y_{it}(0) | X_i, D_i=0 ] \Big| D_i=1\Big] &amp;= \E\Big[ \nu_0(X_i) \E[\Delta Y_{it}(0) | X_i, D_i=0 ] \Big| D_i=0\Big] \\
+  &amp;= \E[\nu_0(X_i) \Delta Y_{it}(0) | D_i=0]
+\end{align*}`
+where the first equality is due to balancing weights and the second by the law of iterated expectations.
+
+--
+
+The most common way to re-weight is based on the propensity score, you can show:
+`\begin{align*}
+  \nu_0(x) = \frac{p(x)(1-p)}{(1-p(x))p}
+\end{align*}`
+where `\(p(x) = \P(D=1|X=x)\)` and `\(p=\P(D=1)\)`.  
+
+--
+
+This is the approach suggested in Abadie (2005).  In practice, you need to estimate the propensity score.  The most common choices are probit or logit.
+
+---
+
+# Doubly Robust
+
+Alternatively, you can show
+
+`$$ATT=\E\left[ \left( \frac{D}{p} - \frac{p(X)(1-D)}{(1-p(X))p} \right)(\Delta Y_t - \E[\Delta Y_t | X, D=0]) \right]$$`
+--
+
+This requires estimating both `\(p(X)\)` and `\(\E[\Delta Y_{t^*}|X,D=0]\)`.
+
+--
+
+Big advantage:
+
+- This expression for `\(ATT\)` is *doubly robust*.  This means that, it will deliver consistent estimates of `\(ATT\)` if &lt;span class="alert"&gt;either&lt;/span&gt; the model for `\(p(X)\)` or for `\(\E[\Delta Y_{t^*}|X,D=0]\)`.
+
+--
+
+- In my experience, doubly robust estimators perform much better than either the regression or propensity score weighting estimators
+
+--
+
+- This also provides a connection to estimating `\(ATT\)` under conditional parallel trends using machine learning for `\(p(X)\)` and `\(\E[\Delta Y_{t^*}|X,D=0]\)` (see: Chang (2020) and Callaway, Drukker, Liu, and Sant'Anna (2023))
+
+---
+
+# Additional Comments
+
+In panel data applications, an additional consideration that arises with time-varying covariates is that they could be affected by the treatment, often referred to as a &lt;span class="highlight"&gt;"bad control"&lt;/span&gt;
+
+* In fact, I sneaked an example of this earlier: a person's occupation
+
+In my view, a good default option for dealing with a covariate that could be affected by the treatment is to include its pre-treatment value
+
+* Note: this is different from the traditional approach of excluding it altogether in a TWFE regression
+
+--
+
+What about time-varying covariates not affected by the treatment?  Most important: include it's level in some period (or average across periods), can also include more periods and/or differences over time, etc.
+
+---
+
+# Back to Minimum Wage Example
+
+We'll allow for path of outcomes to depend on region of the country
+
+
+
+
+```r
+# run TWFE regression
+twfe_x &lt;- fixest::feols(lemp ~ post | id + region^year,
+                        data=data2)
+modelsummary(twfe_x, gof_omit=".*")
+```
+
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt;  (1) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; post &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.001 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.008) &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+Relative to previous results, this is much smaller and statistically insignificant and is similar to the result in Dube et al. (2010).
+
+---
+
+
+
+# Use Doubly Robust Approach from CS
+
+
+
+```r
+# callaway and sant'anna including covariates
+cs_x &lt;- att_gt(yname="lemp",
+               tname="year",
+               idname="id",
+               gname="G",
+               xformla=~region,
+               control_group="nevertreated",
+               base_period="universal",
+               data=data2)
+cs_x_res &lt;- aggte(cs_x, type="group")
+summary(cs_x_res)
+```
+
+---
+
+# Use Doubly Robust Approach from CS
+
+
+```
+## 
+## Call:
+## aggte(MP = cs_x, type = "group")
+## 
+## Reference: Callaway, Brantly and Pedro H.C. Sant'Anna.  "Difference-in-Differences with Multiple Time Periods." Journal of Econometrics, Vol. 225, No. 2, pp. 200-230, 2021. &lt;https://doi.org/10.1016/j.jeconom.2020.12.001&gt;, &lt;https://arxiv.org/abs/1803.09015&gt; 
+## 
+## 
+## Overall summary of ATT's based on group/cohort aggregation:  
+##      ATT    Std. Error     [ 95%  Conf. Int.]  
+##  -0.0273        0.0088    -0.0445       -0.01 *
+## 
+## 
+## Group Effects:
+##  Group Estimate Std. Error [95% Simult.  Conf. Band]  
+##   2004  -0.0436     0.0194       -0.0835     -0.0038 *
+##   2006  -0.0199     0.0077       -0.0358     -0.0040 *
+## ---
+## Signif. codes: `*' confidence band does not cover 0
+## 
+## Control Group:  Never Treated,  Anticipation Periods:  0
+## Estimation Method:  Doubly Robust
+```
+
+---
+
+
+
+# Comments
+
+Even more than in the previous case, the results in this case are notably different depending on the estimation strategy.
+
+---
+
+name: violations
+
+
+# What about violations of parallel trends?
+
+Parallel trends assumptions don't automatically hold in applications with repeated observations over time.
+
+--
+
+The most natural way to motivate parallel trends is with a linear model for untreated potential outcomes:
+`\begin{align*}
+  Y_{it}(0) = \theta_t + \eta_i + e_{it}
+\end{align*}`
+where the key feature is the additive separability of `\(\eta_i\)`
+
+--
+
+But it's not always clear if additive separability (and hence parallel trends) is reasonable
+
+* The most common "response" is pre-testing...checking if parallel trends holds in pre-treatment periods
+
+--
+
+DID + pre-tests are a very powerful/useful approach to "validating" the parallel trends assumption
+
+---
+
+
+
+# What about our case?
+
+&lt;img src="advanced_panel_methods_part3_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+
+# Partial Identification / Sensitivity Analysis
+
+References: Manski and Pepper (2018), Rambachan and Roth (2021)
+
+--
+
+Two versions of sensitivity analysis in RR:
+
+* Violations of parallel trends evolve smoothly 
+
+* Violations of parallel trends are "not too different" in post-treatment periods from the violations in pre-treatment periods
+  
+  - Will show results for this case, focusing on the "on impact" effect of the treatment.
+  
+  - Allow for violations of parallel trends up to `\(\bar{M}\)` times as large as were observed in any pre-treatment period.
+
+  - And we'll vary `\(\bar{M}\)`.
+
+---
+
+
+
+# What about violations of parallel trends?
+
+&lt;img src="advanced_panel_methods_part3_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Advanced Panel Data Methods</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Brantly Callaway, University of Georgia" />
+    <script src="libs/header-attrs-2.24/header-attrs.js"></script>
+    <link rel="stylesheet" href="metropolis_alt.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Advanced Panel Data Methods
+]
+.author[
+### Brantly Callaway, University of Georgia
+]
+.date[
+### August 16, 2023 <br><br>Advanced Causal Inference Workshop at Northwestern University
+]
+
+---
+
+
+# Introduction
+
+
+`$$\newcommand{\E}{\mathbb{E}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\Var}{\mathrm{var}}
+\newcommand{\Cov}{\mathrm{cov}}
+\newcommand{\Corr}{\mathrm{corr}}
+\newcommand{\corr}{\mathrm{corr}}
+\newcommand{\L}{\mathrm{L}}
+\renewcommand{\P}{\mathrm{P}}
+\newcommand{\independent}{{\perp\!\!\!\perp}}
+\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$`
+
+
+&lt;style type="text/css"&gt;
+
+border-top: 80px solid #BA0C2F;
+
+.inverse {
+  background-color: #BA0C2F;
+}
+
+.alert {
+    font-weight:bold; 
+    color: #BA0C2F;
+}
+
+.alert-blue {
+    font-weight: bold;
+    color: #004E60;
+}
+
+.remark-slide-content {
+    font-size: 23px;
+    padding: 1em 4em 1em 4em;
+}
+
+.highlight-red {
+ background-color:red;
+ padding:0.1em 0.2em;
+}
+
+.assumption-box {
+    background-color: rgba(222,222,222,.5);
+    font-size: x-large;
+    padding: 10px; 
+    border: 10px solid lightgray; 
+    margin: 10px;
+}
+
+.assumption-title {
+    font-size: x-large;
+    font-weight: bold;
+    display: block;
+    margin: 10px;
+    text-decoration: underline;
+    color: #BA0C2F;
+}
+&lt;/style&gt;
+
+
+
+
+
+Panel data gives researchers the opportunity to follow the same person, firm, location, etc. over multiple time periods
+
+--
+
+Having this sort of data seems fundamentally useful for learning about causal effects of some treatment/policy variable.
+
+--
+
+To see this, the &lt;span class="alert"&gt;fundamental problem of causal inference&lt;/span&gt; is that we can either see a unit's treated or untreated potential outcomes (but not both)
+
+--
+
+However, with panel data, this is not 100% true.  In some cases, we can see both a unit's treated and untreated potential outcome outcome...just at different points in time
+
+* Example: 2 time periods, a unit is untreated in the first period but becomes treated in the second period
+
+--
+
+This seems extremely useful for learning about causal effects
+
+---
+
+# Introduction
+
+Panel data approaches are also extremely common in empirical work
+
+* Currie, Kleven, and Zwiers (AER P&amp;P, 2020): 25% of NBER working papers in applied micro use difference-in-differences (i.e., a subset of panel data approaches to causal inference)
+
+--
+
+Some of this is likely due to the reasons mentioned above, but (at least as importantly) its popularity is due to wide availability of panel data
+
+
+---
+
+# Outline
+
+&lt;span class="alert"&gt;Today:&lt;/span&gt;
+
+Part 1: Introduction to Causal Inference with Panel Data
+
+Part 2: Difference-in-Differences with Staggered Treatment Adoption
+
+Part 3: Relaxing the Parallel Trends Assumption
+
+Part 4: More Complicated Treatment Regimes
+
+Part 5: Alternative Identification Strategies
+
+
+
+&lt;!--* Overview of panel data approaches to causal inference, particularly in cases where a researcher has a small-T panel (i.e., only a handful of periods)
+
+* A lot of emphasis on difference-in-differences
+
+  * There has been a lot of action here recently
+--&gt;
+
+--
+
+
+&lt;span class="alert-blue"&gt;References: &lt;/span&gt; 
+  * Callaway (2023, *Handbook of Labor, Human Resources and Population Economics*)
+  
+  * Baker, Callaway, Cunningham, Goodman-Bacon, Sant'Anna (2023, draft is days away)
+
+---
+
+class: inverse, middle, center
+count: false
+
+# Part 1: Introduction to Causal Inference with Panel Data
+
+
+---
+
+# Overview of Different Approaches to Causal Inference with Panel Data
+
+&lt;span class="alert"&gt;Types of Panel Data Approaches to Causal Inference:&lt;/span&gt;
+
+* Difference-in-differences
+
+* Conditioning on lagged outcomes
+
+* Unit-specific linear trends, interactive fixed effects models, change-in-changes, triple differences, others...
+
+
+---
+
+# Setup
+
+&lt;span class="alert"&gt;Setting: Exploit a data structure where the researcher observes:&lt;/span&gt;
+
+1. Multiple periods of data
+
+2. Some pre-treatment data for all units
+
+3. Some units become treated while other units remain untreated
+
+--
+
+(In my view) this particular data setup is a key distinguishing feature of the approaches that we'll mainly talk about today relative to traditional panel data models (i.e., fixed effects, dynamic panel, etc.)
+
+* This setup also explains why the methods we consider today are often grouped among "natural experiment" types of methods such as IV or RD.
+
+--
+
+&lt;span class="alert-blue"&gt;Running Examples:&lt;/span&gt; 
+
+* Causal effects of a state-level minimum wage increase on employment
+
+* Causal effects of job displacement
+
+---
+
+# Setup
+
+
+Modern approaches also typically allow for &lt;span class="alert"&gt;treatment effect heterogeneity&lt;/span&gt;
+
+* That is, that effects of the treatment can vary across different units in potentially complicated ways
+
+
+This is going to be a major issue in the discussion below
+
+We'll consider implications for various estimation strategies as well as for "traditional" regression approaches
+
+---
+
+# The Logic of DID
+
+&lt;span class="alert-blue"&gt;Intuition for DID identification strategy&lt;/span&gt; is to compare:
+
+- The change in outcomes over time for units that participate in the treatment to
+    
+- The change in outcomes over time for units that didn't participate in the treatment 
+
+--
+
+Rough explanation 1: Compares a treated unit's outcomes to its past outcomes while making adjustment for &lt;span class="alert"&gt;common shocks&lt;/span&gt; using the comparison group.  
+
+--
+
+Rough explanation 2: Average outcomes for the treated group and the untreated group may be different for a given time period, but under &lt;span class="alert"&gt;bias stability&lt;/span&gt; (that the "bias" in the average outcomes between groups is constant over time), this also leads to difference-in-differences&lt;!--[See: Heckman, Ichimura, and Todd (1997), Blundell and Costa Dias (2009), Gardner (2021), Ghanem, Sant'Anna, and Wuthrich (2022) for more details about when/why this procedure makes sense.]--&gt;
+
+---
+
+# The Logic of Conditioning on Lagged Outcomes
+
+&lt;span class="alert-blue"&gt;Intuition for Lagged Outcome identification strategies&lt;/span&gt; is to compare:
+
+- Observed outcomes for treated units to observed outcomes for untreated units &lt;span style="text-decoration:underline"&gt;conditional on having the same pre-treatment outcome(s)&lt;/span&gt;
+
+--
+
+Rough explanation: This is a version of unconfoundedness where the most important variable(s) to consider are lagged outcome(s)
+
+---
+
+# Textbook Case with Two Periods
+
+&lt;span class="alert"&gt;Data: &lt;/span&gt; 
+
+* 2 periods: `\(t^*\)`, `\(t^*-1\)` 
+
+    * No one treated until period `\(t^*\)`
+    
+    * Some units remain untreated in period `\(t^*\)`
+
+* 2 groups: `\(D=1\)` or `\(D=0\)` (treated and untreated)
+
+--
+
+&lt;span class="alert"&gt;Potential Outcomes: &lt;/span&gt; `\(Y_{it}(1)\)` and `\(Y_{it}(0)\)`
+
+--
+
+&lt;span class="alert"&gt;Observed Outcomes: &lt;/span&gt; `\(Y_{it^*}\)` and `\(Y_{it^*-1}\)`
+
+`\begin{align*}
+  Y_{it^*} = D_i Y_{it^*}(1) +(1-D_i)Y_{it^*}(0) \quad \textrm{and} \quad Y_{it^*-1} = Y_{it^*-1}(0)
+\end{align*}`
+
+---
+
+# Target Parameter
+
+&lt;span class="alert"&gt;Average Treatment Effect on the Treated: &lt;/span&gt;
+`$$ATT = E[Y_{t^*}(1) - Y_{t^*}(0) | D=1]$$`
+
+Explanation: Mean difference between treated and untreated potential outcomes in the second period among the treated group
+
+---
+
+# Textbook DID
+&lt;span class="alert"&gt;Parallel Trends Assumption: &lt;/span&gt;
+`$$\E[\Delta Y_{t^*}(0) | D=1] = \E[\Delta Y_{t^*}(0) | D=0]$$`
+Explanation: Mean path of untreated potential outcomes is the same for the treated group as for the untreated group
+
+--
+
+&lt;span class="alert"&gt;Identification: &lt;/span&gt;Under PTA, we can identify `\(ATT\)`:
+$$
+`\begin{aligned}
+ATT &amp;= \E[\Delta Y_{t^*} | D=1] - \E[\Delta Y_{t^*}(0) | D=1]
+\end{aligned}`
+$$
+
+---
+
+count:false
+# Textbook DID
+&lt;span class="alert"&gt;Parallel Trends Assumption: &lt;/span&gt;
+`$$\E[\Delta Y_{t^*}(0) | D=1] = \E[\Delta Y_{t^*}(0) | D=0]$$`
+Explanation: Mean path of untreated potential outcomes is the same for the treated group as for the untreated group
+
+
+
+&lt;span class="alert"&gt;Identification: &lt;/span&gt;Under PTA, we can identify `\(ATT\)`:
+$$
+`\begin{aligned}
+ATT &amp;= \E[\Delta Y_{t^*} | D=1] - \E[\Delta Y_{t^*}(0) | D=1]\\
+&amp;= \E[\Delta Y_{t^*} | D=1] - \E[\Delta Y_{t^*} | D=0]
+\end{aligned}`
+$$
+
+
+
+--
+
+`\(\implies ATT\)` is identified can be recovered by the difference in outcomes over time (difference 1) relative to the difference in outcomes over time for the untreated group (difference 2)
+---
+
+# Textbook LO
+&lt;span class="alert"&gt;Lagged Outcome Unconfoundedness: &lt;/span&gt;
+`$$\E[Y_{t^*}(0) | Y_{t^*-1}(0), D=1] = \E[Y_{t^*}(0) | Y_{t^*-1}(0), D=0]$$`
+Explanation: On average, untreated potential outcomes in the 2nd period are the same for the treated group as for the untreated group conditional on having the same pre-treatment outcome
+
+--
+
+&lt;span class="alert"&gt;Identification: &lt;/span&gt;Under LOA (plus an overlap condition), we can identify `\(ATT\)`:
+$$
+`\begin{aligned}
+ATT &amp;= \E[Y_{t^*} | D=1] - \E[Y_{t^*}(0) | D=1] \hspace{250pt}
+\end{aligned}`
+$$
+
+---
+
+count:false
+# Textbook LO
+&lt;span class="alert"&gt;Lagged Outcome Unconfoundedness: &lt;/span&gt;
+`$$\E[Y_{t^*}(0) | Y_{t^*-1}(0), D=1] = \E[Y_{t^*}(0) | Y_{t^*-1}(0), D=0]$$`
+Explanation: On average, untreated potential outcomes in the 2nd period are the same for the treated group as for the untreated group conditional on having the same pre-treatment outcome
+
+
+
+&lt;span class="alert"&gt;Identification: &lt;/span&gt;Under LOA (plus an overlap condition), we can identify `\(ATT\)`:
+$$
+`\begin{aligned}
+ATT &amp;= \E[Y_{t^*} | D=1] - \E[Y_{t^*}(0) | D=1] \hspace{250pt}\\
+&amp;= \E[Y_{t^*} | D=1] - \E\Big[\E[ Y_{t^*}(0) | Y_{t^*-1}(0), D=1] | D=1\Big]
+\end{aligned}`
+$$
+
+---
+
+count:false
+# Textbook LO
+&lt;span class="alert"&gt;Lagged Outcome Unconfoundedness: &lt;/span&gt;
+`$$\E[Y_{t^*}(0) | Y_{t^*-1}(0), D=1] = \E[Y_{t^*}(0) | Y_{t^*-1}(0), D=0]$$`
+Explanation: On average, untreated potential outcomes in the 2nd period are the same for the treated group as for the untreated group conditional on having the same pre-treatment outcome
+
+
+
+&lt;span class="alert"&gt;Identification: &lt;/span&gt;Under LOA (plus an overlap condition), we can identify `\(ATT\)`:
+$$
+`\begin{aligned}
+ATT &amp;= \E[Y_{t^*} | D=1] - \E[Y_{t^*}(0) | D=1] \hspace{250pt}\\
+&amp;= \E[Y_{t^*} | D=1] - \E\Big[\E[ Y_{t^*}(0) | Y_{t^*-1}(0), D=1] | D=1\Big]\\
+&amp;=\E[Y_{t^*} | D=1] - \E\Big[\E[ Y_{t^*}(0) | Y_{t^*-1}(0), D=0] | D=1\Big]
+\end{aligned}`
+$$
+
+
+
+--
+
+`\(\implies ATT\)` is identified can be recovered by the difference in the average outcome for the treated group relative to the average outcome condional on lag for untreated group (this is averaged over the distribution of pre-treatment outcomes for the treated group)
+---
+
+&lt;!-- Note estimation challenge for this case
+
+and then ask the question of how we should choose between them? --&gt;
+
+# How do we choose among identifying assumptions?
+
+&lt;span class="alert-blue"&gt;View \#1:&lt;/span&gt; Parallel trends as a purely reduced form assumption
+
+* For example, if you have extra pre-treatment periods, you can assess validity in pre-treatment periods
+
+--
+   
+But this is certainly not the only possibility:
+
+  * In some disciplines (e.g., biostats) it is relatively more common to assume unconfoundedness conditional on lagged outcomes (i.e., the LO approach above)
+  
+  * This is also what my undergraduate econometrics students almost always suggest (their judgement is not clouded by having thought about these things too much)
+  
+  * Or, alternatively, why not take two differences (closely related to linear trends models) or even more...
+
+In my view, these seem like fair points
+
+---
+
+# How do we choose among identifying asssumptions?
+
+&lt;span class="alert"&gt;View \#2:&lt;/span&gt; Models that lead to parallel trends assumption.  In economics, there are many models (here we'll focus on untreated potential outcomes) such as
+`\begin{align*}
+  Y_{it}(0) = h_t(\eta_i, e_{it})
+\end{align*}`
+where `\(\eta_i\)` is unobserved heterogeneity and `\(e_{it}\)` are idiosyncratic unobservables (you can add observed covariates if you want)
+
+--
+
+&lt;span class="alert"&gt;Example: &lt;/span&gt;Job displacement, earnings tend to increase over time (see: `\(h_t\)`), depend on unobserved "ability" (see: `\(\eta_i\)`), and also subject to luck/shocks (see: `\(e_{it}\)`)
+
+--
+
+Many economic models have this sort of flavor, that the important thing driving differences in outcomes is some latent characteristic (differences in lagged outcomes may proxy this, but not the "deep" explanation) `\(\rightarrow\)`
+
+---
+
+# Understanding the Parallel Trends Assumption
+
+Model for untreated potential outcomes: `\(Y_{it}(0) = h_t(\eta_i, e_{it})\)`.
+
+Given idiosyncratic unobservables, this sort of model for untreated potential outcomes is closely related to a different version of unconfoundedness
+`\begin{align*}
+  \E[Y_{it}(0) | \eta_i, D_i=1] = \E[Y_{it}(0) | \eta_i, D_i=0]
+\end{align*}`
+i.e., unconfoundedness holds if we condition on `\(\eta_i\)` (e.g., unobserved ability).  
+
+--
+
+The discussion/model above is, in my view, attractive, but it is also infeasible.
+
+* We cannot condition on `\(\eta_i\)` in the version of unconfoundedness above (because we don't observe it)
+
+* The model is too complicated.  Things can change in unrestricted ways across time.
+
+---
+
+# Understanding the Parallel Trends Assumption
+
+The parallel trends assumption comes from using the same sort of model, but layering on the additional functional form assumption
+
+`$$Y_{it}(0) = \theta_t + \eta_i + e_{it}$$`
+--
+
+where
+
+- `\(\theta_t\)` is a time fixed effect
+
+- `\(\eta_i\)` is an individual fixed effect (importantly: can follow different distribution among treated and untreated group)
+
+- `\(e_{it}\)` idiosyncratic (in the sense of being uncorrelated with treatment), time varying unobservables `\(\rightarrow\)`
+
+---
+
+# Understanding the Parallel Trends Assumption
+
+Model for untreated potential outcomes: `\(Y_{it}(0) = \theta_t + \eta_i + e_{it}\)`.
+
+This is a natural/leading functional form assumption to make, but we should not minimize that functional form is playing a substantive role in the identification argument (see below) here
+
+* For example, you may buy the "theory" above that untreated potential earnings being a function of time, ability, and luck, but it is a different animal to believe linearity
+
+* This is different from other natural experiment methods such as IV and RD, where at least from an identification perspective, there is not model-dependence
+
+---
+
+
+# Model and Parallel Trends
+
+Model for untreated potential outcomes: `\(Y_{it}(0) = \theta_t + \eta_i + e_{it}\)`.
+
+--
+
+In this case, notice that 
+
+`$$\Delta Y_{it^*}(0) = (\theta_{t^*} - \theta_{t^*-1}) + (v_{it^*} - v_{it^*-1})$$`
+--
+
+so that
+
+`$$\E[\Delta Y_{t^*}(0) | D=1] = (\theta_{t^*}-\theta_{t^*-1}) = \E[\Delta Y_{t^*}(0) | D=0]$$`
+---
+
+# Models for PTA (cont'd)
+
+&lt;span class="alert-blue"&gt;Nice properties:&lt;/span&gt;
+
+1. Allows for time trends in (untreated potential) outcomes
+
+--
+
+2. Allows for unobserved heterogeneity (individual fixed effects) that can have different distributions between the treated group and untreated group
+
+--
+
+3. No restrictions on how treated potential outcomes are generated at all
+
+--
+
+4. No restrictions on treatment effect heterogeneity (across individuals or across time/exposure to the treatment)
+
+--
+
+5. Individuals can "select" into the treatment on the basis of (i) treated potential outcomes and (ii) unobserved heterogeneity `\(\eta_i\)`...just not time varying unobservables `\(e_{it}\)`
+
+---
+
+# Models for PTA (cont'd)
+
+&lt;span class="alert"&gt;Drawbacks:&lt;/span&gt;
+
+1. Relies heavily on linearity/additive separability
+
+    - Not implied by most economic models
+    
+    - What about case with binary (or otherwise "limited") dependent variables / nonlinear models?
+
+---
+
+# DID Estimation
+Given the above discussion, estimation of the `\(ATT\)` is very easy.
+
+--
+
+
+$$
+`\begin{aligned}
+\widehat{ATT} &amp;= \hat{\E}[\Delta Y_{t^*} | D=1] - \hat{\E}[\Delta Y_{t^*}|D=0] \hspace{150pt}
+\end{aligned}`
+$$
+
+---
+
+count:false
+# DID Estimation
+Given the above discussion, estimation of the `\(ATT\)` is very easy.
+
+
+
+
+$$
+`\begin{aligned}
+\widehat{ATT} &amp;= \hat{\E}[\Delta Y_{t^*} | D=1] - \hat{\E}[\Delta Y_{t^*}|D=0] \hspace{150pt}\\
+&amp;= \frac{1}{n_1} \sum_{i=1}^n D_i \Delta Y_{it^*} - \frac{1}{n_0} \sum_{i=1}^n (1-D_i) \Delta Y_{it^*}
+\end{aligned}`
+$$
+
+
+
+--
+
+Or, even more easily, run the following &lt;span class="alert"&gt;two-way fixed effects regression (TWFE):&lt;/span&gt;
+
+`$$Y_{it} = \theta_t + \eta_i + \alpha D_{it} + e_{it}$$`
+
+--
+
+&lt;span class="alert-blue"&gt;Pros:&lt;/span&gt; Most researchers know a lot about this sort of regression and you can just read off standard errors, etc.
+
+
+---
+
+# TWFE Regression
+
+TWFE regression: `$$Y_{it} = \theta_t + \eta_i + \alpha D_{it} + e_{it}$$`
+
+&lt;span class="alert-blue"&gt;Some more things to point out:&lt;/span&gt;
+
+--
+
+- Even though it looks like this model has restricted the effect of participating in the treatment to be constant (and equal to `\(\alpha\)`) across all individuals,
+
+    TWFE (in this case) is actually &lt;span class="alert"&gt;robust&lt;/span&gt; to treatment effect heterogeneity. To see this, notice that (with two periods) the previous regression is equivalent to
+`\begin{align*}
+  \Delta Y_{it} = \Delta \theta_t + \alpha \Delta D_{it} + \Delta e_{it}
+\end{align*}`
+This is fully saturated in `\(\Delta D_{it}\)` (which is binary) `\(\implies\)`
+`\begin{align*}
+  \alpha = \E[\Delta Y_{it}|D_{it}=1] - \E[\Delta Y_{it}|D=0] = ATT
+\end{align*}`
+    
+
+
+---
+
+# TWFE Regression
+    
+- It's easy to make the TWFE regression more complicated:
+
+    - Multiple time periods
+    
+    - Variation in treatment timing
+    
+    - More complicated treatments
+    
+    - Introducing additional covariates
+
+
+- Unfortunately, the robustness of TWFE regressions to treatment effect heterogeneity or these more complicated (and empirically relevant) settings does not seem to hold
+
+--
+
+- Much of the recent (mostly negative) literature on TWFE in the context of DID has considered these types of "realistic" settings
+
+--
+
+- We will start to cover these sorts of issues in more detail soon!
+
+---
+
+# LO Estimation
+
+Recall under LO unconfoundedness assumption: 
+`$$ATT=\E[Y_{t^*} | D=1] - \E\Big[\underbrace{\E[ Y_{t^*}(0) | Y_{t^*-1}(0), D=0]}_{\textrm{challenging to estimate}} | D=1\Big]$$`
+
+--
+
+* Simplest approach (regression adjustment), assume linear model: `\(Y_{it^*}(0) = \beta_0 + \beta_1 Y_{it^*-1}(0) + e_{it}\)`.  Estimate `\(\beta_0\)` and `\(\beta_1\)` using set of untreated observations.  Then,
+`\begin{align*}
+  \widehat{ATT} = \frac{1}{n_1} \sum_{i=1}^n D_i Y_{it^*} - \frac{1}{n_1} \sum_{i=1}^n D_i(\hat{\beta}_0 + \hat{\beta}_1 Y_{it^*-1})
+\end{align*}`
+
+--
+
+* Or you can bring out the heavy artillery: nonparametric 1st step, weighting estimators, doubly robust estimators, machine learning etc.
+
+---
+
+# More Complicated Treatment Regimes
+
+The arguments above are fairly easy and well-known.
+
+--
+
+Most applications, however, involve more complicated settings (more periods, more complicated treatment regimes, etc.)
+
+--
+
+One of the most active areas in causal inference with panel data in the past few years has been to these more "realistic" settings
+
+--
+
+A lot of these advancements have been in a DID framework (so I will emphasize this below)
+
+* However, I think that a lot of the same insights apply to other identification strategies as well
+
+* I'll make the case that you can just "substitute in", say, LO unconfoundedness in the "first step" for parallel trends, and a lot of the same arguments go through
+
+* If we have time, I'll argue that you can use other identification strategies in the "first step" such as interactive fixed effects models and change-in-changes
+
+--
+
+The first more complicated treatment regime that we'll discuss is &lt;span class="alert"&gt;staggered treatment adoption&lt;/span&gt;
+
+---
+
+# Setup w/ Staggered Treatment Adoption
+
+- `\(\mathcal{T}\)` time periods
+
+--
+
+- Units can become treated at different points in time
+
+--
+
+    - &lt;span class="alert-blue"&gt;staggered treatment adoption: &lt;/span&gt; Once a unit becomes treated they remain treated.
+    
+    - `\(D_{it}\)` - treatment indicator.  In math, staggered treatment adoption means: `\(D_{it-1}=1 \implies D_{it}=1\)`.
+
+    - `\(G_i\)` - a unit's &lt;span class="alert-blue"&gt;group&lt;/span&gt; - the time period that unit becomes treated.  Also, define `\(U_i=1\)` for never-treated units and `\(U_i=0\)` otherwise.
+
+--
+
+&lt;span class="alert"&gt;Examples:&lt;/span&gt;
+
+* Government policies that roll out in different locations at different times (minimum wage is close to this over short time horizons)
+
+* "Scarring" treatments: e.g., job displacement does not typically happen year after year, but rather labor economists think of being displaced as changing a person's "state" (the treatment is more like: has a person ever been displaced) 
+
+---
+
+# Setup w/ Staggered Treatment Adoption
+
+- Potential outcomes: `\(Y_{it}(g)\)` - the outcome that unit `\(i\)` would experience in time period `\(t\)` if they became treated in period `\(g\)`.
+
+--
+
+- Untreated potential outcome: `\(Y_{it}(0)\)` - the outcome unit `\(i\)` would experience in time period `\(t\)` if they did not participate in the treatment in any period.  
+
+--
+
+- Observed outcome: `\(Y_{it}=Y_{it}(G_i)\)`
+
+--
+
+- No anticipation condition: `\(Y_{it} = Y_{it}(0)\)` for all `\(t &lt; G_i\)` (pre-treatment periods for unit `\(i\)`)
+
+---
+
+# Unit-Level Treatment Effects
+
+&lt;span class="alert"&gt;Unit-level treatment effect&lt;/span&gt;
+`$$\tau_{it}(g) = Y_{it}(g) - Y_{it}(0)$$`
+
+--
+
+&lt;span class="alert"&gt;Average treatment effect for unit `\(i\)`&lt;/span&gt; (across time periods):
+`$$\bar{\tau}_i(g) = \frac{1}{\mathcal{T} - g + 1} \sum_{t=g}^{\mathcal{T}} \tau_{it}(g)$$`
+
+---
+
+# Target Parameters
+
+* &lt;span class="alert"&gt;Group-time average treatment effects&lt;/span&gt; 
+`\begin{align*}
+  ATT(g,t) = \E[ \tau_t(G) | G=g]
+\end{align*}`
+Explanation: `\(ATT\)` for group `\(g\)` in time period `\(t\)`
+
+--
+
+* &lt;span class="alert"&gt;Event Study&lt;/span&gt; 
+`\begin{align*}
+  ATT^{ES}(e) = \E[\tau_{g+e}(G) | G \in \mathcal{G}_e]
+\end{align*}`
+where `\(\mathcal{G}_e\)` is the set of groups observed to have experienced the treatment for `\(e\)` periods at some point.
+
+    Explanation: `\(ATT\)` when units have been treated for `\(e\)` periods
+
+&lt;!--In math: `\(\mathcal{G}_e = \{g : (g+e) \in [2,T] \textrm{ and } g &gt; 0\}\)`--&gt;
+
+--
+
+* &lt;span class="alert"&gt;Overall ATT&lt;/span&gt; 
+`\begin{align*}
+  ATT^O = \E[\bar{\tau}(G) | U=0]
+\end{align*}`
+Explanation: `\(ATT\)` across all units that every participate in the treatment
+
+---
+
+# Target Parameters
+
+To understand the discussion later, it is also helpful to think of `\(ATT(g,t)\)` as a &lt;span class="alert"&gt;building block&lt;/span&gt; for the other parameters discussed above.
+
+--
+
+Notice that:
+
+`\begin{align*}
+  ATT^{ES}(e) = \sum_{g \in \bar{\mathcal{G}}} w^{ES}(g,e) ATT(g,g+e) \qquad \textrm{ and } \qquad ATT^O = \sum_{g \in \bar{\mathcal{G}}} \sum_{t=g}^{\mathcal{T}} w^O(g,t) ATT(g,t)
+\end{align*}`
+where
+`\begin{align*}
+  w^{ES}(g,e) = \indicator{g \in \mathcal{G}_e} \P(G=g|G\in \mathcal{G}_e) \qquad \textrm{and} \qquad
+w^O(g,t) = \frac{\P(G=g|U=0)}{\mathcal{T}-g+1}
+\end{align*}`
+
+--
+
+&lt;br&gt;
+
+In other words, if we can identify/recover `\(ATT(g,t)\)`, then we can proceed to recover `\(ATT^{ES}(e)\)` and `\(ATT^O\)`.
+
+---
+
+# DID Identification of `\(ATT(g,t)\)`
+
+## Multiple Period Version of Parallel Trends Assumption
+
+For all groups `\(g \in \bar{\mathcal{G}}\)` (all groups except the never-treated group) and for all time periods `\(t=2,\ldots,\mathcal{T}\)`,
+`\begin{align*}
+  \E[\Delta Y_{t}(0) | G=g] = \E[\Delta Y_{t}(0) | U=1]
+\end{align*}`
+
+&lt;br&gt;
+
+--
+
+Using very similar arguments as before, can show that 
+`\begin{align*}
+  ATT(g,t) = \E[Y_t - Y_{g-1} | G=g] - \E[Y_t - Y_{g-1} | U=1]
+\end{align*}`
+
+--
+
+where the main difference is that we use `\((g-1)\)` as the "base period" (this is the period right before group `\(g\)` becomes treated).
+
+---
+
+name: lo-identification
+
+# LO Identification of `\(ATT(g,t)\)`
+
+## Multiple Period Version of LO Unconfoundedness
+
+For all groups `\(g \in \mathcal{G}\)` (all groups except the never-treated group) and for all time periods `\(t=2,\ldots,\mathcal{T}\)`,
+`\begin{align*}
+  Y_t(0) \independent G | Y_{t-1}(0)
+\end{align*}`
+
+
+&lt;br&gt;
+
+--
+
+Applying a similar argument as before recursively (and noting that to get this argument to go through, we need full independence rather than only mean independence)
+`\begin{align*}
+  ATT(g,t) = \E[Y_t|G=g] - \E\Big[\E[Y_t | Y_{g-1}, U=1] \Big| G=g\Big]
+\end{align*}`
+
+[[longer explanation](#multi-lo-explanation)]
+
+---
+
+
+# Extensions/Summary
+
+The previous discussion emphasizes a general purpose identification strategy with staggered treatment adoption:
+
+--
+
+Step 1: Target disaggregated treatment effect parameters (i.e., group-time average treatment effects)
+
+* You can use many existing approaches for this step (generally with very minor modification) that work for smaller problems without staggered treatment adoption
+
+* Discussion above has been for DID and LO identification strategies, but other possibilities fit into this framework: unit-specific linear trends, interactive fixed effects, change-in-changes, triple differences, etc.
+
+--
+
+Step 2: (If desired) combine disaggregated treatment effects into lower dimensional summary treatment effect parameter
+
+---
+
+count: false
+
+---
+
+name: multi-lo-explanation
+count: false
+
+# LO Identification Explanation
+
+Simplest possible non-trivial example: `\(ATT(g=2,t=3)\)`.  
+
+Auxiliary condition: for any group `\(g\)`, `\(\E[Y_{it}(0) | Y_{it-1}(0), \ldots, Y_{i1}(0), G=g] = \E[Y_{it}(0) | Y_{it-1}(0), G=g]\)` (intuition: the right number of lags are included in the model).  Then,
+
+`\begin{align*}
+  \E[Y_{i3}(0) | Y_{i1}(0), G_i=2] &amp;= \E\Big[ \E[Y_{i3}(0) | Y_{i2}(0), Y_{i1}(0), G_i=2] \Big| Y_{i1}(0), G_i=2 \Big] \\
+  &amp;= \E\Big[ \E[Y_{i3}(0) | Y_{i2}(0), G_i=2] \Big| Y_{i1}(0), G_i=2 \Big] \\
+  &amp;= \E\Big[ \E[Y_{i3}(0) | Y_{i2}(0), U_i=1] \Big| Y_{i1}(0), G_i=2 \Big] \\
+  &amp;= \E\Big[ h(Y_{i2}) \Big| Y_{i1}(0), G_i=2 \Big] \\
+  &amp;= \E\Big[ h(Y_{i2}) \Big| Y_{i1}(0), U_i=1 \Big] \\
+  &amp;= \E\Big[ \E[Y_{i3}(0) | Y_{i2}(0), U_i=1] \Big| Y_{i1}(0), U_i=1 \Big] \\
+  &amp;= \E\Big[ \E[Y_{i3}(0) | Y_{i2}(0), Y_{i1}(0), U_i=1] \Big| Y_{i1}(0), U_i=1 \Big] \\
+  &amp;= \E[Y_{i3}(0) | Y_{i1}(0), U_i=1]
+\end{align*}`
+
+---
+
+count: false
+
+# LO Identification Explanation (cont'd)
+
+Thus, we have that 
+`\begin{align*}
+  ATT(g=2,t=3) &amp;= \E[Y_{i3}|G_i=2] - \E[Y_{i3}(0) | G_i=2] \\
+  &amp;= \E[Y_{i3}|G_i=2] - \E[Y_{i3}(0) | G_i=2] \\
+  &amp;= \E[Y_{i3}|G_i=2] - \E\Big[ \E[Y_{i3}(0) | Y_{i1}(0), G_i=2] \Big| G_i=2\Big] \\
+  &amp;= \E[Y_{i3}|G_i=2] - \E\Big[ \E[Y_{i3}(0) | Y_{i1}(0), U_i=1] \Big| G_i=2\Big]
+\end{align*}`
+done.
+
+[[back](#lo-identification)]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

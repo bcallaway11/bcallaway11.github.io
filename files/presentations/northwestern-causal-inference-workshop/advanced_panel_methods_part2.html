@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Advanced Panel Data Methods</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Brantly Callaway, University of Georgia" />
+    <script src="libs/header-attrs-2.24/header-attrs.js"></script>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="metropolis_alt.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Advanced Panel Data Methods
+]
+.author[
+### Brantly Callaway, University of Georgia
+]
+.date[
+### August 16, 2023 <br><br>Advanced Causal Inference Workshop at Northwestern University
+]
+
+---
+
+
+class: inverse, middle, center
+count: false
+
+# Part 2: Difference-in-Differences w/ Staggered Treatment Adoption
+
+
+
+`$$\newcommand{\E}{\mathbb{E}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\Var}{\mathrm{var}}
+\newcommand{\Cov}{\mathrm{cov}}
+\newcommand{\Corr}{\mathrm{corr}}
+\newcommand{\corr}{\mathrm{corr}}
+\newcommand{\L}{\mathrm{L}}
+\renewcommand{\P}{\mathrm{P}}
+\newcommand{\independent}{{\perp\!\!\!\perp}}
+\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$`
+
+
+&lt;style type="text/css"&gt;
+
+border-top: 80px solid #BA0C2F;
+
+.inverse {
+  background-color: #BA0C2F;
+}
+
+.alert {
+    font-weight:bold; 
+    color: #BA0C2F;
+}
+
+.alert-blue {
+    font-weight: bold;
+    color: #004E60;
+}
+
+.remark-slide-content {
+    font-size: 23px;
+    padding: 1em 4em 1em 4em;
+}
+
+.highlight-red {
+ background-color:red;
+ padding:0.1em 0.2em;
+}
+
+.assumption-box {
+    background-color: rgba(222,222,222,.5);
+    font-size: x-large;
+    padding: 10px; 
+    border: 10px solid lightgray; 
+    margin: 10px;
+}
+
+.assumption-title {
+    font-size: x-large;
+    font-weight: bold;
+    display: block;
+    margin: 10px;
+    text-decoration: underline;
+    color: #BA0C2F;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+---
+
+# Introduction
+
+From Part 1, we have already discussed parallel trends and identification with staggered treatment adoption 
+
+--
+
+&lt;!-- go into much more detail, discuss practical estimation challenges, compare different approaches, weaknesses of tWFE in this context (which was really the starting point for a bunch of advances) --&gt;
+
+&lt;!-- mostly in the context of DID --&gt;
+
+&lt;!-- at this point you will be mostly caught up to what a strong applied micro person knows about the literature on DID, and we will do extensions after that --&gt;
+
+&lt;span class="alert"&gt;Part 2:&lt;/span&gt;
+
+1. Issues with TWFE Regressions under Staggered Treatment Adoption
+
+2. Comparison of New Approaches
+
+3. Minimum Wage Example
+
+
+--
+
+Much of this will be in the context of DID:
+
+* At the end of this part, you should have a pretty advanced knowledge of the most notable recent advances in the DID literature over the past few years.
+
+---
+
+# Overview of Issues with TWFE Regressions
+
+---
+
+# What does TWFE estimate in this setup?
+
+For roughly 30 years, the dominant approach to implementing a DID identification strategy has been to run a two-way fixed effects regression:
+
+
+`$$Y_{it} = \theta_t + \eta_i + \alpha D_{it} + e_{it}$$`
+--
+
+In the "textbook" case above, you can show that `\(\alpha = ATT\)` `\(\implies\)` TWFE regression is robust to treatment effect heterogeneity
+
+--
+
+It's also super-convenient!
+
+--
+
+However, this robustness to treatment effect heterogeneity does not extend to more complicated settings:
+
+* Staggered treatment adoption (this is the case I'll emphasize)
+
+* More complicated treatments (e.g., continuous treatment) / moving into and out of the treatment
+
+* Including covariates in the parallel trends assumption
+
+---
+
+# Goodman-Bacon (2021)
+
+&lt;span class="alert-blue"&gt;Goodman-Bacon (2021) intuition:&lt;/span&gt; `\(\alpha\)` "comes from" comparisons between the path of outcomes for units whose &lt;span class="alert"&gt;treatment status changes&lt;/span&gt; relative to the path of outcomes for units whose &lt;span class="alert"&gt;treatment status stays the same&lt;/span&gt; over time.
+
+--
+
+* Some comparisons are for groups that become treated to &lt;span class="alert"&gt;not-yet-treated&lt;/span&gt; groups (these are very much in the spirit of DID)
+
+* Other comparisons are for groups that become treated relative to &lt;span class="alert"&gt;already-treated&lt;/span&gt; groups (these comparisons are not rationalized by parallel trends assumptions)
+
+    This can be especially problematic when there are treatment effect dynamics.  Dynamics imply different trends from what would have happened absent the treatment.
+
+---
+
+# de Chaisemartin and d'Haultfoeuille (2020)
+
+&lt;span class="alert-blue"&gt;de Chaisemartin and d'Haultfoeuille (2020) intuition:&lt;/span&gt; You can write `\(\alpha\)` as a weighted average of `\(ATT(g,t)\)`
+
+First, a decomposition:
+`\begin{align*}
+\alpha &amp;= \sum_{g \in \bar{\mathcal{G}}} \sum_{t=g}^{\mathcal{T}}  w^{TWFE}(g,t) \Big( \E[(Y_{t} - Y_{g-1}) | G=g] - \E[(Y_{t} - Y_{g-1}) | U=1] \Big) \\
+  &amp; + \sum_{g \in \bar{\mathcal{G}}} \sum_{t=1}^{g-1} w^{TWFE}(g,t) \Big( \E[(Y_{t} - Y_{g-1}) | G=g] - \E[(Y_{t} - Y_{g-1}) | U=1] \Big)
+\end{align*}`
+
+--
+  
+Second, under parallel trends:  
+`\begin{align*}
+\alpha = \sum_{g \in \bar{\mathcal{G}}} \sum_{t=g}^{\mathcal{T}} w^{TWFE}(g,t) ATT(g,t)
+\end{align*}`
+
+* But the weights are (non-transparently) driven by the estimation method
+
+* These weights have some good / bad / strange properties such as possibly being negative
+
+&lt;!-- negative weights can be ruled out if there are no treatment effect dynamics --&gt;
+
+&lt;!--depend on relative group sizes--&gt;
+
+
+&lt;!-- for a fixed group more weight on earlier periods --&gt;
+
+
+&lt;!--for a fixed time period more weight on earlier treated groups --&gt;
+
+&lt;!--weights would change if you added an extra pre-treatment period--&gt;
+
+---
+
+# How do these results work?
+
+Consider a simplified setting where `\(\mathcal{T}=2\)`, but we allow for there to be units that are already treated in the first period.
+
+`\(\implies\)` 3 groups: `\(G=1\)`, `\(G=2\)`, `\(G=\infty\)`
+
+--
+
+Because there are only two periods, the TWFE regression is equivalent to the regression
+`\begin{align*}
+  \Delta Y_{it^*} = \Delta \theta_{t^*} + \alpha \Delta D_{it^*} + \Delta e_{it^*}
+\end{align*}`
+
+--
+
+Moreover, `\(\Delta D_{it^*}\)` only takes two values:
+
+* `\(\Delta D_{it^*} = 0\)` for `\(G=1\)` and `\(G=\infty\)`
+
+* `\(\Delta D_{it^*} = 1\)` for `\(G=2\)`
+
+--
+
+Thus, this is a fully saturated regression, and we have that
+`\begin{align*}
+  \alpha = \E[\Delta Y_{it^*} | \Delta D_{it^*} = 1] - \E[\Delta Y_{it^*} | \Delta D_{it^*}=0]
+\end{align*}`
+
+---
+
+# TWFE Explanation (cont'd)
+
+Starting from the previous slide:
+`\begin{align*}
+  \alpha = \E[\Delta Y_{it^*} | \Delta D_{it^*} = 1] - \E[\Delta Y_{it^*} | \Delta D_{it^*}=0]
+\end{align*}`
+and consider the term on the far right, we have that
+`\begin{align*}
+  \E[\Delta Y_{it^*} | \Delta D_{it^*}=0] = \E[\Delta Y_{it^*} | G_i=1] \underbrace{\frac{p_1}{p_1 + p_\infty}}_{=: w_1} + \E[\Delta Y_{it^*} | G_i=\infty] \underbrace{\frac{p_\infty}{p_1 + p_\infty}}_{=: w_\infty}
+\end{align*}`
+where `\(w_1\)` and `\(w_\infty\)` are the relative sizes of group 1 and the never treated group, and notice that `\(w_1 + w_\infty = 1\)`.  Plugging this back in `\(\implies\)`
+`\begin{align*}
+  \alpha = \Big( \E[\Delta Y_{it^*} | G=2] - \E[\Delta Y_{it^*} | G=1]\Big) w_1 + \Big( \E[\Delta Y_{it^*} | G=2] - \E[\Delta Y_{it^*}|G=\infty]\Big) w_\infty
+\end{align*}`
+
+--
+
+This is exactly the Goodman-Bacon result!  `\(\alpha\)` is a weighted average of all possible 2x2 comparisons
+
+---
+
+# TWFE Explanation (cont'd)
+Let's keep going:
+`\begin{align*}
+  \alpha = \underbrace{\Big( \E[\Delta Y_{it^*} | G=2] - \E[\Delta Y_{it^*} | G=1]\Big)}_{\textrm{What is this?}} w_1 + \underbrace{\Big( \E[\Delta Y_{it^*} | G=2] - \E[\Delta Y_{it^*}|G=\infty]\Big)}_{ATT(2,2)} w_\infty
+\end{align*}`
+Working on the first term, we have that
+$$
+`\begin{aligned}
+ &amp; \E[\Delta Y_{i2} | G=2] - \E[\Delta Y_{i2} | G=1] \hspace{300pt}
+\end{aligned}`
+$$
+
+---
+
+count:false
+# TWFE Explanation (cont'd)
+Let's keep going:
+`\begin{align*}
+  \alpha = \underbrace{\Big( \E[\Delta Y_{it^*} | G=2] - \E[\Delta Y_{it^*} | G=1]\Big)}_{\textrm{What is this?}} w_1 + \underbrace{\Big( \E[\Delta Y_{it^*} | G=2] - \E[\Delta Y_{it^*}|G=\infty]\Big)}_{ATT(2,2)} w_\infty
+\end{align*}`
+Working on the first term, we have that
+$$
+`\begin{aligned}
+ &amp; \E[\Delta Y_{i2} | G=2] - \E[\Delta Y_{i2} | G=1] \hspace{300pt}\\
+&amp;\hspace{10pt} = \E[Y_{i2}(2) - Y_{i1}(\infty) | G=2] - \E[Y_{i2}(1) - Y_{i1}(1) | G=1] 
+\end{aligned}`
+$$
+
+---
+
+count:false
+# TWFE Explanation (cont'd)
+Let's keep going:
+`\begin{align*}
+  \alpha = \underbrace{\Big( \E[\Delta Y_{it^*} | G=2] - \E[\Delta Y_{it^*} | G=1]\Big)}_{\textrm{What is this?}} w_1 + \underbrace{\Big( \E[\Delta Y_{it^*} | G=2] - \E[\Delta Y_{it^*}|G=\infty]\Big)}_{ATT(2,2)} w_\infty
+\end{align*}`
+Working on the first term, we have that
+$$
+`\begin{aligned}
+ &amp; \E[\Delta Y_{i2} | G=2] - \E[\Delta Y_{i2} | G=1] \hspace{300pt}\\
+&amp;\hspace{10pt} = \E[Y_{i2}(2) - Y_{i1}(\infty) | G=2] - \E[Y_{i2}(1) - Y_{i1}(1) | G=1] \\
+&amp;\hspace{10pt} = \E[Y_{i2}(2) - Y_{i2}(\infty) | G=2] + \underline{\E[Y_{i2}(\infty) - Y_{i1}(\infty) | G=2]}
+\end{aligned}`
+$$
+
+---
+
+count:false
+# TWFE Explanation (cont'd)
+Let's keep going:
+`\begin{align*}
+  \alpha = \underbrace{\Big( \E[\Delta Y_{it^*} | G=2] - \E[\Delta Y_{it^*} | G=1]\Big)}_{\textrm{What is this?}} w_1 + \underbrace{\Big( \E[\Delta Y_{it^*} | G=2] - \E[\Delta Y_{it^*}|G=\infty]\Big)}_{ATT(2,2)} w_\infty
+\end{align*}`
+Working on the first term, we have that
+$$
+`\begin{aligned}
+ &amp; \E[\Delta Y_{i2} | G=2] - \E[\Delta Y_{i2} | G=1] \hspace{300pt}\\
+&amp;\hspace{10pt} = \E[Y_{i2}(2) - Y_{i1}(\infty) | G=2] - \E[Y_{i2}(1) - Y_{i1}(1) | G=1] \\
+&amp;\hspace{10pt} = \E[Y_{i2}(2) - Y_{i2}(\infty) | G=2] + \underline{\E[Y_{i2}(\infty) - Y_{i1}(\infty) | G=2]}\\
+&amp;\hspace{20pt} - \Big( \E[Y_{i2}(1) - Y_{i2}(\infty) | G=1] - \E[Y_{i1}(1) - Y_{i1}(\infty) | G=1] + \underline{\E[Y_{i2}(\infty) - Y_{i1}(\infty) | G=1]} \Big)
+\end{aligned}`
+$$
+
+---
+
+count:false
+# TWFE Explanation (cont'd)
+Let's keep going:
+`\begin{align*}
+  \alpha = \underbrace{\Big( \E[\Delta Y_{it^*} | G=2] - \E[\Delta Y_{it^*} | G=1]\Big)}_{\textrm{What is this?}} w_1 + \underbrace{\Big( \E[\Delta Y_{it^*} | G=2] - \E[\Delta Y_{it^*}|G=\infty]\Big)}_{ATT(2,2)} w_\infty
+\end{align*}`
+Working on the first term, we have that
+$$
+`\begin{aligned}
+ &amp; \E[\Delta Y_{i2} | G=2] - \E[\Delta Y_{i2} | G=1] \hspace{300pt}\\
+&amp;\hspace{10pt} = \E[Y_{i2}(2) - Y_{i1}(\infty) | G=2] - \E[Y_{i2}(1) - Y_{i1}(1) | G=1] \\
+&amp;\hspace{10pt} = \E[Y_{i2}(2) - Y_{i2}(\infty) | G=2] + \underline{\E[Y_{i2}(\infty) - Y_{i1}(\infty) | G=2]}\\
+&amp;\hspace{20pt} - \Big( \E[Y_{i2}(1) - Y_{i2}(\infty) | G=1] - \E[Y_{i1}(1) - Y_{i1}(\infty) | G=1] + \underline{\E[Y_{i2}(\infty) - Y_{i1}(\infty) | G=1]} \Big)\\
+&amp;\hspace{10pt} = \underbrace{ATT(2,2)}_{\textrm{causal effect}} - \underbrace{\Big(ATT(1,2) - ATT(1,1)\Big)}_{\textrm{treatment effect dynamics}}
+\end{aligned}`
+$$
+
+Plug this expression back in `\(\rightarrow\)` 
+---
+
+# TWFE Explanation (cont'd)
+
+Plugging the previous expression back in, we have that
+`\begin{align*}
+  \alpha = ATT(2,2) + ATT(1,1) w_1 + ATT(1,2)(-w_1)
+\end{align*}`
+
+--
+
+This is exactly the result in de Chaisemartin and d'Haultfoeuille!  `\(\alpha\)` is equal to a weighted average of `\(ATT(g,t)\)`'s, but it is possible that some of the weights can be negative.
+
+--
+
+Also, as they point out, a sufficient condition for the weights to be non-negative is: no treatment effect dynamics `\(\implies ATT(1,1) = ATT(1,2)\)` `\(\overset{\textrm{here}}{\implies} \alpha = ATT(2,2)\)`.
+
+* In more complicated settings, this would guarantee no negative weights, but the you would still get a hard-to-understand weighted average of `\(ATT(g,t)'s\)`.
+
+---
+
+# Event Study Regressions
+
+Event study regressions are popular in empirical work.  
+`\begin{align*}
+  Y_{it} = \theta_t + \eta_i + \sum_{e=-(\mathcal{T}-1)}^{-2} \beta_e D_{it}^e + \sum_{e=0}^{\mathcal{T}} \beta_e D_{it}^e + e_{it}
+\end{align*}`
+where `\(D_{it}^e = \indicator{G_i + e = t}\)` is a binary indicator of having been treated for exactly `\(e\)` periods in period `\(t\)`
+
+--
+
+Typically, researchers interpret:
+
+* Post-treatment event study coefficients as dynamic effects
+
+* Use pre-treatment coefficients as a pre-test
+
+--
+
+Sun and Abraham (2021) show similar issues to the TWFE regression with the event study regression here
+
+* `\(\beta_e\)` can include effects from incorrect lengths of exposure
+
+* weights on `\(ATT(g,t)\)` are non-transparent and driven by the estimation method and can be negative
+
+
+
+---
+
+class: inverse, middle, center
+count: false
+
+# Alternative Estimation Strategies
+
+---
+
+# Alternative Approaches
+
+&lt;span class="alert"&gt;We'll discuss:&lt;/span&gt;
+
+1. Callaway and Sant'Anna (2021), R: `did`, Stata: `csdid`
+
+2. Sun and Abraham (2021), R: `fixest`, Stata: `eventstudyinteract`
+
+3. Wooldridge (2021), R: `etwfe`, Stata: `JWDID`
+
+4. Gardner (2021) / Borusyak, Jaravel, Spiess (2022), R: `did2s`, Stata: `did2s` and `did_imputation`
+
+--
+
+&lt;span class="alert"&gt;Not including:&lt;/span&gt;
+
+1. "Clean controls" (Cengiz, Dube, Lindner, and Zipperer (2019) and Dube, Girardi, Jorda, and Taylor (2023)), Stata: `stackedev`
+
+2. de Chaisemartin and d'Haultfoeuille (2020), R: `DIDmultiplegt`, Stata: `did_multiplegt`
+
+&lt;!-- clean control is similar to CS, for a particular group, take its observations + clean controls (not-yet-treated) observations, do this for all groups, and "stack" into a new dataset, then run a TWFE regression on this data.  You still have weights driven by the estimation method, but you get rid of negative weights issues and can "undue" the negative weights--&gt;
+
+&lt;!-- DID_M is like ATT^{ES}(e), stata command can allow for different values of e, though I'm not super familiar with it --&gt;
+
+---
+
+# Callaway and Sant'Anna (2021)
+
+&lt;span class="alert"&gt;Key idea:&lt;/span&gt; Separate identification and estimation:
+
+* Under parallel trends, recall that
+`$$ATT(g,t) = \E[Y_t - Y_{g-1} | G=g] - \E[Y_t - Y_{g-1} | U=1]$$`
+    
+--
+
+&lt;span class="alert"&gt;Estimation:&lt;/span&gt;
+`$$\widehat{ATT}^{CS}(g,t) = \frac{1}{n_g}\sum_{i=1}^n \indicator{G_i = g}(Y_{it} - Y_{ig-1}) - \frac{1}{n_U}\sum_{i=1}^n \indicator{U_i = 1} (Y_{it} - Y_{ig-1})$$`
+
+&lt;span class="alert"&gt;2nd step:&lt;/span&gt; Recall: group-time average treatment effects are building blocks for more aggregated parameters such as `\(ATT^{ES}(e)\)` and `\(ATT^O\)` `\(\implies\)` just plug in 
+
+* `\(\implies\)` two-step estimation procedure: target local/disaggregated `\(ATT(g,t)\)` in first step, then (if desired) aggregate them into lower dimensional parameters
+
+
+---
+
+# Sun and Abraham (2021)
+
+&lt;span class="alert"&gt;Intuition: &lt;/span&gt; The event study regression is "underspecified" `\(\implies\)` heterogeneous effects can "confound" the treatment effect estimates
+
+--
+
+&lt;span class="alert"&gt;Solution:&lt;/span&gt; Run fully interacted regression:
+`\begin{align*}
+  Y_{it} = \theta_t + \eta_i + \sum_{g \in \bar{\mathcal{G}}} \sum_{e \neq -1} \delta^{SA}_{ge} \indicator{G_i=g} \indicator{g+e=t} + e_{it}
+\end{align*}`
+
+
+--
+
+&lt;span class="alert"&gt;2nd step:&lt;/span&gt; Aggregate `\(\delta^{SA}_{ge}\)`'s across groups (usually into an event study).
+
+* This sidesteps issues with the event study regression coming from treatment effect heterogeneity
+
+* For inference, need to account for two-step estimation procedure
+
+---
+
+# Wooldridge (2021)
+
+&lt;span class="alert"&gt;Main question:&lt;/span&gt; Are issues in DID literature due to limitations of TWFE regressions themselves or something else?  
+
+--
+
+Proposes running "more interacted" TWFE regression:
+
+`\begin{align*}
+  Y_{it} = \theta_t + \eta_i + \sum_{g \in \bar{\mathcal{G}}} \sum_{s=g}^{\mathcal{T}} \alpha_{gt}^W \indicator{G_i=g, t=s} + e_{it}
+\end{align*}`
+
+--
+
+This is quite similar to Sun and Abraham (2021) except for that it doesn't include interactions in pre-treatment periods. [The differences about `\((g,t)\)` relative to `\((g,e)\)` are trivial.]
+
+* Like SA, this provides robustness to treatment effect heterogeneity by including more interactions
+
+* However, unless mainly interested in `\(ATT(g,t)\)`, have to do second step aggregation that (arguably) ends the "killer feature" of the TWFE regression to begin with
+
+---
+
+# Gardner (2021) / BJS (2022)
+
+&lt;span class="alert"&gt;Intuition: &lt;/span&gt;Parallel trends is closely connected to a TWFE model *for untreated potential outcomes*
+`$$Y_{it}(0) = \theta_t + \eta_i + e_{it}$$`
+--
+&lt;span class="alert"&gt;Estimation:&lt;/span&gt;
+
+* Step 1: Split data into treated and untreated observations
+
+* Step 2: Estimate above model for the set of untreated observations
+
+* Step 3: "Impute" `\(\hat{Y}_{it}(0) = \hat{\theta}_t + \hat{\eta}_i\)` for the treated observations
+
+* `\(\displaystyle \widehat{ATT}^{G/BJS}(g,t) = \frac{1}{n_g} \sum_{i=1}^n \indicator{G_i=g}\Big(Y_{it} - \hat{Y}_{it}(0)\Big) \xrightarrow{p} ATT(g,t)\)`
+
+Can compute other treatment effect parameters too.
+
+&lt;!-- like this one: focuses on the problem of figuring out what's going on with untreated potential outcomes, global estimation (for better or worse) of model of untreated potential outcomes --&gt;
+---
+
+# Similarities and Differences
+
+In my view, all of the approaches discussed above are fundamentally similar to each other.  
+
+--
+
+In practice, it is sometimes possible to get different results though this is often driven by
+
+* Different choices in terms of default implementation details in computer code
+
+* Different estimation strategies trading off efficiency and robustness in different ways 
+
+---
+
+# Comparison 1: CS and SA
+
+In post-treatment periods, these give numerically identical results: `\(\widehat{ATT}^{CS}(g,t) = \hat{\delta}^{SA}_{t,t-g}\)`
+
+* This is because a fully interacted regression (SA) is equivalent to taking differences in averages across groups (CS)
+
+--
+
+In pre-treatment periods, code will give different pre-treatment estimates, but this is due to different default choices
+
+* In SA, all results are relative to a fixed base period (typically the period right before treatment)
+
+* In CS, by default, in pre-treatment periods, estimates are of placebo policy effects on impact (i.e., the base period is always the most recent pre-treatment period)
+
+--
+
+Similarly, results will be different if you choose a different comparsion group in CS (e.g., not-yet-treated vs. never-treated).
+
+--
+
+In both cases, these are just different choices though, and, for example, it is feasible (and easy) to set a fixed base period in CS
+
+---
+
+# Comp 2: SA and Wooldridge
+
+These are clearly closely related, with the difference amounting to whether or not one includes indicators for pre-treatment periods.
+
+--
+
+It is fair to see this as a way to &lt;span class="alert"&gt;trade-off robustness and efficiency&lt;/span&gt;
+
+* If parallel trends holds across all time periods, then Wooldridge will deliver more efficient estimates (as effectively all pre-treatment periods are used as base periods)
+
+* If parallel trends is violated in some pre-treatment periods but holds post-treatment, Wooldridge estimates will be inconsistent, but SA estimates will be robust to violations of parallel trends in pre-treatment periods.
+
+---
+
+# Comp 3: Wooldridge and Gardner/BJS
+
+Wooldridge and Gardner/BJS give numerically the same estimates: `\(\hat{\alpha}^W_{gt} = \widehat{ATT}^{G/BJS}(g,t)\)`
+
+
+Intuition: similar to equivalence between Oaxaca-Blinder decompositions and regression adjustment (i.e., including interactions is equivalent to estimating separate models by group).
+
+
+---
+
+# Comments
+
+The above discussion emphasizes the similarities between different proposed alternatives to TWFE regressions in the literature.
+
+--
+
+The differences also seem to be mainly driven by different implementation choices.  Examples:
+
+* It's possible to come up with an imputation estimator that uses the base period right before treatment only `\(\implies\)` `\(\uparrow\)` robustness, `\(\downarrow\)` efficiency
+
+* It's also possible to do a version of CS with more base periods `\(\implies\)` `\(\uparrow\)` efficiency `\(\downarrow\)` robustness
+
+    * Build-the-trend (i.e., path relative to average pre-treatment outcome) and GMM, Callaway (2023), Marcus and Sant'Anna (2021), Lee and Wooldridge (2023).
+
+---
+
+
+class: inverse, middle, center
+count: false
+
+# Empirical Example: Minimum Wages and Employment
+
+---
+
+# Example: Minimum Wage
+
+- Use county-level data from 2003-2007 during a period where the federal minimum wage was flat
+
+--
+
+- Exploit minimum wage changes across states
+
+    - Any state that increases their minimum wage above the federal minimum wage will be considered as treated
+  
+--
+
+- Interested in the effect of the minimum wage on teen employment
+
+--
+
+- We'll also make a number of simplifications:
+
+    * not worry much about issues like clustered standard errors
+    
+    * not worry about variation in the amount of the minimum wage change (or whether it keeps changing) across states
+
+--
+
+&lt;span class="alert"&gt;Goal: &lt;/span&gt; How much do the issues that we have been talking about matter in practice?
+
+---
+
+# Code
+
+Full code is available on my website: [https://bcallaway11.github.io/files/presentations/northwestern-causal-inference-workshop](https://bcallaway11.github.io/files/presentations/northwestern-causal-inference-workshop) or link is on my homepage [brantlycallaway.com](https://www.brantlycallaway.com)
+
+&lt;span class="alert"&gt;R packages used in empirical example&lt;/span&gt;
+
+
+```r
+library(did)
+library(BMisc)
+library(twfeweights)
+library(fixest)
+library(modelsummary)
+library(ggplot2)
+load(url("https://github.com/bcallaway11/did_chapter/raw/master/mw_data_ch2.RData"))
+```
+
+---
+
+# Setup Data
+
+
+```r
+# drops NE region and a couple of small groups
+mw_data_ch2 &lt;- subset(mw_data_ch2, (G %in% c(2004,2006,2007,0)) &amp; (region != "1"))
+head(mw_data_ch2[,c("id","year","G","lemp","lpop","region")])
+```
+
+```
+##       id year    G     lemp     lpop region
+## 554 8003 2001 2007 5.556828 9.614137      4
+## 555 8003 2002 2007 5.356586 9.623972      4
+## 556 8003 2003 2007 5.389072 9.620859      4
+## 557 8003 2004 2007 5.356586 9.626548      4
+## 558 8003 2005 2007 5.303305 9.637958      4
+## 559 8003 2006 2007 5.342334 9.633056      4
+```
+
+```r
+# drop 2007 as these are right before fed. minimum wage change
+data2 &lt;- subset(mw_data_ch2, G!=2007 &amp; year &gt;= 2003)
+# keep 2007 =&gt; larger sample size
+data3 &lt;- subset(mw_data_ch2, year &gt;= 2003)
+```
+
+---
+
+name: twfe-results
+
+# TWFE Regression
+
+
+```r
+twfe_res2 &lt;- fixest::feols(lemp ~ post | id + year,
+                           data=data2,
+                           cluster="id")
+
+modelsummary(list(twfe_res2), gof_omit=".*")
+```
+
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt;  (1) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; post &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; −0.038 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.008) &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;br&gt;
+
+[[LO Unconfoundedness Results](#lo-results)]
+
+---
+
+# `\(ATT(g,t)\)` (Callaway and Sant'Anna)
+
+
+```r
+attgt &lt;- did::att_gt(yname="lemp",
+                     idname="id",
+                     gname="G",
+                     tname="year",
+                     data=data2,
+                     control_group="nevertreated",
+                     base_period="universal")
+tidy(attgt)[,1:5] # print results, drop some extra columns
+```
+
+```
+##              term group time    estimate   std.error
+## 1  ATT(2004,2003)  2004 2003  0.00000000          NA
+## 2  ATT(2004,2004)  2004 2004 -0.03266653 0.020473880
+## 3  ATT(2004,2005)  2004 2005 -0.06827991 0.021912958
+## 4  ATT(2004,2006)  2004 2006 -0.12335404 0.019895309
+## 5  ATT(2004,2007)  2004 2007 -0.13109136 0.023445279
+## 6  ATT(2006,2003)  2006 2003 -0.03408910 0.011748061
+## 7  ATT(2006,2004)  2006 2004 -0.01669977 0.008675291
+## 8  ATT(2006,2005)  2006 2005  0.00000000          NA
+## 9  ATT(2006,2006)  2006 2006 -0.01939335 0.008951878
+## 10 ATT(2006,2007)  2006 2007 -0.06607568 0.009331988
+```
+
+
+
+---
+
+# Plot `\(ATT(g,t)\)`'s
+
+
+&lt;img src="advanced_panel_methods_part2_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Compute `\(ATT^O\)`
+
+
+```r
+attO &lt;- did::aggte(attgt, type="group")
+summary(attO)
+```
+
+```
+## 
+## Call:
+## did::aggte(MP = attgt, type = "group")
+## 
+## Reference: Callaway, Brantly and Pedro H.C. Sant'Anna.  "Difference-in-Differences with Multiple Time Periods." Journal of Econometrics, Vol. 225, No. 2, pp. 200-230, 2021. &lt;https://doi.org/10.1016/j.jeconom.2020.12.001&gt;, &lt;https://arxiv.org/abs/1803.09015&gt; 
+## 
+## 
+## Overall summary of ATT's based on group/cohort aggregation:  
+##      ATT    Std. Error     [ 95%  Conf. Int.]  
+##  -0.0571        0.0085    -0.0738     -0.0404 *
+## 
+## 
+## Group Effects:
+##  Group Estimate Std. Error [95% Simult.  Conf. Band]  
+##   2004  -0.0888     0.0188       -0.1279     -0.0498 *
+##   2006  -0.0427     0.0076       -0.0586     -0.0269 *
+## ---
+## Signif. codes: `*' confidence band does not cover 0
+## 
+## Control Group:  Never Treated,  Anticipation Periods:  0
+## Estimation Method:  Doubly Robust
+```
+
+---
+
+
+# Comments
+
+The differences between the CS estimates and the TWFE estimates are fairly large here: the CS estimate is about 50% larger than the TWFE estimate, though results are qualitatively similar.
+
+--
+
+&lt;span class="alert"&gt;Let's see if we can figure out what's going on...&lt;/span&gt;
+
+
+---
+
+# de Chaisemartin and d'Haultfoeuille weights
+
+&lt;img src="advanced_panel_methods_part2_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# `\(ATT^O\)` weights
+
+&lt;img src="advanced_panel_methods_part2_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Weight Comparison 
+
+&lt;img src="advanced_panel_methods_part2_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Discussion
+
+To summarize: `\(ATT^O = -0.057\)` while `\(\alpha^{TWFE} = -0.038\)`.  This difference can be fully accounted for
+
+* Pre-treatment differences in paths of outcomes across groups: explains about 64% of the difference
+
+* Differences in weights applied to the same post-treatment `\(ATT(g,t)\)`: explains about 36% of the difference. [If you apply the post-treatment weights and "zero out" pre-treatment differences, the estimate would be `\(-0.050\)`.]
+
+
+
+--
+
+In my experience: this is fairly representative of how much new DID approaches matter relative to TWFE regressions.  It does not seem like "catastrophic failure" of TWFE, but (in my view) these are meaningful differences (and, e.g., given slightly different `\(ATT(g,t)\)`'s, the difference in the weighting schemes could change the qualitative results).
+
+* Of course, this whole discussion hinges crucially on how much treatment effect heterogeneity there is.  More TE Het `\(\implies\)` more sensitivity to weighting schemes [just looking at TWFE regression does not give insight into how much TE Het there is.]
+
+---
+
+# Additional Comments
+
+One more comment: there is a lot concern about negative weights (both in econometrics and empirical work).  
+
+* There were no negative weights in the example above, but the weights still weren't great.  
+
+    * No negative weights does rule out "sign reversal"
+
+* But, in my view, the more important issue is the non-transparent weighting scheme.
+
+    * Example 1: If you try using `data3` (the data that includes `\(G=2007\)`), you will get a negative weight on `\(ATT(g=2004,t=2007)\)`.  But it turns out not to matter much, and TWFE works better in this case than in the case that I showed you.
+    
+    * Example 2: Alternative treatment effect parameter `\(\rightarrow\)`
+
+---
+
+# "Simple" Aggregation
+
+Consider the following alternative aggregated treatment effect parameter
+`\begin{align*}
+  ATT^{simple} := \sum_{t=g}^\mathcal{T} ATT(g,t) \frac{\P(G=g | G \in \bar{\mathcal{G}})}{\sum_{t=g}^{\mathcal{T}} \P(G=g| G \in \bar{\mathcal{G}})}
+\end{align*}`
+Consider imputation so that you have `\(Y_{it}-\hat{Y}_{it}(0)\)` available in all periods.  This is the `\(ATT\)` parameter that you get by averaging all of those.
+
+--
+
+Relative to `\(ATT^O\)`, early treated units get more weight (because we have more `\(Y_{it}-\hat{Y}_{it}(0)\)` for them).
+
+--
+
+By construction, weights are all positive.  However, they are different from `\(ATT^O\)` weights
+
+---
+
+# "Simple" Aggregation
+
+
+&lt;img src="advanced_panel_methods_part2_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# "Simple" Aggregation
+
+Besides the violations of parallel trends in pre-treatment periods, these weights are further away from `\(ATT^O\)` than the TWFE regression weights are!
+
+--
+
+In fact, you calculate `\(ATT^{simple} = -0.065\)` (13% larger in magnitude that `\(ATT^O\)`)
+
+--
+
+Finally, if you are "content with" non-negative weights, then you can get any summary measure from `\(-0.019\)` (the smallest `\(ATT(g,t)\)`) to `\(-0.13\)` (the largest).  This is a wide range of estimates.
+
+--
+
+In my view, the discussion above suggests that clearly stating a target aggregate treatment effect parameter and choosing weights that target that parameter is probably more important than checking for negative weights
+
+---
+
+count: false
+
+---
+
+name: lo-results
+
+# LO Unconfoundedness
+
+
+```r
+data2$G2 &lt;- data2$G 
+# lagged outcomes identification strategy
+lo_res &lt;- pte::pte_default(yname="lemp",
+                           tname="year",
+                           idname="id",
+                           gname="G2",
+                           data=data2,
+                           d_outcome=TRUE,
+                           lagged_outcome_cov=TRUE)
+
+ggpte(lo_res)
+```
+
+[[Back](#twfe-results)]
+
+---
+
+# LO Unconfoundedness
+
+&lt;img src="advanced_panel_methods_part2_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
