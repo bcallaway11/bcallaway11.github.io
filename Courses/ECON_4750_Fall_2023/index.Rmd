@@ -1,0 +1,67 @@
+---
+title: "ECON 4750 Course Material"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+- [[12:40 Syllabus](syllabus4750_1240.pdf)] &nbsp; &nbsp; &nbsp; [[1:50 Syllabus](syllabus_150.pdf)]
+
+- [Course Notes](https://bcallaway11.github.io/econ_4750_notes/)
+
+# Homeworks
+
+None yet
+
+# Projects
+
+None yet
+
+# Additional Course Materials
+
+- First Week Slides: [What is Econometrics?](l1.html)
+
+- [firm_data.csv](firm_data.csv) | [firm_data.RData](firm_data.RData) | [firm_data.dta](firm_data.dta)
+
+
+# Data
+
+This list only includes data that needs to be downloaded from the course website.  Other data is listed in the Course Notes along with steps to access the data and a link to a description of the data.
+
+- [acs](data/acs.RData) [[description](data/acs_description.txt)]
+
+- [banks](data/banks.RData) [[description](data/banks_description.txt)]
+
+- [Birthweight_Smoking](data/birthweight_smoking.dta) [[description](https://www.princeton.edu/~mwatson/Stock-Watson_3u/Students/EE_Datasets/Birthweight_Smoking_Description.pdf)]
+
+- [diamond_train](data/diamond_train.RData) [[description](https://www.kaggle.com/shivam2503/diamonds/)]
+
+- [diamond_test](data/diamond_test.RData) [[description](https://www.kaggle.com/shivam2503/diamonds/)]
+
+- [fertilizer_2000](data/fertilizer_2000.RData) [[description](data/fertilizer_description.txt)]
+
+- [fertilizer_panel](data/fertilizer_panel.RData) [[description](data/fertilizer_description.txt)]
+
+- [house](data/house.RData) [[description](data/house_description.txt)]
+
+- [intergenerational_mobility](data/intergenerational_mobility.RData) [[description](data/intergenerational_mobility_description.txt)]
+
+- [Lead_Mortality](data/Lead_Mortality.RData) [[description](http://www.princeton.edu/~mwatson/Stock-Watson_3u/Students/EE_Datasets/Lead_Mortality_Description.pdf)]
+
+- [mlda](data/mlda.RData) [[description](data/mlda_description.txt)]
+
+- [mutual_funds](data/mutual_funds.RData) [[description](data/mutual_funds_description.txt)]
+
+- [rand_hie](data/rand_hie.RData) [[description](data/rand_hie_description.txt)]
+
+- [titanic_training](data/titanic_training.csv) [[description](https://www.kaggle.com/c/titanic/data)]
+
+- [titanic_testing](data/titanic_testing.csv) [[description](https://www.kaggle.com/c/titanic/data)]
+
+- [us_data](data/us_data.RData)
+
+# Code Challenges
+
+None yet
