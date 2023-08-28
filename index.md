@@ -36,7 +36,7 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 Email: brantly.callaway [at] uga [dot] edu
 
-B408 Amos Hall
+B422 Amos Hall
 
 Athens, GA 30605
 
