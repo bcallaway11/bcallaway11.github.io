@@ -60,7 +60,7 @@ This list only includes data that needs to be downloaded from the course website
 
 - [titanic_testing](data/titanic_testing.csv) [[description](https://www.kaggle.com/c/titanic/data)]
 
-- [us_data](data/us_data.RData)
+- [us_data](data/us_data.RData) [[description](data/us_data_description.txt)]
 
 # Code Challenges
 
