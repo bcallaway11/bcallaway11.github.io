@@ -15,7 +15,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [HW 1](hw1.html), due Friday, September 1, [[[solutions](hw1_sol.html)]] &nbsp; &nbsp; [[[Rmd Solutions File](https://raw.githubusercontent.com/bcallaway11/bcallaway11.github.io/master/Courses/ECON_4750_Fall_2023/hw1_sol.Rmd)]]
 
-[HW 2](hw2.html), due Monday, September 18
+[HW 2](hw2.html), due Monday, September 18, [[[solutions](hw2_sol.html)]]
+
+# Extra Materials for Midterm 1
+
+[Study Guide](midterm1_study_guide.html)
+
+[Practice Questions](midterm1_extra_questions.pdf), [[[solutions](midterm1_extra_questions_sol.pdf)]]
 
 # Projects
 
