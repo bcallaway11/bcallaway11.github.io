@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [HW 3](hw3.html), due Friday, October 13, [[[solutions](hw3_sol.html)]]
 
-[HW 4](hw4.html), due Monday, October 23
+[HW 4](hw4.html), due Monday, October 23, [[[solutions](hw4_sol.html)]]
 
 # Extra Materials for Midterm 1
 
