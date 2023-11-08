@@ -1,6 +1,9 @@
 ---
 title: "ECON 4750 Course Material"
-output: html_document
+output: 
+  html_document:
+    theme: united
+    css: "style.css"
 ---
 
 ```{r setup, include=FALSE}
@@ -21,6 +24,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [HW 4](hw4.html), due Monday, October 23, [[[solutions](hw4_sol.html)]]
 
+[HW 5](hw5.html), due Wednesday, November 15
+
 # Extra Materials for Midterm 1
 
 [Study Guide](midterm1_study_guide.html)
@@ -36,7 +41,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Projects
 
-None yet
+[Project 1](project1.html), due Monday, November 21.  <span style="color:red;font-weight:bold;">Note: we will not meet in person this day, so please submit the project through ELC by the start of our normal class time</span>
+
+- [house_price_train.csv](house_price_train.csv) &nbsp; | &nbsp; [house_price_test.csv](house_price_test.csv) &nbsp; | &nbsp; [data_description.txt](data_description.txt)
 
 # Additional Course Materials
 
