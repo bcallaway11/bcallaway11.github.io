@@ -1,0 +1,431 @@
+---
+title: "Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends"
+format: 
+  revealjs:
+    theme: [default, clean.scss]
+    menu:
+      side: left
+    slide-number: true
+    date-format: long
+    callout-icon: false
+    embed-resources: true
+author: 
+  - name: Brantly Callaway
+    affiliation: University of Georgia
+    email: brantly.callaway@uga.edu
+  - name: Emmanuel Tsyawo
+    affiliation: FGSES, Universit\'e Mohammed VI Polytechnique
+    email: emmanuel.tsyawo@um6p.ma
+date: November 19, 2023
+bibliography: [refs.bib, misc_refs.bib]
+knitr:
+  opts_chunk:
+    echo: true
+---
+
+## Introduction
+
+$\newcommand{\E}{\mathbb{E}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\Var}{\mathrm{var}}
+\newcommand{\Cov}{\mathrm{cov}}
+\newcommand{\Corr}{\mathrm{corr}}
+\newcommand{\corr}{\mathrm{corr}}
+\newcommand{\L}{\mathrm{L}}
+\renewcommand{\P}{\mathrm{P}}
+\newcommand{\independent}{{\perp\!\!\!\perp}}
+\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$Setting of the paper: Researcher interested in learning about the causal effect of a binary treatment and has access to a few periods of panel data
+
+* In economics, by far the most common approach in this setting is to use difference-in-differences (DID).  
+
+In the current paper, we will think about:
+
+* Cases where the [parallel trends assumption]{.alert} could be violated
+
+* Applications where there is [staggered treatment adoption]{.alert}
+
+* How to [exploit staggered treatment adoption]{.alert-blue} to allow for violations of parallel trends while still recovering the same target causal effect parameters
+
+## Introduction
+
+* [Parallel trends assumption:]{.alert} $\E[\Delta Y_t(0) | D=1] = \E[\Delta Y_t(0) | D=0]$
+
+
+* DID is different from other quasi-experimental (e.g., random assignment, IV, RD) approaches to policy evaluation in that it inherently relies on functional form assumptions
+\begin{align*}
+  Y_{it}(0) = \theta_t + \eta_i + e_{it}
+\end{align*}
+where the distribution of $\eta_i$ can differ arbitrarily across groups, but $\E[e_{it}|\eta_i, D] = \E[e_{it} | \eta_i] = 0$
+
+## Introduction
+
+* That the model for $Y_{it}(0)$ depends on time and unit-specific unobserved heterogneity is in-line with a long history of economic models, but the [additive separability]{.alert} between time effects and unobserved heterogeneity is often harder to justify
+
+  * And, in (probably most) applications, we simply do not know if it is reasonable or not
+
+* Therefore, most DID applications in economics include an event study plot that [checks parallel trends in pre-treatment periods]{.alert}.  This is implicitly a test of the additive separability in the previous model for untreated potential outcomes.
+
+## @deryugina-2017, Y: gov't transfers, D: hurricane
+
+<center><img src="deryugina-2017-es.png" width=80% /></center>
+
+## @callaway-santanna-2021, Y: employment, D: min. wage
+
+<center><img src="mw_es.png" width=80% /></center>
+<!--Earlier we discussed this model for untreated potential outcomes $Y_{it}(0) = h_t(\eta_i, e_{it})$ and argued that it was too general to make much progress on.  -->
+
+## Some ideas
+
+* Allow for certain violations of parallel trends ($\implies$ bounds on causal effect parameters) often connected to the magnitude of the violations of parallel trends in pre-treatment periods [@manski-pepper-2018;@rambachan-roth-2023;@ban-kedagni-2022]
+
+* Consider alternative model for untreated potential outcomes
+
+  * That's what we will do in this paper!
+  
+  * Using (arguably) the most naturally connected approach to DID, [interactive fixed effects]{.alert} (IFE)
+  
+  * (I think) IFE is closely connected to the ways that "bounding approaches" allow for violations of parallel trends...
+  
+* [Running Example:]{.alert} Causal effect of $\underbrace{\textrm{job displacement}}_{\textrm{treatment}}$ on a $\underbrace{\textrm{person's earnings}}_{\textrm{outcome}}$
+
+## IFE Model for Untreated Potential Outcomes
+
+An intermediate case is an interactive fixed effects model for untreated potential outcomes:
+\begin{align*}
+  Y_{it}(0) = \theta_t + \eta_i + \lambda_i F_t + e_{it}
+\end{align*}
+
+* $\lambda_i$ is often referred to as "factor loading" (notation above implies that this is a scalar, but you can allow for higher dimension)
+
+* $F_t$ is often referred to as a "factor"
+
+* $e_{it}$ is idioyncratic in the sense that $\E[e_{it} | \eta_i, \lambda_i, D_i] = 0$
+
+In our context, though, it makes sense to interpret these as
+
+* $\lambda_i$ unobserved heterogeneity (e.g., individual's unobserved "ability")
+
+* $F_t$ the time-varying "return" unobserved heterogeneity (e.g., return to "ability") 
+
+## Interactive Fixed Effects
+
+Interactive fixed effects models allow for violations of parallel trends:
+
+\begin{align*}
+  \E[\Delta Y_{it}(0) | D_i = d] = \Delta \theta_t + \E[\lambda_i|D_i=d]\Delta F_t
+\end{align*}
+which can vary across groups.
+
+[Example:]{.alert} If $\lambda_i$ is "ability" and $F_t$ is increasing over time, then (even in the absence of the treatment) groups with higher mean "ability" will tend to increase outcomes more over time than less skilled groups
+
+[Special Cases:]{.alert}
+
+* Observed $\lambda_i \implies$ regression adjustment
+
+* $F_t = t \implies$ unit-specific linear trend
+
+But allowing $F_t$ to vary arbitrarily is harder...[[[More details](#interactive-fixed-effects-examples)]]
+
+
+## Staggered Treatment Adoption
+
+Many of the insights of recent work no DID have been in the context of [staggered treatment adoption]{.alert}
+
+* $\implies$ there is variation in treatment timing across units
+
+* @chaisemartin-dhaultfoeuille-2020, @goodman-2021, @callaway-santanna-2021, @sun-abraham-2021, among others
+
+* These papers all treat staggered treatment adoption as a [nuisance]{.alert}, and 
+
+  * Show limitations of two-way fixed regressions for implementing DID identification strategies
+  * Provide alternative estimation strategies
+  
+* In the current paper, we will [exploit]{.alert} staggered treatment adoption in order to identify causal effect parameters
+  
+## Notation / Data / Setup
+
+Observed data: $\{Y_{i1}, Y_{i2}, \ldots Y_{i\mathcal{T}}, D_{i1}, D_{i2}, \ldots, D_{i\mathcal{T}}\}_{i=1}^n$
+
+* $\mathcal{T}$ time periods
+
+* No one treated in the first time period (i.e., $D_{i1} = 0$)
+
+* Staggered treatment adoption: for $t=2,\ldots,\mathcal{T}$, $D_{it-1} = 1 \implies D_{it}=1$.
+
+* A unit's [group]{.alert} $G_i$ is the time period when it becomes treated.  By convention, set $G_i = \infty$ for units that do not participate in the treatment in any period.
+
+* Potential outcomes: $Y_{it}(g)$, $Y_{it}(\infty)$ is untreated potential outcome
+
+* Observed outcomes: $Y_{it} = Y_{it}(G_i)$
+
+* No anticipation: For $t < G_i$, $Y_{it} = Y_{it}(\infty)$
+
+## Target Parameters
+
+Following CS-2021, we target [group-time average treatment effects]{.alert}:
+\begin{align*}
+  ATT(g,t) = \E[Y_{it}(g) - Y_{it}(\infty) | G=g]
+\end{align*}
+
+* Group-time average treatment effects are the natural [building block]{.alert} for other common target parameters in DID applications such as event studies or an overall $ATT$ (see @callaway-santanna-2021 for more details)
+
+* Back to DID for a moment: Under parallel trends,
+  \begin{align*}
+    ATT(g,t) = \E[Y_{it} - Y_{ig-1} | G=g] - \E[Y_{it} - Y_{ig-1} | G=g']
+  \end{align*}
+  for any $g' > t$ (i.e., any group that is not-yet-treated by period $t$)
+  
+  * $\implies$ $ATT(g,t)$ is often over-identified (OI) 
+  * @marcus-santanna-2021 OI $\rightarrow$ more efficiently estimate $ATT(g,t)$
+  * This paper: OI $\rightarrow$ relax parallel trends
+
+
+
+
+## Recovering $ATT(g,t)$ with fixed-$\mathcal{T}$ approaches
+
+<span class="alert">Very Simple Case:</span>
+
+* $\mathcal{T}=4$
+
+* 3 groups: 3, 4, $\infty$
+
+* We will target $ATT(3,3) = \E[\Delta Y_{i3} | G_i=3] - \underbrace{\E[\Delta Y_{i3}(0) | G_i=3]}_{\textrm{have to figure out}}$
+In this case, given the IFE model for untreated potential outcomes, we have:
+\begin{align*}
+  \Delta Y_{i3}(0) &= \Delta \theta_3 + \lambda_i \Delta F_3 + \Delta e_{i3} \\
+  \Delta Y_{i2}(0) &= \Delta \theta_2 + \lambda_i \Delta F_2 + \Delta e_{i2} \\
+\end{align*}
+The last equation implies that
+\begin{align*}
+  \lambda_i = \Delta F_2^{-1}\Big( \Delta Y_{i2}(0) - \Delta \theta_2 - \Delta e_{i2} \Big)
+\end{align*}
+Plugging this back into the first equation (and combining terms), we have $\rightarrow$
+
+
+
+## Fixed-$\mathcal{T}$ approaches
+
+From last slide, combining terms we have that
+
+\begin{align*}
+  \Delta Y_{i3}(0) = \underbrace{\Big(\Delta \theta_3 - \frac{\Delta F_3}{\Delta F_2} \Delta \theta_2 \Big)}_{=: \theta_3^*} + \underbrace{\frac{\Delta F_3}{\Delta F_2}}_{=: F_3^*} \Delta Y_{i2}(0) + \underbrace{\Delta e_{i3} - \frac{\Delta F_3}{\Delta F_2} \Delta e_{i2}}_{=: v_{i3}}
+\end{align*}
+
+
+
+Now (momentarily) suppose that we (somehow) know $\theta_3^*$ and $F_3^*$.  Then,
+
+\begin{align*}
+  \E[\Delta Y_{i3}(0) | G_i=3] = \theta_3^* + F_3^* \underbrace{\E[\Delta Y_{i2}(0) | G_i = 3]}_{\textrm{identified}} + \underbrace{\E[v_{i3}|G_i=3]}_{=0}
+\end{align*}
+
+$\implies$ this term is identified; hence, we can recover $ATT(3,3)$.
+
+
+
+## Fixed-$\mathcal{T}$ approaches
+
+From last slide, combining terms we have that
+
+\begin{align*}
+  \Delta Y_{i3}(0) = \underbrace{\Big(\Delta \theta_3 - \frac{\Delta F_3}{\Delta F_2} \Delta \theta_2 \Big)}_{=: \theta_3^*} + \underbrace{\frac{\Delta F_3}{\Delta F_2}}_{=: F_3^*} \Delta Y_{i2}(0) + \underbrace{\Delta e_{i3} - \frac{\Delta F_3}{\Delta F_2} \Delta e_{i2}}_{=: v_{i3}}
+\end{align*}
+
+<span class="alert">How can we recover $\theta_3^*$ and $F_3^*$?</span>
+
+
+
+Notice: this involves untreated potential outcomes through period 3, and we have groups 4 and $\infty$ for which we observe these untreated potential outcomes.  This suggests using those groups.
+
+* However, this is not so simple because, by construction, $\Delta Y_{i2}(0)$ is correlated with $v_{i3}$ (note: $v_{i3}$ contains $\Delta e_{i2} \implies$ they will be correlated by construction)
+
+* We need some exogenous variation (IV) to recover the parameters $\rightarrow$
+
+## Fixed-$\mathcal{T}$ approaches
+
+There are a number of different ideas here:
+
+
+
+* Make additional assumptions ruling out serial correlation in $e_{it}$ $\implies$ can use lags of outcomes as instruments [@imbens-kallus-mao-2021]:
+
+    * But this is seen as a strong assumption in many applications [@bertrand-duflo-mullainathan-2004]
+    
+
+    
+* Alternatively can introduce covariates and make auxiliary assumptions about them [@callaway-karami-2023;@brown-butts-2023;@brown-butts-westerlund-2023]
+
+
+    
+* However, it turns out that, with staggered treatment adoption, you can recover $ATT(3,3)$ essentially for free
+
+
+
+## Our Approach
+
+In particular, notice that, given that we have two distinct untreated groups in period 3: group 4 and group $\infty$, then we have two moment conditions:
+
+\begin{align*}
+  \E[\Delta Y_{i3}(0) | G=4] &= \theta_3^* + F_3^* \E[\Delta Y_{i2}(0) | G=4] \\
+  \E[\Delta Y_{i3}(0) | G=\infty] &= \theta_3^* + F_3^* \E[\Delta Y_{i2}(0) | G=\infty] \\
+\end{align*}
+We can solve these for $\theta_3^*$ and $F_3^*$:
+\begin{align*}
+  F_3^* = \frac{\E[\Delta Y_{i3}|G_i=\infty] - \E[\Delta Y_{i3}|G_i=4]}{\E[\Delta Y_{i2}|G_i=\infty] - \E[\Delta Y_{i2}|G_i=4]}
+\end{align*}
+
+$\implies$ we can recover $ATT(3,3)$.
+
+<!--More generally our approach: Estimate model for $(Y_{it}(0)-Y_{ig-1}(0))$ using data from all not-yet-treated groups where the group variables themselves serve as instruments for $\Big(\Delta Y_{ig-1}(0), \ldots, \Delta Y_{ig-R-1}(0)\Big)$ (endogenous by construction).-->
+
+
+## Additional Details about Identification
+
+An important issue for IFE approaches is determining how many IFEs terms there are (e.g., 0, 1, 2, ...)
+
+* Interestingly, there is a tight link in our approach between this "model selection" and identification
+
+  * In cases where parallel trends holds in pre-treatment periods $\implies$ 0 IFEs, failure of relevance condition if we try to include 1 IFE
+  
+  * In cases where parallel trends is violated in pre-treatment periods (essentially) $\implies$ (at least) 1 IFE, relevance condition holds for recovering $ATT(g,t)$.
+  
+DID infrastructure related to pre-testing also carries over to our approach
+
+[[[Detailed Version](#additional-details-about-identification-1)]]
+
+
+
+## Discussion
+
+* Can scale this argument up for more periods, groups, and IFEs (see paper)
+
+* Relative to other approaches to dealing with IFEs:
+
+  * We do not need a large number of periods or extra auxiliary assumptions
+  
+  * Only need there to be staggered treatment adoption
+
+  * The main drawback is that can't recover as many $ATT(g,t)$'s; e.g., in this example, we can't recover $ATT(3,4)$ or $ATT(4,4)$ which might be recoverable in other settings
+  
+* Generality: we have talked about IFE models, but 
+
+  * There are other types of models that need extra moment conditions (e.g., dynamic panel data model for $Y_{it}(0)$), could use the same sort of idea there
+  
+<!-- use states in role of groups -->
+
+## Conclusion
+
+Comments very welcome: `brantly.callaway@uga.edu`
+
+[Code:]{.alert} `staggered_ife2` function in `ife` package in R, available at <a href="github.com/bcallaway11/ife">github.com/bcallaway11/ife</a>
+
+# Appendix {visibility="uncounted"}
+
+## References {visibility="uncounted"}
+
+::: {#refs}
+:::
+
+## Interactive Fixed Effects Examples {visibility="uncounted"}
+
+Interactive fixed effects models for untreated potential outcomes generalize some other important cases:
+
+
+
+<span class="alert">Example 1: </span> Suppose we observe $\lambda_i$, then this amounts to the regression adjustment version of DID with a time-invariant covariate
+
+
+
+<span class="alert">Example 2: </span> Suppose you know that $F_t = t$, then this leads to a *unit-specific linear trend model*:
+\begin{align*}
+  Y_{it}(0) = \theta_t + \eta_i + \lambda_i t + e_{it}
+\end{align*}
+
+## Interactive Fixed Effects Examples (cont'd) {visibility="uncounted"}
+
+To allow for $F_t$ to change arbitrarily over time is harder...
+
+
+
+
+<span class="alert">Example 3: </span> Interactive fixed effects models also provide a connection to "large-T" approaches such as synthetic control and synthetic DID [@abadie-diamond-hainmueller-2010;@arkhangelsky-etal-2021]
+
+* e.g., one of the motivations of the SCM in ADH-2010 is that (given large-T) constructing a synthetic control can balance the factor loadings in an interactive fixed effects model for untreated potential outcomes
+
+[[[Back](#interactive-fixed-effects)]]
+
+
+## How can you recover $ATT(g,t)$ in an IFE setting? {visibility="uncounted"}
+
+There are a lot of ideas.  Probably the most prominent idea is to directly estimate the model for untreated potential outcomes and impute untreated potential outcomes
+
+* See [@xu-2017;@gobillon-magnac-2016] for substantial detail on this front
+
+* For example, @xu-2017 uses @bai-2009 principal components approach to estimate the model.  
+
+  * This is a bit different in spirit from what we have been doing before as this argument requires the number of time periods to be "large"
+
+## Additional Details about Identification {visibility="uncounted"}
+
+For the IFE model not to "reduce" to two-way fixed effects, we need to rule out both:
+
+* $\E[\lambda_i | G_i=3] = \E[\lambda_i | G_i=4] = \E[\lambda_i | G_i = \infty]$
+
+* $F_1 = F_2 = F_3 = F_4$
+
+But we need to strengthen these for our approach to work
+
+## What could go right/wrong? {visibility="uncounted"}
+
+[Relevance:]{.alert} We additionally need that both
+
+* $\E[\lambda_i | G_i=4] \neq \E[\lambda_i | G_i = \infty]$
+
+* $F_2 \neq F_1$
+
+Otherwise, $G_i = 4$ and $G_i = \infty$ have the same trend between the first two periods.
+
+. . .
+
+[Case 1:]{.alert} $F_2 \neq F_1$ but $\E[\lambda_i | G_i=3] \neq \E[\lambda_i | G_i=4] = \E[\lambda_i | G_i = \infty]$
+
+* $\implies$ our approach won't work, but you would be able to see that $G_i=3$ is trending differently from $G_i=4$ and $G_i=\infty$
+
+* Effectively, $G_i=4$ and $G_i=\infty$ are the "same" comparison group, so we cannot deal with the IFE, but we can reject parallel trends in the same way as typical DID approaches
+
+## What could go right/wrong? {visibility="uncounted"}
+
+[Relevance:]{.alert} We additionally need that both
+
+* $\E[\lambda_i | G_i=4] \neq \E[\lambda_i | G_i = \infty]$
+
+* $F_2 \neq F_1$
+
+Otherwise, $G_i = 4$ and $G_i = \infty$ have the same trend between the first two periods.
+
+. . .
+
+[Case 2:]{.alert} $\E[\lambda_i | G_i=4] \neq \E[\lambda_i | G_i = \infty]$ but $F_3 \neq F_2 = F_1$
+
+* $\implies$ our approach won't work, but (I think) no approach would work here
+
+* In this case, all groups trend the same between periods 1 and 2, so it looks like parallel trends holds.  Here it does hold in pre-treatment periods, but it is violated in post-treatment periods
+
+* This is closely related to the saying: "parallel trends is fundamentally untestable"
+
+## What could go right/wrong? {visibility="uncounted"}
+
+[Exogeneity:]{.alert} 
+
+* Can't directly test, but a lot of the DID infrastructure carries over here. 
+
+* For DID, can "pre-test" parallel trends if there is more than 1 pre-treatment period
+
+* For our approach, we need 2 pre-treatment periods to identify $ATT(g,t)$, but if there are more pre-treatment periods then we can pre-test
+
+* If there are more factors (say $R$), we need $R+1$ pre-treatment periods to recover $ATT(g,t)$, but if there are more pre-treatment periods then we can pre-test.
+
+[[[Back](#additional-details-about-identification)]]
