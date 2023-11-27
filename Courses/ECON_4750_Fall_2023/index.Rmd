@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [HW 4](hw4.html), due Monday, October 23, [[[solutions](hw4_sol.html)]]
 
-[HW 5](hw5.html), due Wednesday, November 15, [[[solutions](hw4_sol.html)]]
+[HW 5](hw5.html), due Wednesday, November 15, [[[solutions](hw5_sol.html)]]
 
 [HW 6](hw6.html), due Tuesday, Dec. 5
 
