@@ -40,6 +40,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [Practice Questions](midterm2_extra_questions.html), [[[solutions](midterm2_extra_questions_sol.html)]]
 
+# Extra Materials for Final
+
+[Study Guide](final_study_guide.html)
+
+[Practice Questions](final_extra_questions.html), [[[solutions](final_extra_questions_sol.html)]]
+
 
 # Projects
 
