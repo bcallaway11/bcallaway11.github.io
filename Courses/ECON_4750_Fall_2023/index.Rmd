@@ -26,7 +26,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [HW 5](hw5.html), due Wednesday, November 15, [[[solutions](hw5_sol.html)]]
 
-[HW 6](hw6.html), due Tuesday, Dec. 5
+[HW 6](hw6.html), due Tuesday, Dec. 5, [[[solutions](hw6_sol.html)]]
 
 # Extra Materials for Midterm 1
 
