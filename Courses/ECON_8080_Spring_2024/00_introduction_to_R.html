@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ECON 8080 Course Material</title>
+<title>Introduction to R Programming</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,20 +20,56 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="index_files/libs/clipboard/clipboard.min.js"></script>
-<script src="index_files/libs/quarto-html/quarto.js"></script>
-<script src="index_files/libs/quarto-html/popper.min.js"></script>
-<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="index_files/libs/quarto-html/anchor.min.js"></script>
-<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="00_introduction_to_R_files/libs/clipboard/clipboard.min.js"></script>
+<script src="00_introduction_to_R_files/libs/quarto-html/quarto.js"></script>
+<script src="00_introduction_to_R_files/libs/quarto-html/popper.min.js"></script>
+<script src="00_introduction_to_R_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="00_introduction_to_R_files/libs/quarto-html/anchor.min.js"></script>
+<link href="00_introduction_to_R_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="00_introduction_to_R_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="00_introduction_to_R_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="00_introduction_to_R_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="00_introduction_to_R_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -45,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">ECON 8080 Course Material</h1>
+<h1 class="title">Introduction to R Programming</h1>
 </div>
 
 
@@ -60,34 +96,65 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p>There are a number of useful resources for R programming. I pointed out quite a few in the <a href="syllabus.pdf">course syllabus</a>. The notes for today’s class mainly come from <a href="https://rafalab.dfci.harvard.edu/dsbook-part-1/">Introduction to Data Science: Data Wrangling and Visualization with R</a> by Rafael Irizarry. I’ll cover some introductory topics that I think are most useful.</p>
+<p><strong>Most Important Readings:</strong> Chapters 1 (Introduction), 2 (R Basics), 3 (Programming Basics), and 6 (Importing Data)</p>
+<p><strong>Secondary Readings:</strong> (please read as you have time) Chapters 4 (The tidyverse)</p>
+<p>The remaining chapters of this book are all useful, but you can read them over the course of the semester as you have time.</p>
+<p>I’m not sure if it is helpful or not, but <a href="introduction_to_R_notes_to_self.html">here are the notes to myself</a> that I used for this material.</p>
+<section id="list-of-useful-r-packages" class="level2">
+<h2 class="anchored" data-anchor-id="list-of-useful-r-packages">List of useful R packages</h2>
 <ul>
-<li><a href="syllabus.pdf">Syllabus</a></li>
+<li><p><code>AER</code> — package containing data from <em>Applied Econometrics with R</em></p></li>
+<li><p><code>wooldridge</code> — package containing data from Wooldridge’s text book</p></li>
+<li><p><code>ggplot2</code> — package to produce sophisticated looking plots</p></li>
+<li><p><code>dplyr</code> — package containing tools to manipulate data</p></li>
+<li><p><code>haven</code> — package for loading different types of data files</p></li>
+<li><p><code>plm</code> — package for working with panel data</p></li>
+<li><p><code>fixest</code> — another package for working with panel data</p></li>
+<li><p><code>ivreg</code> — package for IV regressions, diagnostics, etc.</p></li>
+<li><p><code>estimatr</code> — package that runs regressions but with standard errors that economists often like more than the default options in <code>R</code></p></li>
+<li><p><code>modelsummary</code> — package for producing nice output of more than one regression and summary statistics</p></li>
 </ul>
-<section id="homeworks" class="level1">
-<h1>Homeworks</h1>
 </section>
-<section id="course-material" class="level1">
-<h1>Course Material</h1>
-<p><a href="8070_materials.html">Preliminary Materials from ECON 8070</a></p>
-<p>We will cover the following topics:</p>
-<p>(<span style="color: red; font-weight: bold;">Note:</span> Some of the material will be updated/expanded as we move through the semester. Some of the topics at the end of the semester are tentative.)</p>
-<ol start="0" type="1">
-<li><p><a href="00_introduction_to_R.html">Introduction to R</a></p></li>
-<li><p><a href="01_linear_regression.html">Linear Regression</a></p></li>
-<li><p>[Resampling Methods]</p></li>
-<li><p>[Introduction to Nonlinear Models]</p></li>
-<li><p>[Alternative Approaches to Causal Inference]</p></li>
-<li><p>[Panel Data Approaches to Causal Inference]</p></li>
-<li><p>If we have time, an introduction to [Generalized Method of Moments]</p></li>
-<li><p>If we have time, an introduction to [Nonparametric Regression]</p></li>
-<li><p>If we have time, an introduction to [Quantile Regression]</p></li>
+<section id="practice-loading-data" class="level2">
+<h2 class="anchored" data-anchor-id="practice-loading-data">Practice loading data</h2>
+<p>Version: [<a href="firm_data.csv">csv</a>] [<a href="firm_data.RData">RData</a>] [<a href="firm_data.dta">dta</a>]</p>
+<p>If, for some reason this doesn’t work, you can use the following code to reproduce this data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>firm_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">name=</span><span class="fu">c</span>(<span class="st">"ABC Manufacturing"</span>, <span class="st">"Martin</span><span class="sc">\'</span><span class="st">s Muffins"</span>, <span class="st">"Down Home Appliances"</span>, <span class="st">"Classic City Widgets"</span>, <span class="st">"Watkinsville Diner"</span>),</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">industry=</span><span class="fu">c</span>(<span class="st">"Manufacturing"</span>, <span class="st">"Food Services"</span>, <span class="st">"Manufacturing"</span>, <span class="st">"Manufacturing"</span>, <span class="st">"Food Services"</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">county=</span><span class="fu">c</span>(<span class="st">"Clarke"</span>, <span class="st">"Oconee"</span>, <span class="st">"Clarke"</span>, <span class="st">"Clarke"</span>, <span class="st">"Oconee"</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">employees=</span><span class="fu">c</span>(<span class="dv">531</span>, <span class="dv">6</span>, <span class="dv">15</span>, <span class="dv">211</span>, <span class="dv">25</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="practice-questions" class="level1">
+<h1>Practice Questions</h1>
+<p><strong>Note:</strong> We’ll try to do these on our own, but if you get stuck, the solutions are <a href="introduction_to_R_solutions.html">here</a></p>
+<ol type="1">
+<li><p>Create two vectors as follows</p>
+<p>::: {.cell}</p>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">2</span>,<span class="dv">10</span>,<span class="at">by=</span><span class="dv">2</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">11</span>,<span class="dv">13</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>Add <code>x</code> and <code>y</code>, subtract <code>y</code> from <code>x</code>, multiply <code>x</code> and <code>y</code>, and divide <code>x</code> by <code>y</code> and report your results.</p></li>
+<li><p>The geometric mean of a set of numbers is an alternative measure of central tendency to the more common “arithmetic mean” (this is the mean that we are used to). For a set of <span class="math inline">\(J\)</span> numbers, <span class="math inline">\(x_1,x_2,\ldots,x_J\)</span>, the geometric mean is defined as</p>
+<p><span class="math display">\[
+   (x_1 \cdot x_2 \cdot \cdots \cdot x_J)^{1/J}
+\]</span></p>
+<p>Write a function called <code>geometric_mean</code> that takes in a vector of numbers and computes their geometric mean. Compute the geometric mean of <code>c(10,8,13)</code></p></li>
+<li><p>Use the <code>lubridate</code> package to figure out how many days there were between Jan.&nbsp;1, 1981 and Jan.&nbsp;10, 2022.</p></li>
+<li><p><code>mtcars</code> is one of the data frames that comes packaged with base R.</p>
+<ol type="a">
+<li><p>How many observations does <code>mtcars</code> have?</p></li>
+<li><p>How many columns does <code>mtcars</code> have?</p></li>
+<li><p>What are the names of the columns of <code>mtcars</code>?</p></li>
+<li><p>Print only the rows of <code>mtcars</code> for cars that get at least 20 mpg</p></li>
+<li><p>Print only the rows of <code>mtcars</code> that get at least 20 mpg and have at least 100 horsepower (it is in the column called <code>hp</code>)</p></li>
+<li><p>Print only the rows of <code>mtcars</code> that have 6 or more cylinders (it is in the column labeld <code>cyl</code>) or at least 100 horsepower</p></li>
+<li><p>Recover the 10th row of <code>mtcars</code></p></li>
+<li><p>Sort the rows of <code>mtcars</code> by mpg (from highest to lowest)</p></li>
+</ol></li>
 </ol>
-</section>
-<section id="slides" class="level1">
-<h1>Slides</h1>
-<ul>
-<li>First Week: <a href="introduction_slides.html">Introduction to ECON 8080</a></li>
-</ul>
 </section>
 
 </main>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ECON 8080 Course Material</title>
+<title>Topic 1: Linear Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,16 +23,16 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="index_files/libs/clipboard/clipboard.min.js"></script>
-<script src="index_files/libs/quarto-html/quarto.js"></script>
-<script src="index_files/libs/quarto-html/popper.min.js"></script>
-<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="index_files/libs/quarto-html/anchor.min.js"></script>
-<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="01_linear_regression_files/libs/clipboard/clipboard.min.js"></script>
+<script src="01_linear_regression_files/libs/quarto-html/quarto.js"></script>
+<script src="01_linear_regression_files/libs/quarto-html/popper.min.js"></script>
+<script src="01_linear_regression_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="01_linear_regression_files/libs/quarto-html/anchor.min.js"></script>
+<link href="01_linear_regression_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="01_linear_regression_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="01_linear_regression_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="01_linear_regression_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="01_linear_regression_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -45,7 +45,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">ECON 8080 Course Material</h1>
+<h1 class="title">Topic 1: Linear Regression</h1>
 </div>
 
 
@@ -60,33 +60,39 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="material-covered-in-class" class="level1">
+<h1>Material covered in class</h1>
+<p>Note: My lecture notes follow very closely from Bruce Hansen’s book. His book is excellent and much better than I could write. I provide these here for your convenience, mainly so you can have a copy of the notes that I use to teach from and so you have a reminder of the material that we cover in class (which is mostly subset of the material covered in the book).</p>
 <ul>
-<li><a href="syllabus.pdf">Syllabus</a></li>
+<li><a href="01_linear_regression_notes_1.pdf">Lecture Notes 1: Conditional Expectation and Projection</a> (These notes cover chapter 2 in the book. Please read the entire chapter, but pay particular attention to the sections covered in the notes.)</li>
 </ul>
-<section id="homeworks" class="level1">
-<h1>Homeworks</h1>
+<!--  - [Some additional simulations/explanations about omitted variable bias](omitted_variable_bias_simulations.html)
+
+* [Lecture Notes 2: Why Linear Regression?](01_linear_regression_notes_2.pdf) (These notes are mainly independent of the textbook though related to H: 2.30).  
+
+* [Lecture Notes 3: The Algebra of Least Squares](01_linear_regression_notes_3.pdf) (These notes cover chapter 3 in the book.  Please read the entire chapter, but pay particular attention to the sections covered in the notes.)
+
+* [Lecture Notes 4: Least Squares Regression](01_linear_regression_notes_4.pdf) (These notes cover chapter 4 in the book.  Please read the entire chapter, but pay particular attention to the sections covered in the notes.)
+
+
+* [Lecture Notes 5: Asymptotic Theory for Least Squares](01_linear_regression_notes_5.pdf) (These notes cover chapters 6 and 7 in the book.  Please read the entire chapters, but pay particular attention to the sections covered in the notes.)
+
+-->
 </section>
-<section id="course-material" class="level1">
-<h1>Course Material</h1>
-<p><a href="8070_materials.html">Preliminary Materials from ECON 8070</a></p>
-<p>We will cover the following topics:</p>
-<p>(<span style="color: red; font-weight: bold;">Note:</span> Some of the material will be updated/expanded as we move through the semester. Some of the topics at the end of the semester are tentative.)</p>
-<ol start="0" type="1">
-<li><p><a href="00_introduction_to_R.html">Introduction to R</a></p></li>
-<li><p><a href="01_linear_regression.html">Linear Regression</a></p></li>
-<li><p>[Resampling Methods]</p></li>
-<li><p>[Introduction to Nonlinear Models]</p></li>
-<li><p>[Alternative Approaches to Causal Inference]</p></li>
-<li><p>[Panel Data Approaches to Causal Inference]</p></li>
-<li><p>If we have time, an introduction to [Generalized Method of Moments]</p></li>
-<li><p>If we have time, an introduction to [Nonparametric Regression]</p></li>
-<li><p>If we have time, an introduction to [Quantile Regression]</p></li>
-</ol>
+<section id="additional-material" class="level1">
+<h1>Additional material</h1>
+<p><strong>Preliminary Reading</strong></p>
+<p>As you have time over the first couple of weeks of the semester, you should read Chapter 1 of the textbook as well as Appendix A and B.</p>
+<p>Please pay particular attention to the following sections:</p>
+<p>A.1, A.3-A.6, A.10-A.11, A.20</p>
+<p>as well as the following: <a href="00_matrix_algebra.pdf">Review Notes for Matrix Algebra</a></p>
+<p>The material that we will cover in this topic mainly comes from chapters 2, 3, 4, 6, and 7 of the textbook.</p>
 </section>
-<section id="slides" class="level1">
-<h1>Slides</h1>
+<section id="additional-comments" class="level1">
+<h1>Additional comments</h1>
 <ul>
-<li>First Week: <a href="introduction_slides.html">Introduction to ECON 8080</a></li>
+<li><p>We are not covering the material in chapter 5 at all</p></li>
+<li><p>The material in chapter 6 should be a review for you.</p></li>
 </ul>
 </section>
 
