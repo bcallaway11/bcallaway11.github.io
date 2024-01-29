@@ -14,7 +14,7 @@ author_profile: true
 
 I am an Associate Professor in the Economics Department at the University of Georgia.
 
-My primary research interests are Microeconometrics and Labor Economics. Most of my research has concerned how to use panel data (repeated observations on the same individual or firm over time) to think about causal effects of economic policies.  I have been particularly interested in developing methods related to understanding how effects of policies vary across different individuals.  I am also interested in applications in labor economics.  Specifically, I have worked on understanding the effects of job displacement, minimum wage policies, intergenerational mobility, and unions.  Recently, I have been working on developing methods to understand the effects of Covid-19 related policies.
+My primary research interests are in Microeconometrics.  Most of my research has concerned how to use panel data (repeated observations on the same individual or firm over time) to think about causal effects of economic policies.  I have been particularly interested in developing methods related to understanding how effects of policies vary across different individuals.  I am also interested in applications in labor economics.  Specifically, I have worked on understanding the effects of job displacement, minimum wage policies, intergenerational mobility, and unions.  
 
 At UGA, I teach courses on econometrics, both to graduate and undergraduate students.
 
@@ -24,11 +24,13 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 **Recent Updates:**
 
+* (Jan. 2024) Major update to [Difference-in-differences with a continuous treatment](https://arxiv.org/abs/2107.02637) now available
+
+* New paper: [Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends](https://arxiv.org/abs/2308.02899)
+
 * Slides and code for my presentation at the [Northwestern Causal Inference Workshop](https://www.law.northwestern.edu/research-faculty/events/conferences/causalinference/advanced/) are available [here](files/presentations/northwestern-causal-inference-workshop)
 
-* Slides and code for my presentation at NEXT-D are available [here](files/presentations/NEXT-D)
 
-* My DID chapter in the *Handbook of Labor, Human Resources and Population Economics*.  Here is a [short summary](/posts/did-chapter) of the chapter.
 
 <br>
 
