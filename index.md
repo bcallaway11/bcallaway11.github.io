@@ -24,12 +24,11 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 **Recent Updates:**
 
+* Materials for my DID workshop at LSU are available [here](https://bcallaway11.github.io/lsu-workshop/)
+
 * Slides, code, and data for my DID workshop for the Terry Center for Business Analytics and Insights are available [here](https://bcallaway11.github.io/uga-cbai-workshop/)
 
 * (Jan. 2024) Major update to [Difference-in-differences with a continuous treatment](https://arxiv.org/abs/2107.02637) now available
-
-* New paper: [Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends](https://arxiv.org/abs/2308.02899)
-
 
 
 <br>
