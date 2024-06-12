@@ -6,7 +6,7 @@ permalink: /research/
 
 ## Publications
 
-1. **Event-Studies with a Continuous Treatment** [[pre-print](https://psantanna.com/files/CGBS_AEAPP.pdf)] (with Andrew Goodman-Bacon and Pedro Sant'Anna, forthcoming *AEA Papers & Proceedings*, 2024)
+1. [**Event Studies with a Continuous Treatment**](https://doi.org/10.1257/pandp.20241047) [[pre-print](https://psantanna.com/files/CGBS_AEAPP.pdf)] (with Andrew Goodman-Bacon and Pedro Sant'Anna, *AEA Papers & Proceedings*, Vol. 114, pp. 601-605, 2024.)
 
 1. [**Policy Evaluation during a Pandemic**](https://doi.org/10.1016/j.jeconom.2023.03.009) [[arXiv](https://arxiv.org/abs/2105.06927)] [[5 Minute Summary](/posts/five-minute-pandemic-policy)] [[Supplementary Appendix](/files/pandemic-policy/Callaway_Li_2023_Supplementary_Appendix.pdf)] (with Tong Li, *Journal of Econometrics*, Vol. 236, No. 1, 2023.)     
 
