@@ -56,7 +56,7 @@ permalink: /research/
 
 * [**Difference-in-Differences when Parallel Trends Holds Conditional on Covariates**](https://arxiv.org/abs/2202.02903) (with Carolina Caetano)
 
-* [**Nonlinear Approaches to Intergenerational Income Mobility allowing for Measurement Error**](http://arxiv.org/abs/2107.09235) (with Tong Li and Irina Murtazashvili, submitted)
+* [**Distributional Effects with Two-Sided Measurement Error: An Application to Intergenerational Income Mobility**](http://arxiv.org/abs/2107.09235) (with Tong Li and Irina Murtazashvili, submitted)
 
 * [**Difference-in-Differences with a Continuous Treatment**](https://arxiv.org/abs/2107.02637) [[5 Minute Summary](/posts/five-minute-did-continuous-treatment)] [[Slides](/files/DID-Continuous-Treatment/slides/did_reading_group.html)] [[Supplementary Appendix](https://psantanna.com/files/CGBS_supp.pdf)] (with Andrew Goodman-Bacon and Pedro H.C. Sant'Anna, submitted) 
 
