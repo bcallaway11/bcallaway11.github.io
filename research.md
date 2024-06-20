@@ -50,11 +50,11 @@ permalink: /research/
 
 ## Working Papers
 
-* [**Difference-in-Differences Designs: A Practitioner's Guide**], with Andrew Baker, Scott Cunningham, Andrew Goodman-Bacon, and Pedro H.C. Sant'Anna, submitted
+* **Difference-in-Differences Designs: A Practitioner's Guide**, with Andrew Baker, Scott Cunningham, Andrew Goodman-Bacon, and Pedro H.C. Sant'Anna, revise and resubmit
 
 * [**Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends**](https://arxiv.org/abs/2308.02899) (with Emmanuel Tsyawo)
 
-* **Regulation, Emissions, and Productivity: Evidence from China's Eleventh Five-Year Plan** (with Tong Li, Joel Rodrigue, Yuya Sasaki, and Yong Tan, submitted)
+* [**Regulation, Emissions, and Productivity: Evidence from China's Eleventh Five-Year Plan**](https://www.bankofcanada.ca/wp-content/uploads/2024/03/swp2024-7.pdf) (with Tong Li, Joel Rodrigue, Yuya Sasaki, and Yong Tan, submitted)
 
 * [**Difference-in-Differences when Parallel Trends Holds Conditional on Covariates**](https://arxiv.org/abs/2202.02903) (with Carolina Caetano)
 
