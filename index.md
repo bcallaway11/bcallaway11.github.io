@@ -24,7 +24,7 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 **Recent Updates:**
 
-* Slides, code, and data for my DID session at the 2024 AAEA Conference are available [here](https://github.com/bcallaway11/AAEA/)
+* Slides, code, and data for my DID session at the 2024 AAEA Conference are available [here](https://bcallaway11.github.io/AAEA/)
 
 * Materials for my DID workshop at LSU are available [here](https://bcallaway11.github.io/lsu-workshop/)
 
