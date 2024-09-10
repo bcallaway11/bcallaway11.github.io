@@ -77,4 +77,4 @@ permalink: /research/
 
 * [**Difference in Differences with Time Varying Covariates**](https://arxiv.org/abs/2202.02903v1) [[5 Minute Summary](posts/fms-did-time-varying-covariates)] (with Carolina Caetano, Stroud Payne, and Hugo Sant'Anna Rodrigues)
 
-    * This paper is the ancestor of (and is replaced by) "Difference-in-Differences with Covariates in the Parallel Trends Assumption" and "Difference-in-Differences with Bad Controls"
+    * This paper is the ancestor of (and is replaced by) "Difference-in-Differences when Parallel Trends Holds Conditional on Covariates" and "Difference-in-Differences with Bad Controls"
