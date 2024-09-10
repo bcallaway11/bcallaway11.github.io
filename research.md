@@ -56,9 +56,9 @@ permalink: /research/
 
 * [**Regulation, Emissions, and Productivity: Evidence from China's Eleventh Five-Year Plan**](https://www.bankofcanada.ca/wp-content/uploads/2024/03/swp2024-7.pdf) (with Tong Li, Joel Rodrigue, Yuya Sasaki, and Yong Tan, submitted)
 
-* [**Difference-in-Differences when Parallel Trends Holds Conditional on Covariates**](https://arxiv.org/abs/2202.02903) (with Carolina Caetano)
+* [**Difference-in-Differences when Parallel Trends Holds Conditional on Covariates**](/files/DID-Covariates/Caetano_Callaway_2024.pdf) [[Supplementary Appendix](/files/DID-Covaraites/CC_Supplementary_Appendix.pdf)] [[arXiv](https://https://arxiv.org/abs/2406.15288)] (with Carolina Caetano, submitted)
 
-* [**Distributional Effects with Two-Sided Measurement Error: An Application to Intergenerational Income Mobility**](http://arxiv.org/abs/2107.09235) (with Tong Li and Irina Murtazashvili, submitted)
+* [**Distributional Effects with Two-Sided Measurement Error: An Application to Intergenerational Income Mobility**](/files/Two-Sided-Measurement-Error/Callaway_Li_Murtazashvili_2024.pdf) [[arXiv](http://arxiv.org/abs/2107.09235)] (with Tong Li and Irina Murtazashvili, submitted)
 
 * [**Difference-in-Differences with a Continuous Treatment**](https://arxiv.org/abs/2107.02637) [[5 Minute Summary](/posts/five-minute-did-continuous-treatment)] [[Slides](/files/DID-Continuous-Treatment/slides/did_reading_group.html)] [[Supplementary Appendix](https://psantanna.com/files/CGBS_supp.pdf)] (with Andrew Goodman-Bacon and Pedro H.C. Sant'Anna, revise and resubmit) 
 
