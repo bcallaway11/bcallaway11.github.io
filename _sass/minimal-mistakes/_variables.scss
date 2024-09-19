@@ -12,26 +12,29 @@ $doc-font-size: 16 !default;
 $paragraph-indent: false !default; // true, false (default)
 $indent-var: 1.3em !default;
 
-/* system typefaces */
-$serif: "Merriweather", Georgia, Times, serif !default;
-$sans-serif: "Lato", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI",
-  "Helvetica Neue", "Lucida Grande", Arial, sans-serif !default;
-$monospace: Monaco, Consolas, "Lucida Console", monospace !default;
+/* Primary Fonts */
+$primary-sans-serif: "Lato", sans-serif !default;
+$primary-serif: "Merriweather", serif !default;
 
-/* sans serif typefaces */
-$sans-serif-narrow: $sans-serif !default;
-$helvetica: Helvetica, "Helvetica Neue", Arial, sans-serif !default;
+/* Fallback System Fonts (Similar to Lato) */
+$serif: $primary-serif, "Noto Serif", "Merriweather", "Georgia", Times, serif !default;
+$sans-serif: $primary-sans-serif, "Open Sans", "Roboto", "Helvetica Neue", Arial, sans-serif !default;
+$monospace: "Menlo", Monaco, Consolas, "Lucida Console", monospace !default;
 
-/* serif typefaces */
-$georgia: Georgia, serif !default;
-$times: Times, serif !default;
-$bodoni: "Bodoni MT", serif !default;
-$calisto: "Calisto MT", serif !default;
-$garamond: Garamond, serif !default;
+/* Apply Lato Aggressively */
+$global-font-family: $primary-sans-serif !default;
+$header-font-family: $primary-sans-serif !default;
+$caption-font-family: $primary-serif !default;
 
-$global-font-family: $sans-serif !default;
-$header-font-family: $sans-serif !default;
-$caption-font-family: $serif !default;
+/* Other Font Groups (More Similar to Lato) */
+$sans-serif-narrow: $primary-sans-serif !default;
+$helvetica: $primary-sans-serif, "Open Sans", "Roboto", "Helvetica Neue", sans-serif !default;
+$georgia: $primary-serif, "Noto Serif", "Merriweather", serif !default;
+$times: $primary-serif, "Noto Serif", serif !default;
+$bodoni: $primary-serif, "Noto Serif", serif !default;
+$calisto: $primary-serif, "Noto Serif", serif !default;
+$garamond: $primary-serif, "Noto Serif", serif !default;
+
 
 /* type scale */
 $type-size-1: 2.441em !default; // ~39.056px
