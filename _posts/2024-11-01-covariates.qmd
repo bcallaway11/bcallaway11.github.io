@@ -1,0 +1,53 @@
+---
+title: More on DiD with Covariates in the Parallel Trends Assumption
+output:
+  md_document:
+    variant: "gfm+tex_math_dollars"
+    preserve_yaml: TRUE
+author: "brant"
+date: '2024-11-01'
+layout: single
+permalink: /posts/dCdH
+categories:
+  - Econometrics
+  - Policy Evaluation
+  - Panel Data
+comments: true
+---
+
+$$\newcommand{\E}{\mathbb{E}}$$
+$$\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+A few weeks ago, [Carol Caetano](http://carolinacaetano.net/) posted an update of over DiD paper on including covariates in DiD applications---[``Difference-in-Differences when Parallel Trends Holds Conditional on Covariates"](**link**)
+
+As a bit of backstory, we split this paper off from our previous paper [``Difference in Differences with Time-Varying Covariates''](https://arxiv.org/abs/2202.02903).  The original paper had a lot about "bad controls" and some about interpreting TWFE regressions that include covariates.  We decided to split those two papers, and the paper in this post has a lot about the pros and cons of different estimation strategies when the covariates in an application can be time-varying, time-invariant, or a mixture of both.  For the time-varying covariates we are thinking about the case where they evolve exogenously.  We'll post an updated version of the "bad controls" paper soon, which is co-authored with [Hugo Sant'Anna](**link**) and [Stoud Payne](**link**)
+
+For this post, I would like to emphasize
+
+Let's start with an even simpler case though.  Let's suppose that we have cross sectional data and that we assume unconfoundedness.  That is,
+$$Y_(0) \independent D | X$$
+and consider what happens when we try to estimate causal effects of the treatment using the following regression:
+$$Y_i = \alpha D_i + X_i'\beta + e_i$$
+The best case scenario, of course, would be if we have correctly specified a model for $\E[Y|X,D]$.  In this case, $\alpha$ is the $ATT$ and everything will work fine.
+
+Because we are in a treatment effects setting, it is worthwhile to think
+
+Notice that one implication of the linear model above is that there is no systematic treatment effect heterogeneity (i.e., that average treatment effects are the same across all values of the covariates).  In particular, notice that, for any $X$, $\E[Y|X,D=1] - \E[Y|X,D=0] = \alpha$.
+
+My sense is that most empirical work in economics these days does not think of the linear model above as being necessarily correctly specified, but rather in terms of it being the best linear approximation to a possibly nonlinear conditional expectation.  In this case, you can decompose $\alpha$ from above as
+$$ \alpha = \E\Big[ w_1(X) ATT(X) \Big| D=1 \Big] + \E\Big[ w_1(X) \Big(\E[Y|X,D=0] - \L_0(Y|X)\Big) \Big| D=1\Big] $$
+What this means is that $\alpha$ can be decomposed as a weighted average of (1) conditional-on-covariates $ATT$s and (2) a misspecification bias term.
+
+It turns out that the misspecification bias term will be equal to 0 in either of two cases:
+
+1. The conditional expectation of $Y$ given $X$ and $D=0$ really is linear
+
+2. The implicit regression weights, $w_1(X)$ and $w_2(X)$, balance any functions of $X$.  That is, $\E[w_1(X) g(X) | D=1] = \E[w_0(X) g(X) | D=0]$ for any $g$.\footnote{Probably the most well-known paper in the econometrics literature on interpreting regressions like the one above under treatment effect heterogeneity, @angrist-1998, uses an argument along these lines: under the condition that the propensity score is linear (i.e., $p(D=1|X) = \L(D|X)$), then the balancing condition discussed here holds.  Moreover, in this case, the weights on conditional $ATT$'s are also guaranteed to be positive for all values of $X$.}
+
+
+
