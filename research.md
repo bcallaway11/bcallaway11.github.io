@@ -50,6 +50,8 @@ permalink: /research/
 
 ## Working Papers
 
+* [**Testing the Effects of an Unobservable Factor: Do Marriage Prospects Affect College Major Choice?**](https://arxiv.org/abs/2410.19947) (with Alper Arslan and Tong Li)
+
 * **Difference-in-Differences Designs: A Practitioner's Guide**, with Andrew Baker, Scott Cunningham, Andrew Goodman-Bacon, and Pedro H.C. Sant'Anna, revise and resubmit
 
 * [**Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends**](https://arxiv.org/abs/2308.02899) (with Emmanuel Tsyawo)
@@ -65,8 +67,6 @@ permalink: /research/
 ## Work in Progress
 
 * **Inference on Counterfactual Transition Matrices** (with Chengye Jia and Karen Yan)
-
-* **Testing the Effects of an Unobservable Factor: Do Marriage Prospects Affect College Major Choice?** (with Alper Arslan and Tong Li)
 
 * **Difference-in-Differences with Bad Controls** (with Carolina Caetano, Stroud Payne, and Hugo Sant'Anna)
 
