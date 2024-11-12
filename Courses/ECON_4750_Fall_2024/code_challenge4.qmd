@@ -1,0 +1,76 @@
+---
+title: "Code Challenge 4"
+format:
+  html:
+    theme: united
+    css: "../style.css"
+    self-contained: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+$$\newcommand{\E}{\mathbb{E}}$$
+
+For this problem, we will use the `Caschool` data which you can load with the following command (you may need to install the `Ecdat` package first if you have not previously done so)
+
+`data(Caschool, package="Ecdat")`
+
+I would like for you to run the following two regressions:
+
+1. A regression of `mathscr` on the following variables: `str`, `avginc`.
+
+2. A regression of `mathscr` on the following variables: `str`, `avginc`, `grspan`, `enrltot`, `teachers`, `calwpct`, `mealpct`, `computer`, `compstu`, `expnstu`, `elpct`.
+
+For each of the two models, compute $R^2$, adjusted $R^2$, $AIC$, and $BIC$.
+
+
+**To win**
+
+Email me, [brantly.callaway@uga.edu](mailto://brantly.callaway@uga.edu) all 8 of the numbers that you calculated <span style="color:red; font-weight:bold">AND</span> which model you would choose to make predictions with according to each criteria.
+
+<br><br>
+
+<span style="color:red; font-weight:bold">Solution below...</span>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+```{r}
+data(Caschool, package="Ecdat")
+reg1 <- lm(mathscr ~ str + avginc, data=Caschool)
+reg2 <- lm(mathscr ~ str + avginc + grspan + enrltot + teachers + calwpct + mealpct + computer + compstu + expnstu + elpct, data=Caschool)
+
+r_squared1 <- summary(reg1)$r.squared
+r_squared2 <- summary(reg2)$r.squared
+r_squared1
+r_squared2
+
+n <- nrow(Caschool)
+k1 <- 3
+k2 <- length(coef(reg2))
+
+
+SSR1 <- sum(resid(reg1)^2)
+SSR2 <- sum(resid(reg2)^2)
+barY <- mean(Caschool$mathscr)
+TSS <- sum( (Caschool$mathscr - barY)^2)
+adj_r_squared1 <- 1 - (n-1)/(n-k1) * SSR1/TSS
+adj_r_squared2 <- 1 - (n-1)/(n-k2) * SSR2/TSS
+adj_r_squared1
+adj_r_squared2
+
+aic1 <- 2*k1 + n*log(SSR1)
+aic2 <- 2*k2 + n*log(SSR2)
+aic1
+aic2
+
+bic1 <- k1*log(n) + n*log(SSR1)
+bic2 <- k2*log(n) + n*log(SSR2)
+bic1
+bic2
+```
+
+You can see that all four model selection criteria favor the second model.  The $R^2$ is higher, the adjusted $R^2$ is higher, the AIC is lower, and the BIC is lower.
+
