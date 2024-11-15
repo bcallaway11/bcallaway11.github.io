@@ -24,7 +24,7 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 **Recent Updates:**
 
-* Materials for my Mini-Course on Difference-in-Differences at the Bank of Portugal are available [here](https://bcallaway11.github.io/bank-of-portugal/)
+* Materials for my workshop on Difference-in-Differences at Notre Dame are available [here](https://bcallaway11.github.io/notre-dame/)
 
 * (Sept. 2024) Major update to [Difference-in-differences when parallel trends holds conditional on covariates](/files/DID-Covariates/Caetano_Callaway_2024.pdf)
 
