@@ -1,6 +1,6 @@
 ---
 layout: single
-title: 
+title:
 permalink: /
 author_profile: true
 ---
@@ -14,7 +14,7 @@ author_profile: true
 
 I am an Associate Professor in the Economics Department at the University of Georgia.
 
-My primary research interests are in Microeconometrics.  Most of my research has concerned how to use panel data (repeated observations on the same individual or firm over time) to think about causal effects of economic policies.  I have been particularly interested in developing methods related to understanding how effects of policies vary across different individuals.  I am also interested in applications in labor economics.  Specifically, I have worked on understanding the effects of job displacement, minimum wage policies, intergenerational mobility, and unions.  
+My primary research interests are in Microeconometrics.  Most of my research has concerned how to use panel data (repeated observations on the same individual or firm over time) to think about causal effects of economic policies.  I have been particularly interested in developing methods related to understanding how effects of policies vary across different individuals.  I am also interested in applications in labor economics.  Specifically, I have worked on understanding the effects of job displacement, minimum wage policies, intergenerational mobility, and unions.
 
 At UGA, I teach courses on econometrics, both to graduate and undergraduate students.
 
@@ -24,7 +24,7 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 **Recent Updates:**
 
-* Materials for my workshop on Difference-in-Differences at Notre Dame are available [here](https://bcallaway11.github.io/notre-dame/)
+* Materials for my difference-in-differences workshop for Terry's Center for Business Analytics and Insights are available [here](https://bcallaway11.github.io/uga-cbai-workshop/)
 
 * (Sept. 2024) Major update to [Difference-in-differences when parallel trends holds conditional on covariates](/files/DID-Covariates/Caetano_Callaway_2024.pdf)
 
