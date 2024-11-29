@@ -23,19 +23,22 @@ permalink: /posts/unconfoundedness-regressions
   color: #00A3AD;
   font-weight: 400;
 }
-.citation {
+span.citation {
   color: #007acc;
   font-weight: 400;
 }
-.notation {
+span.notation {
   color: #2ecc71;
   font-weight: 400;
 }
-.references {
-  margin-top: 1.5em;
-}
 .csl-entry {
-  margin-bottom: 1.5em;
+  margin-bottom: 0.5em;
+}
+div.citation {
+  border: 3px solid #ccc;
+  padding: 25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 </style>
 
@@ -190,6 +193,8 @@ $$X$$, then the weights will matter a lot.
 
 # References
 
+<div class="citation">
+
 <span class="citation">Citation:</span>
 
 <pre>
@@ -202,6 +207,8 @@ $$X$$, then the weights will matter a lot.
   urldate      = {\today},
 }
 </pre>
+
+</div>
 
 <div id="refs" class="references csl-bib-body hanging-indent"
 entry-spacing="0">
