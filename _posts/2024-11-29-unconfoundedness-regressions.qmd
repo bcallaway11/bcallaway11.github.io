@@ -29,26 +29,12 @@ permalink: /posts/unconfoundedness-regressions
   font-weight: 400;
 }
 
-div.notation {
-  border: 3px solid #ccc;
-  padding: 25px;
-  margin-top: 25px;
-  margin-bottom: 25px;
-}
-
-div.citation {
-  border: 3px solid #ccc;
-  padding: 25px;
-  margin-top: 25px;
-  margin-bottom: 25px;
-}
-
-span.citation {
+.citation {
   color: #007acc;
   font-weight: 400;
 }
 
-span.notation {
+.notation {
   color: #2ecc71;
   font-weight: 400;
 }
@@ -84,7 +70,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 * $$\L(D|X)$$ - a (possibly misspecified) linear probability model for the propensity score.  The notation stands for the linear projection of $$D$$ on $$X$$.
 
-* $$\L_0(Y|X)$$ - a (possibly misspecified) linear model for $$\E[Y|X,D=0]$$.
+* $$ \L_0(Y|X) $$ - a (possibly misspecified) linear model for $$\E[Y|X,D=0]$$.
 
 I have been working recently on a project that is partially about how to interpret TWFE regressions that include covariates: @caetano-callaway-2023.  That project builds on a fairly large literature on interpreting cross-sectional regressions under the assumption of unconfoundedness.  There are a number of interesting papers that take on this question from different perspectives: @angrist-1998, @aronow-samii-2016, @sloczynski-2022, @chattopadhyay-zubizarreta-2023, @blandhol-bonney-mogstad-torgovitsky-2022, @hahn-2023.  This is my attempt to summarize some of the key insights from these papers.
 
@@ -106,10 +92,11 @@ My sense is that this is not the view of most modern empirical work, where it se
 
 This is the question that the papers mentioned above have tried to answer.  To proceed, let's start with a decomposition of $$\alpha$$:
 
-$$\alpha = \underbrace{\E\Big[w_1(X) ATT(X) \Big| G=1\Big]}_{\textrm{weighted avg. of $$ATT(X)$$}} + \underbrace{\E\Big[w_1(X)\Big(\E[Y|X,G=0] - \L_0(Y|X)\Big) \Big| G=1\Big]}_{\textrm{misspecification bias}}$$
+$$ \alpha = \underbrace{\E\Big[w_1(X) ATT(X) \Big| G=1\Big]}_{\textrm{weighted avg. of $$ATT(X)$$}} + \underbrace{\E\Big[w_1(X)\Big(\E[Y|X,G=0] - \L_0(Y|X)\Big) \Big| G=1\Big]}_{\textrm{misspecification bias}} $$
 
 where
 $$ w_1(X) := \frac{\big(1-\L(D|X)\big) \pi}{\E\big[(D-\L(D|X))^2\big]}~~~~\textrm{and}~~~~w_0(X) := \frac{\L(D|X)(1-\pi)}{\E\big[(D-\L(D|X))^2\big]} $$
+
 Let's start with the [weights]{.alert-blue} $$w_1(X)$$ and $$w_0(X)$$.  First, the weights are functions of $$X$$ and have mean 1 (this may not be obvious from the expression, but it turns out that it is easy to show, mainly by using the law of iterated expectations on the demoninator).  Second, notice that it's possible that these weights can be negative, given that $$\L(D|X)$$, a linear probability model, is not constrained to be between 0 and 1.  Third, it's easy to calculate the sample analog of the weights as the most complicated term is a linear projection, which we can directly estimate by running a regresson of $$D$$ on $$X$$ and recovering predicted values.
 
 Next, let's look at the [misspecification bias]{.alert-blue} term.  Ideally, we would like this term to be equal to 0.  And there are two cases where it will be:
