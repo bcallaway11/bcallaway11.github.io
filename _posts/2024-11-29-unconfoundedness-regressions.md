@@ -13,6 +13,38 @@ css: /assets/css/brant.css
 permalink: /posts/unconfoundedness-regressions
 ---
 
+<style>
+/* brant customizations */
+.alert {
+  color: #BA0C2F;
+  font-weight: 400;
+}
+&#10;.alert-blue {
+  color: #00A3AD;
+  font-weight: 400;
+}
+&#10;div.notation {
+  border: 3px solid #ccc;
+  padding: 25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+&#10;div.citation {
+  border: 3px solid #ccc;
+  padding: 25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+&#10;span.citation {
+  color: #007acc;
+  font-weight: 400;
+}
+&#10;span.notation {
+  color: #2ecc71;
+  font-weight: 400;
+}
+</style>
+
 $$\newcommand{\E}{\mathbb{E}}$$
 $$\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$
 $$\newcommand{\L}{\mathrm{L}}$$ $$\renewcommand{\P}{\mathrm{P}}$$
