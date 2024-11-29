@@ -18,8 +18,6 @@ $$\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$
 $$\newcommand{\L}{\mathrm{L}}$$ $$\renewcommand{\P}{\mathrm{P}}$$
 $$\newcommand{\independent}{\mathrel{\perp\!\!\!\perp}}$$
 
-<div class="citation">
-
 <span class="citation">Citation:</span>
 
 <pre>
@@ -33,23 +31,17 @@ $$\newcommand{\independent}{\mathrel{\perp\!\!\!\perp}}$$
 }
 </pre>
 
-</div>
-
-<div class="notation">
-
 <span class="notation">Notation:</span>
 
-• $$ATT(X) := \E[Y(1) - Y(0) | X]$$ - the $$ATT$$ for a given value of
-the covariates $$X$$.
+- $$ATT(X) := \E[Y(1) - Y(0) | X]$$ - the $$ATT$$ for a given value of
+  the covariates $$X$$.
 
-• $$\L(D|X)$$ - a (possibly misspecified) linear probability model for
-the propensity score. The notation stands for the linear projection of
-$$D$$ on $$X$$.
+- $$\L(D|X)$$ - a (possibly misspecified) linear probability model for
+  the propensity score. The notation stands for the linear projection of
+  $$D$$ on $$X$$.
 
-• $\L_0(Y|X)$ - a (possibly misspecified) linear model for
-$$\E[Y|X,D=0]$$.
-
-</div>
+- $\L_0(Y|X)$ - a (possibly misspecified) linear model for
+  $$\E[Y|X,D=0]$$.
 
 I have been working recently on a project that is partially about how to
 interpret TWFE regressions that include covariates: Caetano and Callaway
@@ -65,10 +57,15 @@ I’ll set this up in a way that targets the $$ATT$$ (rather than
 $$ATE$$), but I think you could make analogous arguments if you were
 targeting the $$ATE$$ instead. Let’s suppose that we have cross
 sectional data and that we assume unconfoundedness. That is,
-$$Y_(0) \independent D | X$$ and consider what happens when we try to
-estimate causal effects of the treatment using the following regression:
-$$Y_i = \alpha D_i + X_i'\beta + e_i$$ There are a couple of different
-ways we could view this regression.
+
+$$Y(0) \independent D | X$$
+
+and consider what happens when we try to estimate causal effects of the
+treatment using the following regression:
+
+$$Y_i = \alpha D_i + X_i'\beta + e_i$$
+
+There are a couple of different ways we could view this regression.
 
 <span class="alert">View \#1:</span> The regression model is correctly
 specified in the sense that $$\E[Y|X,D] = \alpha D + X'\beta$$. In this
@@ -94,7 +91,9 @@ interpret $$\alpha$$?
 
 This is the question that the papers mentioned above have tried to
 answer. To proceed, let’s start with a decomposition of $$\alpha$$:
-$$ \alpha = \underbrace{\E\Big[w_1(X) ATT(X) \Big| G=1\Big]}_{\textrm{weighted avg. of $$ATT(X)$$}} + \underbrace{\E\Big[w_1(X)\Big(\E[Y|X,G=0] - \L_0(Y|X)\Big) \Big| G=1\Big]}_{\textrm{misspecification bias}} $$
+
+$$\alpha = \underbrace{\E\Big[w_1(X) ATT(X) \Big| G=1\Big]}_{\textrm{weighted avg. of $$ATT(X)$$}} + \underbrace{\E\Big[w_1(X)\Big(\E[Y|X,G=0] - \L_0(Y|X)\Big) \Big| G=1\Big]}_{\textrm{misspecification bias}}$$
+
 where
 $$ w_1(X) := \frac{\big(1-\L(D|X)\big) \pi}{\E\big[(D-\L(D|X))^2\big]}~~~~\textrm{and}~~~~w_0(X) := \frac{\L(D|X)(1-\pi)}{\E\big[(D-\L(D|X))^2\big]} $$
 Let’s start with the <span class="alert-blue">weights</span> $$w_1(X)$$

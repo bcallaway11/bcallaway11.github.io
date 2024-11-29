@@ -27,7 +27,6 @@ $$\newcommand{\independent}{\mathrel{\perp\!\!\!\perp}}$$
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-::: {.citation}
 
 [Citation:]{.citation}
 
@@ -42,25 +41,24 @@ knitr::opts_chunk$set(echo = TRUE)
 }
 </pre>
 
-:::
-
-::: {.notation}
-
 [Notation:]{.notation}
 
-&bull; $$ATT(X) := \E[Y(1) - Y(0) | X]$$ - the $$ATT$$ for a given value of the covariates $$X$$.
+* $$ATT(X) := \E[Y(1) - Y(0) | X]$$ - the $$ATT$$ for a given value of the covariates $$X$$.
 
-&bull; $$\L(D|X)$$ - a (possibly misspecified) linear probability model for the propensity score.  The notation stands for the linear projection of $$D$$ on $$X$$.
+* $$\L(D|X)$$ - a (possibly misspecified) linear probability model for the propensity score.  The notation stands for the linear projection of $$D$$ on $$X$$.
 
-&bull; $\L_0(Y|X)$ - a (possibly misspecified) linear model for $$\E[Y|X,D=0]$$.
-:::
+* $\L_0(Y|X)$ - a (possibly misspecified) linear model for $$\E[Y|X,D=0]$$.
 
 I have been working recently on a project that is partially about how to interpret TWFE regressions that include covariates: @caetano-callaway-2023.  That project builds on a fairly large literature on interpreting cross-sectional regressions under the assumption of unconfoundedness.  There are a number of interesting papers that take on this question from different perspectives: @angrist-1998, @aronow-samii-2016, @sloczynski-2022, @chattopadhyay-zubizarreta-2023, @blandhol-bonney-mogstad-torgovitsky-2022, @hahn-2023.  This is my attempt to summarize some of the key insights from these papers.
 
 I'll set this up in a way that targets the $$ATT$$ (rather than $$ATE$$), but I think you could make analogous arguments if you were targeting the $$ATE$$ instead.  Let's suppose that we have cross sectional data and that we assume unconfoundedness.  That is,
-$$Y_(0) \independent D | X$$
+
+$$Y(0) \independent D | X$$
+
 and consider what happens when we try to estimate causal effects of the treatment using the following regression:
+
 $$Y_i = \alpha D_i + X_i'\beta + e_i$$
+
 There are a couple of different ways we could view this regression.
 
 [View #1: ]{.alert} The regression model is correctly specified in the sense that $$\E[Y|X,D] = \alpha D + X'\beta$$.  In this case, $$\alpha=ATT$$, and you can just run the regression and interpret the coefficient on $$D$$ as the $$ATT$$.
@@ -70,7 +68,9 @@ My sense is that this is not the view of most modern empirical work, where it se
 [View #2: ]{.alert} The regression model is a linear approximation to a possibly more complicated, nonlinear conditional expectation.  This view allows for systematic treatment effect heterogeneity, i.e., that $$ATT(X)$$ can vary across different values of $$X$$.  However, this setting begs the question: how exactly should we interpret $$\alpha$$?
 
 This is the question that the papers mentioned above have tried to answer.  To proceed, let's start with a decomposition of $$\alpha$$:
-$$ \alpha = \underbrace{\E\Big[w_1(X) ATT(X) \Big| G=1\Big]}_{\textrm{weighted avg. of $$ATT(X)$$}} + \underbrace{\E\Big[w_1(X)\Big(\E[Y|X,G=0] - \L_0(Y|X)\Big) \Big| G=1\Big]}_{\textrm{misspecification bias}} $$
+
+$$\alpha = \underbrace{\E\Big[w_1(X) ATT(X) \Big| G=1\Big]}_{\textrm{weighted avg. of $$ATT(X)$$}} + \underbrace{\E\Big[w_1(X)\Big(\E[Y|X,G=0] - \L_0(Y|X)\Big) \Big| G=1\Big]}_{\textrm{misspecification bias}}$$
+
 where
 $$ w_1(X) := \frac{\big(1-\L(D|X)\big) \pi}{\E\big[(D-\L(D|X))^2\big]}~~~~\textrm{and}~~~~w_0(X) := \frac{\L(D|X)(1-\pi)}{\E\big[(D-\L(D|X))^2\big]} $$
 Let's start with the [weights]{.alert-blue} $$w_1(X)$$ and $$w_0(X)$$.  First, the weights are functions of $$X$$ and have mean 1 (this may not be obvious from the expression, but it turns out that it is easy to show, mainly by using the law of iterated expectations on the demoninator).  Second, notice that it's possible that these weights can be negative, given that $$\L(D|X)$$, a linear probability model, is not constrained to be between 0 and 1.  Third, it's easy to calculate the sample analog of the weights as the most complicated term is a linear projection, which we can directly estimate by running a regresson of $$D$$ on $$X$$ and recovering predicted values.
