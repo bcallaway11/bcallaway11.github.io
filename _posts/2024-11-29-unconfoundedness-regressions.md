@@ -53,8 +53,8 @@ $$\newcommand{\independent}{\mathrel{\perp\!\!\!\perp}}$$
   the propensity score. The notation stands for the linear projection of
   $$D$$ on $$X$$.
 
-- $$\L_0(Y\|X)$$ - a (possibly misspecified) linear model for
-  $$\E[Y\|X,D=0]$$.
+- $$\L_0(Y|X)$$ - a (possibly misspecified) linear model for
+  $$\E[Y|X,D=0]$$.
 
 I have been working recently on a project that is partially about how to
 interpret TWFE regressions that include covariates: Caetano and Callaway
