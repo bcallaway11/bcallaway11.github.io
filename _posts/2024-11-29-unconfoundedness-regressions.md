@@ -25,11 +25,11 @@ permalink: /posts/unconfoundedness-regressions
 }
 span.citation {
   color: #007acc;
-  font-weight: 400;
+  font-weight: bold;
 }
 span.notation {
-  color: #2ecc71;
-  font-weight: 400;
+  color: #007acc;
+  font-weight: bold;
 }
 .csl-entry {
   margin-bottom: 0.5em;
@@ -47,17 +47,17 @@ $$\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$
 $$\newcommand{\L}{\mathrm{L}}$$ $$\renewcommand{\P}{\mathrm{P}}$$
 $$\newcommand{\independent}{\mathrel{\perp\!\!\!\perp}}$$
 
-<span class="notation">Notation:</span>
-
-- $$ATT(X) := \E[Y(1) - Y(0) | X]$$ - the $$ATT$$ for a given value of
-  the covariates $$X$$.
-
-- $$\L(D|X)$$ - a (possibly misspecified) linear probability model for
-  the propensity score. The notation stands for the linear projection of
-  $$D$$ on $$X$$.
-
-- $$\L_0(Y\mid|X)$$ - a (possibly misspecified) linear model for
-  $$\E[Y\mid|X,D=0]$$.
+> <span class="notation">Notation:</span>
+>
+> - $$ATT(X) := \E[Y(1) - Y(0) | X]$$ - the $$ATT$$ for a given value of
+>   the covariates $$X$$.
+>
+> - $$\L(D|X)$$ - a (possibly misspecified) linear probability model for
+>   the propensity score. The notation stands for the linear projection
+>   of $$D$$ on $$X$$.
+>
+> - $$\L_0(Y\|X)$$ - a (possibly misspecified) linear model for
+>   $$\E[Y\|X,D=0]$$.
 
 I have been working recently on a project that is partially about how to
 interpret TWFE regressions that include covariates: Caetano and Callaway
