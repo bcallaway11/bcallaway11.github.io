@@ -19,17 +19,23 @@ permalink: /posts/unconfoundedness-regressions
   color: #BA0C2F;
   font-weight: 400;
 }
-&#10;.alert-blue {
+.alert-blue {
   color: #00A3AD;
   font-weight: 400;
 }
-&#10;.citation {
+.citation {
   color: #007acc;
   font-weight: 400;
 }
-&#10;.notation {
+.notation {
   color: #2ecc71;
   font-weight: 400;
+}
+.references {
+  margin-top: 1.5em;
+}
+.csl-entry {
+  margin-bottom: 1.5em;
 }
 </style>
 
@@ -37,19 +43,6 @@ $$\newcommand{\E}{\mathbb{E}}$$
 $$\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$
 $$\newcommand{\L}{\mathrm{L}}$$ $$\renewcommand{\P}{\mathrm{P}}$$
 $$\newcommand{\independent}{\mathrel{\perp\!\!\!\perp}}$$
-
-<span class="citation">Citation:</span>
-
-<pre>
-@online{callaway-unconfoundedness-regressions-2024,
-  author       = {Callaway, Brantly},
-  title        = {Interpreting Regressions under the Assumption of Unconfoundedness},
-  year         = {2024},
-  month        = {11},
-  url          = {https://bcallaway11.github.io/posts/unconfoundedness-regressions},
-  urldate      = {\today},
-}
-</pre>
 
 <span class="notation">Notation:</span>
 
@@ -196,6 +189,19 @@ $$ATT$$. At the opposite extreme, if $$ATT(X)$$ varies a lot across
 $$X$$, then the weights will matter a lot.
 
 # References
+
+<span class="citation">Citation:</span>
+
+<pre>
+@online{callaway-unconfoundedness-regressions-2024,
+  author       = {Callaway, Brantly},
+  title        = {Interpreting Regressions under the Assumption of Unconfoundedness},
+  year         = {2024},
+  month        = {11},
+  url          = {https://bcallaway11.github.io/posts/unconfoundedness-regressions},
+  urldate      = {\today},
+}
+</pre>
 
 <div id="refs" class="references csl-bib-body hanging-indent"
 entry-spacing="0">

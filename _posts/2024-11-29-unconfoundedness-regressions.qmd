@@ -23,20 +23,23 @@ permalink: /posts/unconfoundedness-regressions
   color: #BA0C2F;
   font-weight: 400;
 }
-
 .alert-blue {
   color: #00A3AD;
   font-weight: 400;
 }
-
 .citation {
   color: #007acc;
   font-weight: 400;
 }
-
 .notation {
   color: #2ecc71;
   font-weight: 400;
+}
+.references {
+  margin-top: 1.5em;
+}
+.csl-entry {
+  margin-bottom: 1.5em;
 }
 </style>
 
@@ -50,19 +53,6 @@ $$\newcommand{\independent}{\mathrel{\perp\!\!\!\perp}}$$
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
-[Citation:]{.citation}
-
-<pre>
-@online{callaway-unconfoundedness-regressions-2024,
-  author       = {Callaway, Brantly},
-  title        = {Interpreting Regressions under the Assumption of Unconfoundedness},
-  year         = {2024},
-  month        = {11},
-  url          = {https://bcallaway11.github.io/posts/unconfoundedness-regressions},
-  urldate      = {\today},
-}
-</pre>
 
 [Notation:]{.notation}
 
@@ -116,3 +106,16 @@ Finally, let us move to the [weighted average of $$ATT(X)$$]{.alert-blue} term. 
 How much does this matter?  Well, it depends crucially on how much treatment effect heterogeneity there is.  If $$ATT(X)$$ is constant across $$X$$, then any weighted average of $$ATT(X)$$ will be equal to $$ATT$$. At the opposite extreme, if $$ATT(X)$$ varies a lot across $$X$$, then the weights will matter a lot.
 
 # References
+
+[Citation:]{.citation}
+
+<pre>
+@online{callaway-unconfoundedness-regressions-2024,
+  author       = {Callaway, Brantly},
+  title        = {Interpreting Regressions under the Assumption of Unconfoundedness},
+  year         = {2024},
+  month        = {11},
+  url          = {https://bcallaway11.github.io/posts/unconfoundedness-regressions},
+  urldate      = {\today},
+}
+</pre>
