@@ -12,10 +12,10 @@ math: mathjax
 permalink: /posts/unconfoundedness-regressions
 ---
 
-$$\newcommand{\E}{\mathbb{E}}$$
-$$\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$
-$$\newcommand{\L}{\mathrm{L}}$$ $$\renewcommand{\P}{\mathrm{P}}$$
-$$\newcommand{\independent}{{\perp\!\!\!\perp}}$$
+\[\newcommand{\E}{\mathbb{E}}
+\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }
+\newcommand{\L}{\mathrm{L}}$$ $$\renewcommand{\P}{\mathrm{P}}
+\newcommand{\independent}{{\perp\!\!\!\perp}}\]
 
 <div class="citation">
 
