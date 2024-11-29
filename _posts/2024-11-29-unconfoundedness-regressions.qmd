@@ -3,7 +3,7 @@ title: "Interpreting Regressions under the Assumption of Unconfoundedness"
 author: "brant"
 date: '2024-11-29'
 format:
-  gfm:
+  markdown:
     extensions: ["tex_math_dollars"]
     keep-yaml: true
 categories:
