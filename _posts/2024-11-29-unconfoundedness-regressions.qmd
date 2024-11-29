@@ -63,7 +63,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 * $$\L(D|X)$$ - a (possibly misspecified) linear probability model for the propensity score.  The notation stands for the linear projection of $$D$$ on $$X$$.
 
-* $$\L_0(Y|X)$$ - a (possibly misspecified) linear model for $$\E[Y|X,D=0]$$.
+* $$\L_0(Y\mid|X)$$ - a (possibly misspecified) linear model for $$\E[Y\mid|X,D=0]$$.
 
 I have been working recently on a project that is partially about how to interpret TWFE regressions that include covariates: @caetano-callaway-2023.  That project builds on a fairly large literature on interpreting cross-sectional regressions under the assumption of unconfoundedness.  There are a number of interesting papers that take on this question from different perspectives: @angrist-1998, @aronow-samii-2016, @sloczynski-2022, @chattopadhyay-zubizarreta-2023, @blandhol-bonney-mogstad-torgovitsky-2022, @hahn-2023.  This is my attempt to summarize some of the key insights from these papers.
 
