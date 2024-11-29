@@ -1,17 +1,6 @@
----
-title: "Interpreting Regressions under the Assumption of Unconfoundedness"
-author: "brant"
-date: '2024-11-29'
-categories:
-  - Econometrics
-  - Policy Evaluation
-  - Unconfoundedness
-comments: true
-layout: single
-math: mathjax
-css: /assets/css/brant.css
-permalink: /posts/unconfoundedness-regressions
----
+# Interpreting Regressions under the Assumption of Unconfoundedness
+brant
+2024-11-29
 
 <style>
 /* brant customizations */
@@ -39,6 +28,13 @@ div.citation {
   padding: 25px;
   margin-top: 25px;
   margin-bottom: 25px;
+}
+blockquote {
+  background-color: #f9f9f9; /* Light gray background */
+  border-left: 5px solid #ccc; /* Gray border on the left */
+  padding: 15px; /* Add some padding inside */
+  margin: 20px 0; /* Space around the block */
+  font-style: normal; /* Override italic if applied by default */
 }
 </style>
 
