@@ -10,7 +10,7 @@ categories:
   - Econometrics
   - Policy Evaluation
   - Unconfoundedness
-comments: true
+comments: false
 bibliography: refs.bib
 permalink: /posts/unconfoundedness-regressions
 ---
@@ -48,7 +48,7 @@ knitr::opts_chunk$set(echo = TRUE)
 * $\L_0(Y|X)$ - a (possibly misspecified) linear model for $\E[Y|X,D=0]$.
 :::
 
-I have been working recently on a project that is partially about how to interpret TWFE regressions that include covariates: @caetano-callaway-2024.  That project builds on a fairly large literature on interpreting cross-sectional regressions under the assumption of unconfoundedness.  There are a number of interesting papers that take on this question from different perspectives: @angrist-1998, @aronow-samii-2016, @sloczynski-2022, @chattopadhyay-zubizaretta-2023, @blandhol-bonney-mogstad-torgovitsky-2022, @hahn-2023.  This is my attempt to summarize some of the key insights from these papers.
+I have been working recently on a project that is partially about how to interpret TWFE regressions that include covariates: @caetano-callaway-2023.  That project builds on a fairly large literature on interpreting cross-sectional regressions under the assumption of unconfoundedness.  There are a number of interesting papers that take on this question from different perspectives: @angrist-1998, @aronow-samii-2016, @sloczynski-2022, @chattopadhyay-zubizarreta-2023, @blandhol-bonney-mogstad-torgovitsky-2022, @hahn-2023.  This is my attempt to summarize some of the key insights from these papers.
 
 I'll set this up in a way that targets the $ATT$ (rather than $ATE$), but I think you could make analogous arguments if you were targeting the $ATE$ instead.  Let's suppose that we have cross sectional data and that we assume unconfoundedness.  That is,
 $$Y_(0) \independent D | X$$
@@ -83,3 +83,5 @@ The previous argument is heuristic, but, taking the two arguments above together
 Finally, let us move to the [weighted average of $ATT(X)$]{.alert-blue} term.  If the main target of our analysis is $ATT$, then the ideal weights would be $w(X)=1$, so that $\alpha = ATT$.  The weights $w_1(X)$ are not equal to 1 and, relative to this baseline, have some drawbacks.  First, as discussed above, the weights can be negative.  This means that, for certain values of the covariates, the contribution of $ATT(X)$ to $\alpha$ can have the wrong sign (this case can be ruled out in some situations, by assuming that the propensity score is linear, and also it is possible to directly calculate the weights and check if they are negative).  Second, the weighted average provided here is connected to what @sloczynski-2022 call "weight reversal".  In particular, the magnitude of the weights depends on the value of $(1-\L(D|X))$ for treated units (the other terms basically serve as normalizations so that the weights have mean 1).  Relative to the baseline of 1, the weights will tend to be too large for values $X$ that are predicted to have a low probability of being treated (where the prediction comes from a linearity probability model) and too small for values of $X$ that are predicted to have a high probability of being treated.
 
 How much does this matter?  Well, it depends crucially on how much treatment effect heterogeneity there is.  If $ATT(X)$ is constant across $X$, then any weighted average of $ATT(X)$ will be equal to $ATT$. At the opposite extreme, if $ATT(X)$ varies a lot across $X$, then the weights will matter a lot.
+
+# References
