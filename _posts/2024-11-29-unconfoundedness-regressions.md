@@ -8,6 +8,7 @@ categories:
   - Unconfoundedness
 comments: true
 layout: single
+math: mathjax
 permalink: /posts/unconfoundedness-regressions
 ---
 
