@@ -29,7 +29,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [Citation:]{.citation}
 
-<code>
+<pre>
 @online{callaway-unconfoundedness-regressions-2024,
   author       = {Callaway, Brantly},
   title        = {Interpreting Regressions under the Assumption of Unconfoundedness},
@@ -38,7 +38,7 @@ knitr::opts_chunk$set(echo = TRUE)
   url          = {https://bcallaway11.github.io/posts/unconfoundedness-regressions},
   urldate      = {\today},
 }
-</code>
+</pre>
 
 :::
 
@@ -61,7 +61,7 @@ and consider what happens when we try to estimate causal effects of the treatmen
 $$Y_i = \alpha D_i + X_i'\beta + e_i$$
 There are a couple of different ways we could view this regression.
 
-[View #1: ]{.alert} The regression model is correctly specified in the sense that $\E[Y|X,D] = \alpha D + X'\beta$.  In this case, $\alpha=ATT$, and you can just run the regression and interpret the coefficient on $D$ as the $ATT$.
+[View #1: ]{.alert} The regression model is correctly specified in the sense that $$\E[Y|X,D] = \alpha D + X'\beta$$.  In this case, $\alpha=ATT$, and you can just run the regression and interpret the coefficient on $D$ as the $ATT$.
 
 My sense is that this is not the view of most modern empirical work, where it seems uncommon to take linearity as a key assumption.  And, for example, if the model is correctly specified, it would rule out certain forms of systematic treatment effect heterogeneity.  In particular, notice that, for any value of the covariates $X$, $ATT(X) = \E[Y|X,D=1] - \E[Y|X,D=0] = \alpha$. That is, average treatment effects do not vary with $X$.  This type of strong auxiliary assumption/condition is what much recent work in econometrics has tried to avoid and is probably implausible in most applications.
 

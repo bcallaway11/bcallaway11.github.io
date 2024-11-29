@@ -11,24 +11,28 @@ layout: single
 permalink: /posts/unconfoundedness-regressions
 ---
 
-
 # Interpreting Regressions under the Assumption of Unconfoundedness
 
-$\newcommand{\E}{\mathbb{E}}
+$$\newcommand{\E}{\mathbb{E}}
 \newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }
 \newcommand{\L}{\mathrm{L}}
 \renewcommand{\P}{\mathrm{P}}
-\newcommand{\independent}{{\perp\!\!\!\perp}}$
+\newcommand{\independent}{{\perp\!\!\!\perp}}$$
 
 <div class="citation">
 
 <span class="citation">Citation:</span>
 
-<code> (**online?**){callaway-unconfoundedness-regressions-2024, author
-= {Callaway, Brantly}, title = {Interpreting Regressions under the
-Assumption of Unconfoundedness}, year = {2024}, month = {11}, url =
-{https://bcallaway11.github.io/posts/unconfoundedness-regressions},
-urldate = {}, } </code>
+<pre>
+@online{callaway-unconfoundedness-regressions-2024,
+  author       = {Callaway, Brantly},
+  title        = {Interpreting Regressions under the Assumption of Unconfoundedness},
+  year         = {2024},
+  month        = {11},
+  url          = {https://bcallaway11.github.io/posts/unconfoundedness-regressions},
+  urldate      = {\today},
+}
+</pre>
 
 </div>
 
@@ -68,7 +72,7 @@ $$Y_i = \alpha D_i + X_i'\beta + e_i$$ There are a couple of different
 ways we could view this regression.
 
 <span class="alert">View \#1:</span> The regression model is correctly
-specified in the sense that $\E[Y|X,D] = \alpha D + X'\beta$. In this
+specified in the sense that $$\E[Y|X,D] = \alpha D + X'\beta$$. In this
 case, $\alpha=ATT$, and you can just run the regression and interpret
 the coefficient on $D$ as the $ATT$.
 
