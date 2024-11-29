@@ -12,13 +12,10 @@ math: mathjax
 permalink: /posts/unconfoundedness-regressions
 ---
 
-# Interpreting Regressions under the Assumption of Unconfoundedness
-
-$$\newcommand{\E}{\mathbb{E}}
-\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }
-\newcommand{\L}{\mathrm{L}}
-\renewcommand{\P}{\mathrm{P}}
-\newcommand{\independent}{{\perp\!\!\!\perp}}$$
+$$\newcommand{\E}{\mathbb{E}}$$
+$$\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$
+$$\newcommand{\L}{\mathrm{L}}$$ $$\renewcommand{\P}{\mathrm{P}}$$
+$$\newcommand{\independent}{{\perp\!\!\!\perp}}$$
 
 <div class="citation">
 

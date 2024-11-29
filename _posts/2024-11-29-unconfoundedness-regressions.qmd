@@ -12,6 +12,7 @@ categories:
   - Unconfoundedness
 comments: false
 bibliography: refs.bib
+math: mathjax
 permalink: /posts/unconfoundedness-regressions
 ---
 
