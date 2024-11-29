@@ -1,6 +1,17 @@
-# Interpreting Regressions under the Assumption of Unconfoundedness
-brant
-2024-11-29
+---
+title: "Interpreting Regressions under the Assumption of Unconfoundedness"
+author: "brant"
+date: '2024-11-29'
+categories:
+  - Econometrics
+  - Policy Evaluation
+  - Unconfoundedness
+comments: true
+layout: single
+math: mathjax
+css: /assets/css/brant.css
+permalink: /posts/unconfoundedness-regressions
+---
 
 <style>
 /* brant customizations */
@@ -52,8 +63,8 @@ $$\newcommand{\independent}{\mathrel{\perp\!\!\!\perp}}$$
 >   the propensity score. The notation stands for the linear projection
 >   of $$D$$ on $$X$$.
 >
-> - $$\L_0(Y\|X)$$ - a (possibly misspecified) linear model for
->   $$\E[Y\|X,D=0]$$.
+> - $$\L_0(Y|X)$$ - a (possibly misspecified) linear model for
+>   $$\E[Y|X,D=0]$$.
 
 I have been working recently on a project that is partially about how to
 interpret TWFE regressions that include covariates: Caetano and Callaway
