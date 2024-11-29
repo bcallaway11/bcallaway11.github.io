@@ -11,26 +11,24 @@ layout: single
 permalink: /posts/unconfoundedness-regressions
 ---
 
+
 # Interpreting Regressions under the Assumption of Unconfoundedness
 
-
-$$\newcommand{\E}{\mathbb{E}}$$
-$$\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$
-$$\newcommand{\L}{\mathrm{L}}$$ $$\renewcommand{\P}{\mathrm{P}}$$
-$$\newcommand{\independent}{{\perp\!\!\!\perp}}$$
+$\newcommand{\E}{\mathbb{E}}
+\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }
+\newcommand{\L}{\mathrm{L}}
+\renewcommand{\P}{\mathrm{P}}
+\newcommand{\independent}{{\perp\!\!\!\perp}}$
 
 <div class="citation">
 
 <span class="citation">Citation:</span>
 
-    @online{callaway-unconfoundedness-regressions-2024,
-      author       = {Callaway, Brantly},
-      title        = {Interpreting Regressions under the Assumption of Unconfoundedness},
-      year         = {2024},
-      month        = {11},
-      url          = {https://bcallaway11.github.io/posts/unconfoundedness-regressions},
-      urldate      = {\today},
-    }
+<code> (**online?**){callaway-unconfoundedness-regressions-2024, author
+= {Callaway, Brantly}, title = {Interpreting Regressions under the
+Assumption of Unconfoundedness}, year = {2024}, month = {11}, url =
+{https://bcallaway11.github.io/posts/unconfoundedness-regressions},
+urldate = {}, } </code>
 
 </div>
 
@@ -38,14 +36,15 @@ $$\newcommand{\independent}{{\perp\!\!\!\perp}}$$
 
 <span class="notation">Notation:</span>
 
-- $$ATT(X) := \E[Y(1) - Y(0) | X]$$ - the $$ATT$$ for a given value of
-  the covariates $X$.
+- $ATT(X) := \E[Y(1) - Y(0) | X]$ - the $$ATT$$ for a given value of the
+  covariates $X$.
 
-- $$\L(D|X)$$ - a (possibly misspecified) linear probability model for
-  the propensity score. The notation stands for the linear projection of
-  $$D$$ on $$X$$.
+- $\L(D|X)$ - a (possibly misspecified) linear probability model for the
+  propensity score. The notation stands for the linear projection of $D$
+  on $X$.
 
-- $$\L_0(Y|X)$ - a (possibly misspecified) linear model for $$\$\$.
+- $\L_0(Y|X)$ - a (possibly misspecified) linear model for
+  $\E[Y|X,D=0]$.
 
 </div>
 

@@ -15,11 +15,11 @@ bibliography: refs.bib
 permalink: /posts/unconfoundedness-regressions
 ---
 
-$$\newcommand{\E}{\mathbb{E}}$$
-$$\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$
-$$\newcommand{\L}{\mathrm{L}}$$
-$$\renewcommand{\P}{\mathrm{P}}$$
-$$\newcommand{\independent}{{\perp\!\!\!\perp}}$$
+$\newcommand{\E}{\mathbb{E}}
+\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }
+\newcommand{\L}{\mathrm{L}}
+\renewcommand{\P}{\mathrm{P}}
+\newcommand{\independent}{{\perp\!\!\!\perp}}$
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -29,7 +29,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [Citation:]{.citation}
 
-```
+<code>
 @online{callaway-unconfoundedness-regressions-2024,
   author       = {Callaway, Brantly},
   title        = {Interpreting Regressions under the Assumption of Unconfoundedness},
@@ -38,7 +38,7 @@ knitr::opts_chunk$set(echo = TRUE)
   url          = {https://bcallaway11.github.io/posts/unconfoundedness-regressions},
   urldate      = {\today},
 }
-```
+</code>
 
 :::
 
@@ -46,11 +46,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [Notation:]{.notation}
 
-* $$ATT(X) := \E[Y(1) - Y(0) | X]$$ - the $$ATT$$ for a given value of the covariates $X$.
+* $ATT(X) := \E[Y(1) - Y(0) | X]$ - the $$ATT$$ for a given value of the covariates $X$.
 
-* $$\L(D|X)$$ - a (possibly misspecified) linear probability model for the propensity score.  The notation stands for the linear projection of $$D$$ on $$X$$.
+* $\L(D|X)$ - a (possibly misspecified) linear probability model for the propensity score.  The notation stands for the linear projection of $D$ on $X$.
 
-* $$\L_0(Y|X)$ - a (possibly misspecified) linear model for $$\E[Y|X,D=0]$$.
+* $\L_0(Y|X)$ - a (possibly misspecified) linear model for $\E[Y|X,D=0]$.
 :::
 
 I have been working recently on a project that is partially about how to interpret TWFE regressions that include covariates: @caetano-callaway-2023.  That project builds on a fairly large literature on interpreting cross-sectional regressions under the assumption of unconfoundedness.  There are a number of interesting papers that take on this question from different perspectives: @angrist-1998, @aronow-samii-2016, @sloczynski-2022, @chattopadhyay-zubizarreta-2023, @blandhol-bonney-mogstad-torgovitsky-2022, @hahn-2023.  This is my attempt to summarize some of the key insights from these papers.
