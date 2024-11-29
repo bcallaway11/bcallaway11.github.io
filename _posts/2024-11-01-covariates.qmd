@@ -7,7 +7,7 @@ output:
 author: "brant"
 date: '2024-11-01'
 layout: single
-permalink: /posts/dCdH
+permalink: /posts/did-covariates
 categories:
   - Econometrics
   - Policy Evaluation
