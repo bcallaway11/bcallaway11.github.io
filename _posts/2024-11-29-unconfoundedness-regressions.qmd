@@ -13,6 +13,7 @@ categories:
 comments: false
 bibliography: refs.bib
 math: mathjax
+css: /assets/css/brant.css
 permalink: /posts/unconfoundedness-regressions
 ---
 
@@ -20,7 +21,7 @@ $$\newcommand{\E}{\mathbb{E}}$$
 $$\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$
 $$\newcommand{\L}{\mathrm{L}}$$
 $$\renewcommand{\P}{\mathrm{P}}$$
-$$\newcommand{\independent}{{\perp\!\!\!\perp}}$$
+$$\newcommand{\independent}{\mathrel{\perp\!\!\!\perp}}$$
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

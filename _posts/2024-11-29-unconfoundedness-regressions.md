@@ -13,10 +13,10 @@ css: /assets/css/brant.css
 permalink: /posts/unconfoundedness-regressions
 ---
 
-\[\newcommand{\E}{\mathbb{E}}
-\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }
-\newcommand{\L}{\mathrm{L}}$$ $$\renewcommand{\P}{\mathrm{P}}
-\newcommand{\independent}{{\perp\!\!\!\perp}}\]
+$$\newcommand{\E}{\mathbb{E}}$$
+$$\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$
+$$\newcommand{\L}{\mathrm{L}}$$ $$\renewcommand{\P}{\mathrm{P}}$$
+$$\newcommand{\independent}{\mathrel{\perp\!\!\!\perp}}$$
 
 <div class="citation">
 
@@ -46,7 +46,7 @@ permalink: /posts/unconfoundedness-regressions
   propensity score. The notation stands for the linear projection of $D$
   on $X$.
 
-- \(\L_0(Y|X)\) - a (possibly misspecified) linear model for
+- $\L_0(Y|X)$ - a (possibly misspecified) linear model for
   $\E[Y|X,D=0]$.
 
 </div>
@@ -94,7 +94,7 @@ interpret $\alpha$?
 
 This is the question that the papers mentioned above have tried to
 answer. To proceed, let’s start with a decomposition of $\alpha$:
-\[ \alpha = \underbrace{\E\Big[w_1(X) ATT(X) \Big| G=1\Big]}_{\textrm{weighted avg. of $ATT(X)$}} + \underbrace{\E\Big[w_1(X)\Big(\E[Y|X,G=0] - \L_0(Y|X)\Big) \Big| G=1\Big]}_{\textrm{misspecification bias}} \]
+$$ \alpha = \underbrace{\E\Big[w_1(X) ATT(X) \Big| G=1\Big]}_{\textrm{weighted avg. of $ATT(X)$}} + \underbrace{\E\Big[w_1(X)\Big(\E[Y|X,G=0] - \L_0(Y|X)\Big) \Big| G=1\Big]}_{\textrm{misspecification bias}} $$
 where
 $$ w_1(X) := \frac{\big(1-\L(D|X)\big) \pi}{\E\big[(D-\L(D|X))^2\big]}~~~~\textrm{and}~~~~w_0(X) := \frac{\L(D|X)(1-\pi)}{\E\big[(D-\L(D|X))^2\big]} $$
 Let’s start with the <span class="alert-blue">weights</span> $w_1(X)$
