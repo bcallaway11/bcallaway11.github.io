@@ -9,6 +9,7 @@ categories:
 comments: true
 layout: single
 math: mathjax
+css: /assets/css/brant.css
 permalink: /posts/unconfoundedness-regressions
 ---
 
