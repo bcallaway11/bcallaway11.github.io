@@ -24,6 +24,8 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 **Recent Updates:**
 
+* Post about [interpreting regressions under unconfoundedness](/posts/unconfoundedness-regressions)
+
 * Materials for my difference-in-differences workshop for Terry's Center for Business Analytics and Insights are available [here](https://bcallaway11.github.io/uga-cbai-workshop/)
 
 * (Sept. 2024) Major update to [Difference-in-differences when parallel trends holds conditional on covariates](/files/DID-Covariates/Caetano_Callaway_2024.pdf)

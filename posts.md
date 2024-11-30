@@ -6,6 +6,8 @@ permalink: /posts/
 
 # Informal Posts on Coding / Econometrics / Etc.
 
+* [Interpreting regressions under unconfoundedness](/posts/unconfoundedness-regressions) How to interpret $\alpha$ in the regression $Y_i = \alpha D_i + X_i'\beta + e_i$ under unconfoundedness and if there is treatment effect heterogeneity.
+
 * [Proof of de Chaisemartin and d’Haultfoeuille (2020) under staggered treatment adoption](/posts/dCdH) Explains the TWFE regression weighting scheme in DID applications in a simplified setting with staggered treatment adoption.
 
 * [Base periods in event studies](https://bcallaway11.github.io/posts/event-study-universal-v-varying-base-period) Comparing varying and universal base periods in event studies
