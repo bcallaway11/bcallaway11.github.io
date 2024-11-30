@@ -200,22 +200,18 @@ $$X$$, then the weights will matter a lot.
 
 # References
 
-<div class="citation">
-
-<span class="citation">Citation:</span>
-
-<pre>
-@online{callaway-unconfoundedness-regressions-2024,
-  author       = {Callaway, Brantly},
-  title        = {Interpreting Regressions under the Assumption of Unconfoundedness},
-  year         = {2024},
-  month        = {11},
-  url          = {https://bcallaway11.github.io/posts/unconfoundedness-regressions},
-  urldate      = {\today},
-}
-</pre>
-
-</div>
+> <span class="citation">Citation:</span>
+>
+> <pre>
+> @online{callaway-unconfoundedness-regressions-2024,
+>   author       = {Callaway, Brantly},
+>   title        = {Interpreting Regressions under the Assumption of Unconfoundedness},
+>   year         = {2024},
+>   month        = {11},
+>   url          = {https://bcallaway11.github.io/posts/unconfoundedness-regressions},
+>   urldate      = {\today},
+> }
+> </pre>
 
 <div id="refs" class="references csl-bib-body hanging-indent"
 entry-spacing="0">

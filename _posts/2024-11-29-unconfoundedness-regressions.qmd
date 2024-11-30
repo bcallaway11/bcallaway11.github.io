@@ -118,18 +118,15 @@ How much does this matter?  Well, it depends crucially on how much treatment eff
 
 # References
 
-::: {.citation}
-
-[Citation:]{.citation}
-
-<pre>
-@online{callaway-unconfoundedness-regressions-2024,
-  author       = {Callaway, Brantly},
-  title        = {Interpreting Regressions under the Assumption of Unconfoundedness},
-  year         = {2024},
-  month        = {11},
-  url          = {https://bcallaway11.github.io/posts/unconfoundedness-regressions},
-  urldate      = {\today},
-}
-</pre>
-:::
+> [Citation:]{.citation}
+>
+> <pre>
+> @online{callaway-unconfoundedness-regressions-2024,
+>   author       = {Callaway, Brantly},
+>   title        = {Interpreting Regressions under the Assumption of Unconfoundedness},
+>   year         = {2024},
+>   month        = {11},
+>   url          = {https://bcallaway11.github.io/posts/unconfoundedness-regressions},
+>   urldate      = {\today},
+> }
+> </pre>
