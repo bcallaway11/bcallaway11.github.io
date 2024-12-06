@@ -3138,12 +3138,22 @@ font-weight: bold;
 </header>
 
 
+<style>
+.answer{
+border: 1px solid;
+margin: 30px;
+padding: 10px;
+}
+</style>
 <section id="question-1" class="level2">
 <h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
 <p>Suppose you work for a social media company. The social media company is trying to predict the number of clicks that different types of advertisements will get on their website. You run the following regression to try to the number of clicks that a particular advertisement will get: <span class="math display">\[\begin{align*}
     Clicks = \beta_0 + \beta_1 FontSize + \beta_2 Picture + U
 \end{align*}\]</span> where <span class="math inline">\(Clicks\)</span> is the number of clicks that an ad gets (in thousands), <span class="math inline">\(FontSize\)</span> is the size of the font of the ad, and <span class="math inline">\(Picture\)</span> is a binary variable that is equal to one if the ad contains a picture and 0 otherwise.</p>
 <p><strong>Part (a)</strong> Suppose you estimate this model and estimate that <span class="math inline">\(\hat{\beta}_0 = 40\)</span>, <span class="math inline">\(\hat{\beta}_1 = 2\)</span>, and <span class="math inline">\(\hat{\beta}_2 = 80\)</span>. What would you predict that the number of clicks would be for an ad with 16 point font size and that contains a picture?</p>
+<div class="answer">
+<p><strong>Answer:</strong> <span class="math inline">\(40 + 2(16) + 80 = 152\)</span>, so you would predict 152,000 clicks on the ad.</p>
+</div>
 <p><strong>Part (b)</strong> Your boss is very happy with your work, but suggests making the model more complicated. Your boss suggests you run the following regression</p>
 <p><span class="math display">\[\begin{align*}
 Revenue = \beta_0 &amp;+ \beta_1 FontSize + \beta_2 Picture + \beta_3 Animated \\ &amp;+ \beta_4 ColorfulFont + \beta_5 FontSize^2 + U
@@ -3180,34 +3190,76 @@ Revenue = \beta_0 &amp;+ \beta_1 FontSize + \beta_2 Picture + \beta_3 Animated \
 </tbody>
 </table>
 <p>Based on the table, which model do you prefer for predicting ad clicks?</p>
+<div class="answer">
+<p><strong>Answer:</strong> The table indicates that the model from part (b) is likely to predict better than the model from part (a). This holds since adjusted <span class="math inline">\(R^2\)</span> is higher for the model from part (b) and because AIC and BIC are both lower for the model from part (b).</p>
+</div>
 <p><strong>Part (c)</strong> An alternative approach to choosing between these two models is to use J-fold cross-validation. Explain how you could use J-fold cross validation in this problem.</p>
+<div class="answer">
+<p><strong>Answer:</strong> In order to use J-fold cross validation, randomly split the data into J folds (that is, groups). For each fold, do the following:</p>
+<ol type="1">
+<li><p>Using all observations except the ones in the current fold, estimate each model. This step gives estimated values of the parameters.</p></li>
+<li><p>Using the estimated models in Step 1, make predictions for the outcome for each model in the current fold. For each model, record the prediction error <span class="math inline">\(\tilde{U}_i = Y_i - \tilde{Y}_i\)</span> (which is the difference between the actual outcome and the predicted outcome for each observation in the current fold).</p></li>
+</ol>
+<p>Repeat these two steps for all J folds. This gives you a prediction error for every observation in the data. For each model compute <span class="math inline">\(CV = \displaystyle \frac{1}{n} \sum_{i=1}^n\tilde{U}_i^2\)</span> which is the average prediction error across observations. Choose whichever model delivers a smaller value for <span class="math inline">\(CV\)</span>.</p>
+</div>
 </section>
 <section id="question-2" class="level2">
 <h2 class="anchored" data-anchor-id="question-2">Question 2</h2>
 <p>Questions about causal inference.</p>
 <p><strong>Part (a)</strong> What does the condition <span class="math inline">\((Y(1), Y(0)) \perp \!\!\! \perp D\)</span> mean? When would you expect it to hold?</p>
+<div class="answer">
+<p><strong>Answer:</strong> This condition says that potential outcomes are independent of treatment status. In practice, it means that individuals that participate in the treatment do not systematically different treated or untreated potential outcomes relative to those that do not participate in the treatment. It would hold in an experiment; that is, where the treatment is randomly assigned.</p>
+</div>
 <p><strong>Part (b)</strong> What does the condition <span class="math inline">\((Y(1), Y(0)) \perp \!\!\! \perp D | (X_1, X_2)\)</span> mean? How is this different from the previous condition?</p>
+<div class="answer">
+<p><strong>Answer:</strong> This condition says that potential outcomes are independent of treatment status after conditioning on the variables <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>. In practice, it means that individuals that participate in the treatment do not have systematically different treated or untreated potential outcomes relative to those that do not participate in the treatment <em>and that have the same value of the covariates <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>.</em></p>
+<p>Relative to the condition in part (a), it means that we are only willing to interpret average differences in outcomes between treated and untreated individuals with the same characteristics (in terms of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>) as causal effects rather than simply compare differences in average outcomes between the treated and untreated groups and interpret these as causal effects. And, in practice, if we want to use regressions to estimate causal effects, we need to include <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> in the regression if we want to use this condition, while for part (a) we can just run a regression on <span class="math inline">\(D\)</span> only.</p>
+</div>
 <p><strong>Part (c)</strong> Suppose you are interested interested in the effect of a state policy that decreases the minimum legal drinking age from 21 to 18 on the number of traffic fatalities in a state. Do you think that the condition in part (a) is likely to hold here? Explain. What variables would you need to include in the condition in part (b) to hold? Explain.</p>
+<div class="answer">
+<p><strong>Answer:</strong> It is probably not reasonable to assume that the condition in part (a) is likely to hold here though it likely depends on how states choose to set their drinking age policies. For example, if states that lower the minimum drinking age tend to be more rural than other states (and, additionally, more rural states tend to have fewer traffic fatalities), then that would be a violation of the condition in part (a).</p>
+<p>There are a number of variables that one might need to include for the condition in part (b) to hold. Some that come to mind are: (i) the population density of a state, (ii) the highway speed limit in the state, (iii) the age distribution of the population of the state; other things that might be hard to measure but could matter are things like some states may just tend to have more aggressive drivers than other states.</p>
+</div>
 </section>
 <section id="question-3" class="level2">
 <h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
 <p>Extra Question 14.1</p>
+<div class="answer">
+<p><strong>Answer:</strong> <span class="math inline">\(R^2\)</span> is a measure of the in-sample fit of a regression. If we are interested in choosing a model that will predict well out-of-simple, ranking different models by in-sample fit may not be appropriate. Second, <span class="math inline">\(R^2\)</span> will always be larger for more complicated models relative to simpler models. This can lead to overfitting and poor out-of-sample predictions.</p>
+</div>
 </section>
 <section id="question-4" class="level2">
 <h2 class="anchored" data-anchor-id="question-4">Question 4</h2>
 <p>Extra Question 14.2</p>
+<div class="answer">
+<p><strong>Answer:</strong> For AIC and BIC, the “penalty”/“cost” terms tend to increase these quantities while the “benefit” of adding a regressor comes from decreasing <span class="math inline">\(SSR\)</span> (and, hence, decreasing the value of AIC and/or BIC). This means that models that do well according to these criteria will have low values of AIC/BIC and models that do poorly will have high values of AIC/BIC; therefore, we choose the model that minimizes AIC/BIC.</p>
+</div>
 </section>
 <section id="question-5" class="level2">
 <h2 class="anchored" data-anchor-id="question-5">Question 5</h2>
 <p>Extra Question 14.3</p>
+<div class="answer">
+<p><strong>Answer:</strong> Recall that <span class="math display">\[
+\begin{aligned}
+  AIC &amp;= 2k + n\log(SSR) \\
+  BIC &amp;= k\log(n) + n\log(SSR)
+\end{aligned}
+\]</span> so that the only difference between <span class="math inline">\(AIC\)</span> and <span class="math inline">\(BIC\)</span> is in their penalty terms: <span class="math inline">\(2k\)</span> and <span class="math inline">\(k\log(n)\)</span>, respectively. Then, as long as <span class="math inline">\(n\geq 8\)</span> (which would presumably always be the case when you are doing model selection), the penalty for adding another regressor is larger for <span class="math inline">\(BIC\)</span> than <span class="math inline">\(AIC\)</span>. This means that <span class="math inline">\(BIC\)</span> will tend to choose “less complicated” models and <span class="math inline">\(AIC\)</span> will tend to choose “more complicated” models.</p>
+</div>
 </section>
 <section id="question-6" class="level2">
 <h2 class="anchored" data-anchor-id="question-6">Question 6</h2>
 <p>Extra Question 14.7</p>
+<div class="answer">
+<p><strong>Answer:</strong></p>
+<p><strong>Part (a)</strong> The tuning parameter is often chosen via cross validation. It makes sense to choose it this way because this is effectively choosing a value of <span class="math inline">\(\lambda\)</span> that is making good pseudo-out-of-sample predictions. As we will see below, if you make bad choices of <span class="math inline">\(\lambda\)</span>, that could result in very poor predictions.</p>
+<p><strong>Part (b)</strong> When <span class="math inline">\(\lambda=0\)</span>, there would effectively be no penalty term and, therefore, the estimated parameters would coincide with the OLS estimates.</p>
+<p><strong>Part (c)</strong> When <span class="math inline">\(\lambda \rightarrow \infty\)</span>, the penalty term would overwhelm the term corresponding to minimizing SSR. This would result in setting all the estimated parameters to be equal to 0. This extreme approach is likely to lead to very poor predictions.</p>
+</div>
 </section>
 <section id="question-7" class="level2">
 <h2 class="anchored" data-anchor-id="question-7">Question 7</h2>
-<p>For this problem, we will be interested in the causal effect of having children on women’s labor supply. <!-- note to self: this is a variation of Coding Exercise 18.2 in the course notes--></p>
+<p>For this problem, we will be interested in the causal effect of having children on women’s labor supply. We will use data from Angrist and Evans (1998) that contains information about the labor supply (particularly, the number of hours worked per week) of married women with at least two children. We will be interested in whether having more than two children decreases labor supply relative to having exactly two children. <!-- note to self: this is a variation of Coding Exercise 18.2 in the course notes--></p>
 <p><strong>Part (a)</strong> Consider the following regression of the number of hours that a woman typically works per week (<code>work</code>) on whether or not she has more than two children (<code>morekids</code>), her <code>age</code> and <code>age^2</code>, and race/ethnicity (<code>afam</code> and <code>hispanic</code>). How do you interpret the coefficient on <code>morekids</code> below (in general)? Would it be reasonable to interpret this coefficient as the causal effect of having more than two children? In particular, what conditions would need to be satisfied for this to an estimate of the causal effect, and provide a discussion of whether or not these conditions seem likely to hold in this context.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Fertility, <span class="at">package=</span><span class="st">&quot;AER&quot;</span>)</span>
@@ -3239,7 +3291,13 @@ Multiple R-squared:  0.04334,   Adjusted R-squared:  0.04333
 F-statistic:  2308 on 5 and 254648 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
+<div class="answer">
+<p><strong>Answer:</strong> The estimated coefficient on <code>morekids</code> indicates that women with more than two children work, on average, a little of 6 hours per week less than women with exactly two children after controlling for age and race/ethnicity. It is probably not reasonable to interpret this coefficient as the causal effect of having more than two children as, for example, women with more children may be different in other ways (e.g., women with more kids may have different preferences for work or have spouse’s with higher income than women with exactly two kids) that could affect their labor supply. In order to interpret this coefficient as a causal effect, we would need to assume that, after controlling for age and race/ethnicity, women with more than two kids are not systematically different in terms of other determinants of labor supply (such as the ones mentioned above) from women with exactly two kids.</p>
+</div>
 <p><strong>Part (b)</strong> One possible instrument in this setup is whether or not the first two children have the same sex or different sexes (i.e., whether they are both girls or both boys versus a boy and a girl). What are the two key conditions that a variable needs to satisfy for it to be a valid instrument? Do you think that, if we define <span class="math inline">\(Z\)</span> as the variable that is equal to 1 if the first two children have the same sex, that <span class="math inline">\(Z\)</span> satisfies these conditions?</p>
+<div class="answer">
+<p><strong>Answer:</strong> The two key conditions that a variable needs to satisfy to be a valid instrument are the exclusion restriction and instrument relevance. The exclusion restriction says that the instrument, <span class="math inline">\(Z\)</span>, is uncorrelated with the error term, <span class="math inline">\(V\)</span>; i.e., that <span class="math inline">\(\mathrm{cov}(Z,V) = 0\)</span>. More specifically, this means that <span class="math inline">\(Z\)</span> is uncorrelated with other variables that are (i) not observed (or otherwise not included in the model) and (ii) that are correlated with the outcome. In the context of this problem, this would mean that whether or not the first two kids have the same sex should be independent of, e.g., preferences for work or spouse’s income. Since the sex of the first two children is effectively randomly assigned (at least I am pretty sure this is the case), this condition seems likely to hold. The instrument relevance condition says that the instrument, <span class="math inline">\(Z\)</span>, is correlated with the treatment variable, <span class="math inline">\(D\)</span>; i.e., that <span class="math inline">\(\mathrm{cov}(Z,D) \neq 0\)</span>. In this context, this would mean that having two kids of the same sex is correlated with having more than two kids. Unlike the exclusion restriction, this is something we can check in the data, and it does turn out that having two kids of the same sex is predictive of having additional kids relative to having two kids of different sexes; I think this is often interpreted as some parents having a preference for having at least one boy and one girl.</p>
+</div>
 <p><strong>Part (c)</strong> For this part the variable <code>samesex</code> is a binary variable that is equal to 1 if the first two children have the same sex and 0 otherwise. Consider the following instrumental variables regression. How do you interpret the coefficient on <code>morekids</code> below?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ivreg)</span>
@@ -3279,6 +3337,9 @@ Multiple R-Squared: 0.04327,    Adjusted R-squared: 0.04326
 Wald test:  1316 on 5 and 254648 DF,  p-value: &lt; 2.2e-16 </code></pre>
 </div>
 </div>
+<div class="answer">
+<p><strong>Answer:</strong> If you believe that <code>samesex</code> is a valid instrument, then the results from this regression indicate that having more than two children causes women’s labor supply to decrease by just under 6 hours per week, on average.</p>
+</div>
 </section>
 <section id="question-8" class="level2">
 <h2 class="anchored" data-anchor-id="question-8">Question 8</h2>
@@ -3312,7 +3373,13 @@ Multiple R-squared:  0.5169,    Adjusted R-squared:  0.5168
 F-statistic:  7014 on 1 and 6556 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
+<div class="answer">
+<p><strong>Answer:</strong> The estimated coefficient on <code>incumbent</code> indicates that Democratic incumbents receive, on average, 35 more percentage points of the vote than non-incumbents. This is a huge difference; however, it is highly unlikely to be the causal effect of incumbency. In particular, places that are firmly Democratic are probably much more likely than places that are firmly Republican to have a Democratic incumbent (and these places are also likely to have a high Democratic vote share). Since we are not controlling for any kind of propensity to be Democratic, this would mean that the regression would fail to deliver the causal effect of being an incumbent.</p>
+</div>
 <p><strong>Part (b)</strong> Describe how you could use a regression discontinuity approach to estimate the causal effect of being an incumbent on the vote share received by the Democratic candidate.</p>
+<div class="answer">
+<p><strong>Answer:</strong> A natural idea is to zoom on elections where the previous election was close. In particular, districts where a Democrat barely won or barely lost should be similar in terms of their observed and unobserved characteristics (in particular, their propensity to vote for a Democratic candidate). Then, differences in the outcomes of these elections among those where there is a Democratic incumbent or not should give us a strong indication of the causal effect of being an incumbent on vote share.</p>
+</div>
 <p><strong>Part (c)</strong> To implement our regression discontinuity approach, we need to decide which observations to include based on the Democratic candidate’s <code>margin</code> of victory in the previous election (the running variable). The graph below shows the average voteshare (the outcome) as a function of <code>margin</code>. What range of the <code>margin</code> would you include in the analysis, and why?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(binsreg)</span>
@@ -3342,6 +3409,9 @@ dots, smoothness (s)               =  0
 # of bins (nbins)                  =  93</code></pre>
 </div>
 </div>
+<div class="answer">
+<p><strong>Answer:</strong> As we discussed in class, a good rule of thumb on which elections to include in the analysis are to start with ones close to the threshold and to stop once the relationship between the outcome and the running variable on either side of the threshold is no longer linear. To me, a reasonable choice in this application would be to include elections where the margin is between -40 and 40.</p>
+</div>
 <p><strong>Part (d)</strong> Consider the following regression. Explain why this code implements the regression discontinuity approach that we discussed above. How do you interpret the results?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>rd_reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(voteshare <span class="sc">~</span> incumbent <span class="sc">+</span> margin <span class="sc">+</span> incumbent<span class="sc">:</span>margin,</span>
@@ -3370,6 +3440,9 @@ Residual standard error: 12.22 on 4165 degrees of freedom
 Multiple R-squared:  0.5001,    Adjusted R-squared:  0.4997 
 F-statistic:  1389 on 3 and 4165 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
+</div>
+<div class="answer">
+<p><strong>Answer:</strong> The results indicate that being an incumbent causes the vote share to increase by almost 9 percentage points on average (and for elections that are close to the threshold). This is a much different estimate from what we reported in part (a); however, it still indicates that there is a large incumbency advantage in elections.</p>
 </div>
 </section>
 
