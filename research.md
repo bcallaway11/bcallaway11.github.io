@@ -50,9 +50,9 @@ permalink: /research/
 
 ## Working Papers
 
-* [**Testing the Effects of an Unobservable Factor: Do Marriage Prospects Affect College Major Choice?**](https://arxiv.org/abs/2410.19947) (with Alper Arslan and Tong Li)
+* [**Testing the Effects of an Unobservable Factor: Do Marriage Prospects Affect College Major Choice?**](https://arxiv.org/abs/2410.19947) (with Alper Arslan and Tong Li, submitted)
 
-* **Difference-in-Differences Designs: A Practitioner's Guide**, with Andrew Baker, Scott Cunningham, Andrew Goodman-Bacon, and Pedro H.C. Sant'Anna, revise and resubmit
+* **Difference-in-Differences Designs: A Practitioner's Guide**, (with Andrew Baker, Scott Cunningham, Andrew Goodman-Bacon, and Pedro H.C. Sant'Anna, revise and resubmit)
 
 * [**Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends**](https://arxiv.org/abs/2308.02899) (with Emmanuel Tsyawo)
 
@@ -60,7 +60,7 @@ permalink: /research/
 
 * [**Difference-in-Differences when Parallel Trends Holds Conditional on Covariates**](/files/DID-Covariates/Caetano_Callaway_2024.pdf) [[Supplementary Appendix](/files/DID-Covariates/CC_Supplementary_Appendix.pdf)] [[arXiv](https://arxiv.org/abs/2406.15288)] (with Carolina Caetano, submitted)
 
-* [**Distributional Effects with Two-Sided Measurement Error: An Application to Intergenerational Income Mobility**](/files/Two-Sided-Measurement-Error/Callaway_Li_Murtazashvili_2024.pdf) [[arXiv](https://arxiv.org/abs/2107.09235)] (with Tong Li and Irina Murtazashvili, submitted)
+* [**Distributional Effects with Two-Sided Measurement Error: An Application to Intergenerational Income Mobility**](/files/Two-Sided-Measurement-Error/Callaway_Li_Murtazashvili_2024.pdf) [[arXiv](https://arxiv.org/abs/2107.09235)] (with Tong Li and Irina Murtazashvili, revise and resubmit)
 
 * [**Difference-in-Differences with a Continuous Treatment**](https://arxiv.org/abs/2107.02637) [[5 Minute Summary](/posts/five-minute-did-continuous-treatment)] [[Slides](/files/DID-Continuous-Treatment/slides/did_reading_group.html)] [[Supplementary Appendix](https://psantanna.com/files/CGBS_supp.pdf)] (with Andrew Goodman-Bacon and Pedro H.C. Sant'Anna, revise and resubmit) 
 
