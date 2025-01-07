@@ -4,6 +4,18 @@ title: Students
 permalink: /students/
 ---
 
+<style>
+/* Custom single spacing for bullet points */
+ul {
+    margin: 0; /* Adjust the margin as needed */
+    padding: 0; /* Adjust the padding as needed */
+}
+
+ul li {
+    margin-bottom: 0.2em; /* Adjust this for more or less spacing */
+}
+</style>
+
 ## Ph.D. Main Advisor
 
 **Chengye Jia**, Temple University, Ph.D. 2021
