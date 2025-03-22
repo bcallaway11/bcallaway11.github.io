@@ -52,7 +52,7 @@ permalink: /research/
 
 * [**Testing the Effects of an Unobservable Factor: Do Marriage Prospects Affect College Major Choice?**](https://arxiv.org/abs/2410.19947) (with Alper Arslan and Tong Li, submitted)
 
-* **Difference-in-Differences Designs: A Practitioner's Guide**, (with Andrew Baker, Scott Cunningham, Andrew Goodman-Bacon, and Pedro H.C. Sant'Anna, revise and resubmit)
+* [**Difference-in-Differences Designs: A Practitioner's Guide**](https://arxiv.org/abs/2503.13323), (with Andrew Baker, Scott Cunningham, Andrew Goodman-Bacon, and Pedro H.C. Sant'Anna, revise and resubmit)
 
 * [**Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends**](https://arxiv.org/abs/2308.02899) (with Emmanuel Tsyawo)
 
