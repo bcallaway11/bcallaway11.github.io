@@ -3182,7 +3182,44 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="style.css">
+<style type="text/css">a {
+color: steelblue;
+text-decoration: underline;
+}
+.alert {
+color: red;
+font-weight: bold;
+}
+div.example {
+border: 3px solid #ccc;
+padding: 25px;
+margin-top: 25px;
+margin-bottom: 25px;
+}
+span.example {
+font-weight: bold;
+color: darkorange;
+}
+div.side-comment {
+border: 3px solid #ccc;
+padding: 25px;
+margin-top: 25px;
+margin-bottom: 25px;
+}
+span.side-comment {
+font-weight: bold;
+color: indigo;
+}
+div.practice {
+border: 3px solid #ccc;
+padding: 25px;
+margin-top: 25px;
+margin-bottom: 25px;
+}
+span.practice {
+font-weight: bold;
+color: teal;
+}</style>
 </head>
 
 <body class="fullcontent">
@@ -3253,6 +3290,10 @@ window.Quarto = {
 <li><p>Calculate an estimate of <span class="math inline">\(ATT\)</span> using the doubly robust AIPW estimator that we discussed in class. Again, you can estimate the propensity using logit from the <code>glm</code> function. Compute standard errors using the bootstrap and compare your results to the previous estimates.</p></li>
 <li><p>Finally, calculate an estimate of <span class="math inline">\(ATT\)</span> using machine learning. For this problem, use the algorithm we discussed in class to estimate the <span class="math inline">\(ATT\)</span> using machine learning. In particular, I’d like for you to use the <code>ranger</code> package to estimate the propensity score and the outcome regression model. Compute standard errors using the bootstrap and compare your results to the previous estimates.</p></li>
 </ol>
+<p><strong>Question 3</strong> Prove the following result from the course note about interpreting <span class="math inline">\(\alpha\)</span> from the following regression: <span class="math inline">\(Y = \alpha D + X&#39;\beta + e\)</span>. You can use the decompositions that we discussed in class as a starting point. Prove the result for each case mentioned below separately and also show the result about the weights in case (i).</p>
+<p>Suppose that unconfoundedness and overlap both hold. In addition, suppose that either (i) <span class="math inline">\(p(X) = \L(D|X)\)</span> or (ii) <span class="math inline">\(\E[Y|X,D=0] = \L_0(Y|X)\)</span>, then <span class="math display">\[\begin{align*}
+    \alpha &amp;= \E\left[w(D,X) CATE(X) \right]
+\end{align*}\]</span> where <span class="math inline">\(w(D,X)\)</span> are defined above and have mean 1. In addition, if condition (i) holds (that <span class="math inline">\(p(X) = \L(D|X)\)</span>), then the weights are non-negative.</p>
 
 </main>
 <!-- /main column -->
