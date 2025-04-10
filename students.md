@@ -116,7 +116,7 @@ permalink: /students/
 ## M.A. Main Advisor
 
 <div class="student-box">
-<h3><strong>Stroud Payne</strong></h3>
+<h3><strong>Stroud Payne</strong>, University of Georgia, M.A. 2022</h3>
 <ul>
   <li><strong>Thesis:</strong> Difference-in-Differences with Time-Varying Covariates and Empirical Applications</li>
   <li><strong>Ph.D. Placement:</strong> Vanderbilt University</li>
