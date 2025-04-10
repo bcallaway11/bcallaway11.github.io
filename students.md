@@ -50,6 +50,7 @@ permalink: /students/
 <ul>
   <li><strong>Dissertation:</strong> Estimating R&D Interaction Structures and Spillover Effects</li>
   <li><strong>First Placement:</strong> Assistant Professor, Mohammed VI Polytechnic University</li>
+  <li><strong>Current Position:</strong> Assistant Professor, University of Alabama</li>
   <li><strong>Co-authored Papers:</strong> Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends</li>
 </ul>
 </div>
@@ -89,8 +90,10 @@ permalink: /students/
 ## Ph.D. Dissertation Committee Member
 
 <div class="student-box">
-<h3><a href="https://hsantanna.org/"><strong>Hugo Sant'Anna</strong></a>, University of Georgia, in progress</h3>
+<h3><a href="https://hsantanna.org/"><strong>Hugo Sant'Anna</strong></a>, University of Georgia, Ph.D. 2025</h3>
 <ul>
+  <li><strong>Dissertation:</strong> Essays in Labor Economics: Environmental Shocks, Immigration, and Gender Wage Gap in Linked Employer-Employee Data</li>
+  <li><strong>First Placement:</strong> Assistant Professor, University of Alabama at Birmingham</li>
   <li><strong>Co-authored Papers:</strong> Difference-in-differences with bad controls (with Carolina Caetano and Stroud Payne)</li>
 </ul>
 </div>
