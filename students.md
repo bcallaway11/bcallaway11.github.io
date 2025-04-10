@@ -7,12 +7,12 @@ permalink: /students/
 <style>
 /* Custom single spacing for bullet points */
 ul {
-    margin: 0; /* Adjust the margin as needed */
+    margin: 0.2em; /* Adjust the margin as needed */
     padding: 0; /* Adjust the padding as needed */
 }
 
 ul li {
-    margin-bottom: 0.2em; /* Adjust this for more or less spacing */
+    margin-bottom: 0; /* Adjust this for more or less spacing */
 }
 </style>
 
@@ -25,9 +25,7 @@ ul li {
   * First Placement: Assistant Professor, Shandong University of Finance and Economics
   
   * Co-authored Papers: Inference on Counterfactual Transition Matrices (with Karen Yang)
-  
-<br><br>
-  
+ 
 **Sonia Karami**, Temple University, Ph.D. 2021
 
   * Dissertation: Essays on Developing Treatment Effect Set-ups in Interactive Fixed Effects Models
@@ -36,8 +34,6 @@ ul li {
   
   * Co-authored Papers: Treatment Effects in Interactive Fixed Effects Models with a Small Number of Periods (Journal of Econometrics, 2023)
 
-<br><br>
-  
 [**Emmanuel Tsyawo**](https://estsyawo.github.io/), Temple University, Ph.D. 2020
 
   * Dissertation: Estimating R&D Interaction Structures and Spillover Effects
@@ -46,15 +42,11 @@ ul li {
   
   * Co-authored Papers: Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends
   
-<br><br>  
-  
 **Qin Wei**, Temple University, Ph.D. 2020
 
   * Dissertation: Essays on Banking Mergers and Aquisitions
   
   * First Placement: Despository Trust & Clearing Corporation
-
-<br><br>
 
 [**Afrouz Azadikhah-Jahromi**](https://www.widener.edu/about/faculty-directory/afrouz-jahromi), Temple University, Ph.D. 2019
 
@@ -64,8 +56,6 @@ ul li {
   
   * Co-authored Papers: Heterogeneous Effects of Job Displacement on Earnings (Empirical Economics, 2022)
 
-<br><br>
-  
 [**Weige Huang**](https://darren1988.wixsite.com/weigehuang), Temple University, Ph.D. 2019
 
   * Dissertation: Essays on Microeconometrics and Finance
@@ -80,8 +70,6 @@ ul li {
     
     * Local Intergenerational Elasticities (Economics Bulletin, 2019)
 
-<br><br>
-
 ## Ph.D. Dissertation Committe Member
 
 
@@ -89,21 +77,15 @@ ul li {
 
   * Co-authored Papers: Difference-in-differences with bad controls (with Carolina Caetano and Stroud Payne)
 
-<br><br>
-
 [**Pablo Troncoso**](https://sites.google.com/view/pablotroncoso), University of Georgia, Ph.D. 2023
 
   * Dissertation: Essays in Formal Labor Supply and Intergenerational Mobility
   
   * First Placement: Instructional Assistant Professor, University of Houston
 
-<br><br>
-
 **Chenchen Xie**, Temple University, Ph.D. 2021
 
   * Dissertation: Essays on Microeconometrics and Business Economics
-
-<br><br>
 
 ## M.A. Main Advisor
 
