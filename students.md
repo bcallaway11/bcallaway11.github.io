@@ -5,126 +5,119 @@ permalink: /students/
 ---
 
 <style>
-/* Custom single spacing for bullet points */
-ul {
-    margin: 0.2em; /* Adjust the margin as needed */
-    padding: 0; /* Adjust the padding as needed */
+.student-box {
+  background-color: #f9f9f9;
+  border-left: 4px solid #ba0c2f;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-radius: 4px;
 }
-
-ul li {
-    margin-bottom: 0; /* Adjust this for more or less spacing */
+.student-box h3 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+.student-box ul {
+  margin: 0;
+  padding-left: 1.2em;
+}
+.student-box li {
+  margin-bottom: 0.2em;
 }
 </style>
 
 ## Ph.D. Main Advisor
 
-**Chengye Jia**, Temple University, Ph.D. 2021
+<div class="student-box">
+<h3><strong>Chengye Jia</strong>, Temple University, Ph.D. 2021</h3>
+<ul>
+  <li><strong>Dissertation:</strong> Essays on Microeconometrics and Labor Economics</li>
+  <li><strong>First Placement:</strong> Assistant Professor, Shandong University of Finance and Economics</li>
+  <li><strong>Co-authored Papers:</strong> Inference on Counterfactual Transition Matrices (with Karen Yang)</li>
+</ul>
+</div>
 
-  * Dissertation: Essays on Microeconometrics and Labor Economics
+<div class="student-box">
+<h3><strong>Sonia Karami</strong>, Temple University, Ph.D. 2021</h3>
+<ul>
+  <li><strong>Dissertation:</strong> Essays on Developing Treatment Effect Set-ups in Interactive Fixed Effects Models</li>
+  <li><strong>First Placement:</strong> Data Scientist / Senior Quant, Federal Reserve Bank of Richmond</li>
+  <li><strong>Co-authored Papers:</strong> Treatment Effects in Interactive Fixed Effects Models with a Small Number of Periods (Journal of Econometrics, 2023)</li>
+</ul>
+</div>
 
-  * First Placement: Assistant Professor, Shandong University of Finance and Economics
-  
-  * Co-authored Papers: Inference on Counterfactual Transition Matrices (with Karen Yang)
- 
-**Sonia Karami**, Temple University, Ph.D. 2021
+<div class="student-box">
+<h3><a href="https://estsyawo.github.io/"><strong>Emmanuel Tsyawo</strong></a>, Temple University, Ph.D. 2020</h3>
+<ul>
+  <li><strong>Dissertation:</strong> Estimating R&D Interaction Structures and Spillover Effects</li>
+  <li><strong>First Placement:</strong> Assistant Professor, Mohammed VI Polytechnic University</li>
+  <li><strong>Co-authored Papers:</strong> Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends</li>
+</ul>
+</div>
 
-  * Dissertation: Essays on Developing Treatment Effect Set-ups in Interactive Fixed Effects Models
-  
-  * First Placement: Data Scientist / Senior Quant, Federal Reserve Bank of Richmond
-  
-  * Co-authored Papers: Treatment Effects in Interactive Fixed Effects Models with a Small Number of Periods (Journal of Econometrics, 2023)
+<div class="student-box">
+<h3><strong>Qin Wei</strong>, Temple University, Ph.D. 2020</h3>
+<ul>
+  <li><strong>Dissertation:</strong> Essays on Banking Mergers and Acquisitions</li>
+  <li><strong>First Placement:</strong> Depository Trust & Clearing Corporation</li>
+</ul>
+</div>
 
-[**Emmanuel Tsyawo**](https://estsyawo.github.io/), Temple University, Ph.D. 2020
+<div class="student-box">
+<h3><a href="https://www.widener.edu/about/faculty-directory/afrouz-jahromi"><strong>Afrouz Azadikhah-Jahromi</strong></a>, Temple University, Ph.D. 2019</h3>
+<ul>
+  <li><strong>Dissertation:</strong> Essays on Heterogeneous Treatment Effects in the Labor Market</li>
+  <li><strong>First Placement:</strong> Assistant Professor, Widener University</li>
+  <li><strong>Co-authored Papers:</strong> Heterogeneous Effects of Job Displacement on Earnings (Empirical Economics, 2022)</li>
+</ul>
+</div>
 
-  * Dissertation: Estimating R&D Interaction Structures and Spillover Effects
-  
-  * First Placement: Assistant Professor, Mohammed VI Polytechnic University
-  
-  * Co-authored Papers: Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends
-  
-**Qin Wei**, Temple University, Ph.D. 2020
+<div class="student-box">
+<h3><a href="https://darren1988.wixsite.com/weigehuang"><strong>Weige Huang</strong></a>, Temple University, Ph.D. 2019</h3>
+<ul>
+  <li><strong>Dissertation:</strong> Essays on Microeconometrics and Finance</li>
+  <li><strong>First Placement:</strong> Assistant Professor, Wenlan School of Business, Zhongnan University of Economics and Law</li>
+  <li><strong>Current Position:</strong> Associate Professor, Shenzhen MSU-BIT University</li>
+  <li><strong>Co-authored Papers:</strong>
+    <ul>
+      <li>Distributional Effects of a Continuous Treatment with an Application on Intergenerational Mobility (Oxford Bulletin of Economics and Statistics, 2020)</li>
+      <li>Local Intergenerational Elasticities (Economics Bulletin, 2019)</li>
+    </ul>
+  </li>
+</ul>
+</div>
 
-  * Dissertation: Essays on Banking Mergers and Aquisitions
-  
-  * First Placement: Despository Trust & Clearing Corporation
+## Ph.D. Dissertation Committee Member
 
-[**Afrouz Azadikhah-Jahromi**](https://www.widener.edu/about/faculty-directory/afrouz-jahromi), Temple University, Ph.D. 2019
+<div class="student-box">
+<h3><a href="https://hsantanna.org/"><strong>Hugo Sant'Anna</strong></a>, University of Georgia, in progress</h3>
+<ul>
+  <li><strong>Co-authored Papers:</strong> Difference-in-differences with bad controls (with Carolina Caetano and Stroud Payne)</li>
+</ul>
+</div>
 
-  * Dissertation: Essays on Heterogeneous Treatment Effects in the Labor Market
-  
-  * First Placement: Assistant Professor, Widener University
-  
-  * Co-authored Papers: Heterogeneous Effects of Job Displacement on Earnings (Empirical Economics, 2022)
+<div class="student-box">
+<h3><a href="https://sites.google.com/view/pablotroncoso"><strong>Pablo Troncoso</strong></a>, University of Georgia, Ph.D. 2023</h3>
+<ul>
+  <li><strong>Dissertation:</strong> Essays in Formal Labor Supply and Intergenerational Mobility</li>
+  <li><strong>First Placement:</strong> Instructional Assistant Professor, University of Houston</li>
+</ul>
+</div>
 
-[**Weige Huang**](https://darren1988.wixsite.com/weigehuang), Temple University, Ph.D. 2019
-
-  * Dissertation: Essays on Microeconometrics and Finance
-  
-  * First Placement: Assistant Professor, Wenlan School of Business, Zhongnan University of Economics and Law
-  
-  * Current Position: Associate Professor, Shenzhen MSU-BIT University
-
-  * Co-authored Papers: 
-  
-    * Distributional Effects of a Continuous Treatment with an Application on Intergenerational Mobility (Oxford Bulletin of Economics and Statistics, 2020)
-    
-    * Local Intergenerational Elasticities (Economics Bulletin, 2019)
-
-## Ph.D. Dissertation Committe Member
-
-
-[**Hugo Sant'Anna**](https://hsantanna.org/), University of Georgia, in progress
-
-  * Co-authored Papers: Difference-in-differences with bad controls (with Carolina Caetano and Stroud Payne)
-
-[**Pablo Troncoso**](https://sites.google.com/view/pablotroncoso), University of Georgia, Ph.D. 2023
-
-  * Dissertation: Essays in Formal Labor Supply and Intergenerational Mobility
-  
-  * First Placement: Instructional Assistant Professor, University of Houston
-
-**Chenchen Xie**, Temple University, Ph.D. 2021
-
-  * Dissertation: Essays on Microeconometrics and Business Economics
+<div class="student-box">
+<h3><strong>Chenchen Xie</strong>, Temple University, Ph.D. 2021</h3>
+<ul>
+  <li><strong>Dissertation:</strong> Essays on Microeconometrics and Business Economics</li>
+</ul>
+</div>
 
 ## M.A. Main Advisor
 
-**Stroud Payne**
+<div class="student-box">
+<h3><strong>Stroud Payne</strong></h3>
+<ul>
+  <li><strong>Thesis:</strong> Difference-in-Differences with Time-Varying Covariates and Empirical Applications</li>
+  <li><strong>Ph.D. Placement:</strong> Vanderbilt University</li>
+  <li><strong>Co-authored Papers:</strong> Difference-in-differences with bad controls (with Carolina Caetano and Hugo Sant'Anna)</li>
+</ul>
+</div>
 
-  * Thesis: Difference-in-Differences with Time-Varying Covariates and Empirical Applications
-  
-  * Ph.D. Placement: Vanderbilt University
-  
-  * Co-authored Papers: Difference-in-differences with bad controls (with Carolina Caetano and Hugo Sant'Anna)
-  
-<br><br>
-
-<!--
-<table style="width:100%">
-  <tr>   
-    <td width="40%"><img src="blank.jpg" alt="Chengye Jia" width="100%" > </td>
-    <td><p><b><a href="https://chengye-jia.github.io/">Chengye Jia</a></b></p><p>Temple University, Ph.D. 2021</p><p>Research Interests:  Microeconometrics, Labor Economics, Machine Learning</p><p>First Placement: Assistant Professor, Shandong University of Finance and Economics</p> </td>
-  </tr>
-  <tr>   
-    <td width="40%"><img src="blank.jpg" alt="Sonia Karami" width="100%" > </td>
-    <td><p><b><a href="https://sites.temple.edu/sonia/">Sonia Karami</a></b></p><p>Temple University, Ph.D. 2021</p><p>Research Interests:  Microeconometrics, Labor Economics, and Health Economics</p><p>First Placement: Data Scientist / Senior Quant, Federal Reserve Bank of Richmond</p></td>
-  </tr>
-  <tr>   
-    <td width="40%"><img src="blank.jpg" alt="Emmanuel Tsyawo" width="100%" > </td>
-    <td><p><b><a href="https://estsyawo.github.io/">Emmanuel Tsyawo</a></b></p><p>Temple University, Ph.D. 2020</p><p>Research Interests:  Microeconometrics and Empirical IO</p><p>First Placement: Assistant Professor, Mohammed VI Polytechnic University</p> </td>
-  </tr>
-  <tr>   
-    <td width="40%"><img src="blank.jpg" alt="Qin Wei" width="100%" > </td>
-    <td><p><b>Qin Wei</b></p><p>Temple University, Ph.D. 2020</p><p>Research Interests:  Finance and Microeconometrics</p><p>First Placement: Despository Trust & Clearing Corporation</p> </td>
-  </tr>
-  <tr>   
-    <td width="40%"><img src="https://bcallaway11.github.io/files/Afrouz.JPG" alt="Afrouz Azadikhah-Jahromi" width="100%" > </td>
-    <td><p><b><a href="https://www.widener.edu/about/faculty-directory/afrouz-azadikhah-jahromi">Afrouz Azadikhah-Jahromi</a></b></p><p>Temple University, Ph.D. 2019</p><p>Research Interests:  Labor Economics and Microeconometrics</p><p>First Placement: Assistant Professor, Widener University</p> </td>
-  </tr>
-  <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-  <tr>   
-    <td width="40%"><img src="https://bcallaway11.github.io/files/weige-photo.jpg" alt="Weige Huang" width="100%" > </td>
-    <td><p><b><a href="https://huang.netlify.com">Weige Huang</a></b></p><p>Temple University, Ph.D. 2019</p><p>Research Interests:  Microeconometrics and Finance</p><p>First Placement:  Assistant Professor, Wenlan School of Business, Zhongnan University of Economics and Law</p> </td>
-  </tr>
-</table>
--->
