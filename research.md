@@ -8,7 +8,7 @@ permalink: /research/
 
 1. [**Difference-in-Differences Designs: A Practitioner's Guide**](https://arxiv.org/abs/2503.13323), (with Andrew Baker, Scott Cunningham, Andrew Goodman-Bacon, and Pedro H.C. Sant'Anna, forthcoming at *Journal of Economic Literature*)
 
-2. [**Evaluating Policies Early in a Pandemic: Bounding Policy Effects with Nonrandomly Missing Data**](https://doi.org/10.1162/rest_a_01306) [[arXiv](https://arxiv.org/abs/2005.09605)] [[Supplementary Appendix](/files/CL-Covid-Bounds/Callaway_Li_Covid_Bounds_2022_Supplementary_Appendix.pdf)] (with Tong Li, \textit{Review of Economics and Statistics}, Vol. 107, No. 3, pp.~803--819, 2025.)
+2. [**Evaluating Policies Early in a Pandemic: Bounding Policy Effects with Nonrandomly Missing Data**](https://doi.org/10.1162/rest_a_01306) [[arXiv](https://arxiv.org/abs/2005.09605)] [[Supplementary Appendix](/files/CL-Covid-Bounds/Callaway_Li_Covid_Bounds_2022_Supplementary_Appendix.pdf)] (with Tong Li, *Review of Economics and Statistics*, Vol. 107, No. 3, pp. 803--819, 2025.)
 
 3. [**Event Studies with a Continuous Treatment**](https://doi.org/10.1257/pandp.20241047) [[pre-print](https://psantanna.com/files/CGBS_AEAPP.pdf)] (with Andrew Goodman-Bacon and Pedro Sant'Anna, *AEA Papers & Proceedings*, Vol. 114, pp. 601--605, 2024.)
 
