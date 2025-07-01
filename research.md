@@ -51,6 +51,8 @@ permalink: /research/
 
 ## Working Papers
 
+* [**Causal Inference for Aggregated Treatment**](https://arxiv.org/abs/2506.22885) (with Carolina Caetano, Gregorio Caetano, and Derek Dyal, submitted)
+
 * [**Testing the Effects of an Unobservable Factor: Do Marriage Prospects Affect College Major Choice?**](https://arxiv.org/abs/2410.19947) (with Alper Arslan and Tong Li, submitted)
 
 
