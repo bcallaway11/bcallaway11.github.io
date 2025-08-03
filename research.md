@@ -55,7 +55,6 @@ permalink: /research/
 
 * [**Testing the Effects of an Unobservable Factor: Do Marriage Prospects Affect College Major Choice?**](https://arxiv.org/abs/2410.19947) (with Alper Arslan and Tong Li, submitted)
 
-
 * [**Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends**](https://arxiv.org/abs/2308.02899) (with Emmanuel Tsyawo)
 
 * [**Regulation, Emissions, and Productivity: Evidence from China's Eleventh Five-Year Plan**](https://www.bankofcanada.ca/wp-content/uploads/2024/03/swp2024-7.pdf) (with Tong Li, Joel Rodrigue, Yuya Sasaki, and Yong Tan, submitted)
@@ -64,7 +63,7 @@ permalink: /research/
 
 * [**Distributional Effects with Two-Sided Measurement Error: An Application to Intergenerational Income Mobility**](/files/Two-Sided-Measurement-Error/Callaway_Li_Murtazashvili_2024.pdf) [[arXiv](https://arxiv.org/abs/2107.09235)] (with Tong Li and Irina Murtazashvili, revise and resubmit)
 
-* [**Difference-in-Differences with a Continuous Treatment**](https://arxiv.org/abs/2107.02637) [[5 Minute Summary](/posts/five-minute-did-continuous-treatment)] [[Slides](/files/DID-Continuous-Treatment/slides/did_reading_group.html)] [[Supplementary Appendix](https://psantanna.com/files/CGBS_supp.pdf)] (with Andrew Goodman-Bacon and Pedro H.C. Sant'Anna, revise and resubmit)
+* [**Difference-in-Differences with a Continuous Treatment**](https://arxiv.org/abs/2107.02637) [[5 Minute Summary](/posts/five-minute-did-continuous-treatment)] [[Slides](/files/DID-Continuous-Treatment/slides/did_reading_group.html)] [[Supplementary Appendix](https://pedrohcgs.github.io/files/CGBS_supp_v3.pdf)] (with Andrew Goodman-Bacon and Pedro H.C. Sant'Anna, revise and resubmit)
 
 ## Work in Progress
 

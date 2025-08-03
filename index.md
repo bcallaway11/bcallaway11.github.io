@@ -24,14 +24,9 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 **Recent Updates:**
 
+* Materials for my difference-in-differences talk at [Camp Resources XXXI](https://cenrep.ncsu.edu/events/camp-resources/) are available [here](https://bcallaway11.github.io/camp-resources/)
+
 * Post about [interpreting regressions under unconfoundedness](/posts/unconfoundedness-regressions)
-
-* Materials for my difference-in-differences workshop for Terry's Center for Business Analytics and Insights are available [here](https://bcallaway11.github.io/uga-cbai-workshop/)
-
-* (Sept. 2024) Major update to [Difference-in-differences when parallel trends holds conditional on covariates](/files/DID-Covariates/Caetano_Callaway_2024.pdf)
-
-* (Jan. 2024) Major update to [Difference-in-differences with a continuous treatment](https://arxiv.org/abs/2107.02637) now available
-
 
 <br>
 
