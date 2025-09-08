@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ECON 4750 Course Material</title>
+<title>Homework 1 Solutions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -18,6 +18,40 @@ ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
+}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+}
+pre.numberSource { margin-left: 3em; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -3061,7 +3095,7 @@ font-weight: bold;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">ECON 4750 Course Material</h1>
+<h1 class="title">Homework 1 Solutions</h1>
 </div>
 
 
@@ -3078,72 +3112,124 @@ font-weight: bold;
 </header>
 
 
-<p>[<a href="syllabus.pdf">Syllabus</a>]</p>
-<p><a href="https://bcallaway11.github.io/econ_4750_notes/">Course Notes</a></p>
-<section id="homeworks" class="level1">
-<h1>Homeworks</h1>
-<p><a href="hw1.html">HW 1</a>, due Friday, Aug. 29, [[<a href="hw1_sol.html">Solutions</a>]]</p>
-<!--
-
-# Extra Materials for Midterm 1
-
-# Extra Materials for Midterm 2
-
-# Extra Materials for Final Exam
-
-# Projects
-
--->
+<section id="ch.-3-q1" class="level1">
+<h1>Ch. 3, Q1</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;economics&quot;</span>, <span class="st">&quot;econometrics&quot;</span>, <span class="st">&quot;ECON 4750&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str_length</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  9 12  9</code></pre>
+</div>
+</div>
 </section>
-<section id="additional-course-materials" class="level1">
-<h1>Additional Course Materials</h1>
-<ul>
-<li><p>First Week Slides: <a href="l1_short.html">What is Econometrics?</a></p></li>
-<li><p><a href="firm_data.csv">firm_data.csv</a> | <a href="firm_data.RData">firm_data.RData</a> | <a href="firm_data.dta">firm_data.dta</a></p></li>
-</ul>
+<section id="ch.-3-q3" class="level1">
+<h1>Ch. 3, Q3</h1>
+<p><strong>Part a</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fibonacci <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># handle cases where n=1 or 2</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n<span class="sc">==</span><span class="dv">2</span>) {</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">1</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># main code</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  fib_seq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">3</span><span class="sc">:</span>n) {</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    fib_seq[i] <span class="ot">&lt;-</span> fib_seq[i<span class="dv">-1</span>] <span class="sc">+</span> fib_seq[i<span class="dv">-2</span>]</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  fib_seq[n]</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fibonacci</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fibonacci</span>(<span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13</code></pre>
+</div>
+</div>
+<p><strong>Part b</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>alt_seq <span class="ot">&lt;-</span> <span class="cf">function</span>(a,b,n) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># handle cases where n=1 or 2</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(a)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n<span class="sc">==</span><span class="dv">2</span>) {</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(b)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># main code</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  this_seq <span class="ot">&lt;-</span> <span class="fu">c</span>(a,b)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">3</span><span class="sc">:</span>n) {</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    this_seq[i] <span class="ot">&lt;-</span> this_seq[i<span class="dv">-1</span>] <span class="sc">+</span> this_seq[i<span class="dv">-2</span>]</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  this_seq[n]</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">alt_seq</span>(<span class="dv">3</span>,<span class="dv">7</span>,<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 17</code></pre>
+</div>
+</div>
 </section>
-<section id="data" class="level1">
-<h1>Data</h1>
-<p><strong>This list only includes data that needs to be downloaded from the course website. Other data is listed in the Course Notes along with steps to access the data and a link to a description of the data.</strong></p>
-<ul>
-<li><p><a href="data/acs.RData">acs</a> [<a href="data/acs_description.txt">description</a>]</p></li>
-<li><p><a href="data/banks.RData">banks</a> [<a href="data/banks_description.txt">description</a>]</p></li>
-<li><p><a href="data/birthweight_smoking.dta">Birthweight_Smoking</a> [<a href="https://www.princeton.edu/~mwatson/Stock-Watson_3u/Students/EE_Datasets/Birthweight_Smoking_Description.pdf">description</a>]</p></li>
-<li><p><a href="data/diamond_train.RData">diamond_train</a> [<a href="https://www.kaggle.com/shivam2503/diamonds/">description</a>]</p></li>
-<li><p><a href="data/diamond_test.RData">diamond_test</a> [<a href="https://www.kaggle.com/shivam2503/diamonds/">description</a>]</p></li>
-<li><p><a href="data/fertilizer_2000.RData">fertilizer_2000</a> [<a href="data/fertilizer_description.txt">description</a>]</p></li>
-<li><p><a href="data/fertilizer_panel.RData">fertilizer_panel</a> [<a href="data/fertilizer_description.txt">description</a>]</p></li>
-<li><p><a href="data/house.RData">house</a> [<a href="data/house_description.txt">description</a>]</p></li>
-<li><p><a href="data/intergenerational_mobility.RData">intergenerational_mobility</a> [<a href="data/intergenerational_mobility_description.txt">description</a>]</p></li>
-<li><p><a href="data/Lead_Mortality.RData">Lead_Mortality</a> [<a href="http://www.princeton.edu/~mwatson/Stock-Watson_3u/Students/EE_Datasets/Lead_Mortality_Description.pdf">description</a>]</p></li>
-<li><p><a href="data/mlda.RData">mlda</a> [<a href="data/mlda_description.txt">description</a>]</p></li>
-<li><p><a href="data/mutual_funds.RData">mutual_funds</a> [<a href="data/mutual_funds_description.txt">description</a>]</p></li>
-<li><p><a href="data/rand_hie.RData">rand_hie</a> [<a href="data/rand_hie_description.txt">description</a>]</p></li>
-<li><p><a href="data/titanic_training.csv">titanic_training</a> [<a href="https://www.kaggle.com/c/titanic/data">description</a>]</p></li>
-<li><p><a href="data/titanic_testing.csv">titanic_testing</a> [<a href="https://www.kaggle.com/c/titanic/data">description</a>]</p></li>
-<li><p><a href="data/us_data.RData">us_data</a> [<a href="data/us_data_description.txt">description</a>]</p></li>
-</ul>
-</section>
-<section id="code-challenges" class="level1">
-<h1>Code Challenges</h1>
-<p>None yet…</p>
-<!--
-## 11:30 Standings
-
-
-
-::: {.cell}
-
-:::
-
-
-
-| Pineapple Pizzas | Mint Chocolate Chips | Strawberry Milkshakes | Boneless | Drums | Flats | Professor |
-|:----------------:|:--------------------:|:---------------------:|:--------:|:-----:|:-----:|:---------:|
-| 0                | 0                    | 1                     | 0        | 0     | 0     | 0         |
-
-
--->
+<section id="ch.-3-q5" class="level1">
+<h1>Ch. 3, Q5</h1>
+<p><strong>Part a</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 150</code></pre>
+</div>
+</div>
+<p><strong>Part b</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(iris<span class="sc">$</span>Sepal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.843333</code></pre>
+</div>
+</div>
+<p><strong>Part c</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">subset</span>(iris, Species<span class="sc">==</span><span class="st">&quot;setosa&quot;</span>)<span class="sc">$</span>Sepal.Width)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.428</code></pre>
+</div>
+</div>
+<p><strong>Part d</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sorted_iris <span class="ot">&lt;-</span> iris[<span class="fu">order</span>(iris<span class="sc">$</span>Petal.Length),]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sorted_iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+23          4.6         3.6          1.0         0.2  setosa
+14          4.3         3.0          1.1         0.1  setosa
+15          5.8         4.0          1.2         0.2  setosa
+36          5.0         3.2          1.2         0.2  setosa
+3           4.7         3.2          1.3         0.2  setosa
+17          5.4         3.9          1.3         0.4  setosa
+37          5.5         3.5          1.3         0.2  setosa
+39          4.4         3.0          1.3         0.2  setosa
+41          5.0         3.5          1.3         0.3  setosa
+42          4.5         2.3          1.3         0.3  setosa</code></pre>
+</div>
+</div>
 </section>
 
 </main>
