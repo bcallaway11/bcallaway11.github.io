@@ -24,7 +24,7 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 **Recent Updates:**
 
-* [Slides for Emory seminar](/files/presentations/2025b-Emory/staggered_ife.html)
+* [Slides for Rice Seminar](/files/presentations/25-Rice/staggered_ife.html)
 
 * Materials for my difference-in-differences talk at [Camp Resources XXXI](https://cenrep.ncsu.edu/events/camp-resources/) are available [here](https://bcallaway11.github.io/camp-resources/)
 
