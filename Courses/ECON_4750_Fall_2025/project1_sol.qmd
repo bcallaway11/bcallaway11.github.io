@@ -1,0 +1,272 @@
+---
+title: "Project 1, Professor's Version"
+code-fold: true
+format:
+  html:
+    theme: united
+    self-contained: true
+    css: "../style.css"
+---
+
+
+
+# Project 1
+
+$$
+\newcommand{\E}{\mathbb{E}}
+$$
+
+This document contains my version of the completed project.  You do not have to have done exactly the same thing as me.
+
+The goal of the project is to predict house prices in Ames, Iowa.  In order to do this, I estimated a number of different model specifications using regressions, Lasso, and ridge regressions.
+
+
+## Models being considered
+
+In order to do this, I considered 7 different specifications (even though only 5 were required).  These are provided in Table 1.
+
+
+```{r}
+#| warning: false
+#| message: false
+library(haven)
+library(tidyverse)
+library(glmnetUtils)
+library(BMisc)
+library(kableExtra)
+
+form1 <- SalePrice ~ as.factor(Neighborhood)
+form2 <- SalePrice ~ GrLivArea
+form3 <- SalePrice ~ as.factor(OverallQual)
+form4 <- SalePrice ~ as.factor(Neighborhood) + LotArea + GrLivArea +
+  YearBuilt
+form5 <- SalePrice ~ as.factor(Neighborhood) + LotArea + GrLivArea +
+  YearBuilt + as.factor(BldgType) + as.factor(LotShape) +
+  as.factor(LandContour) + as.factor(LandSlope)
+form6 <- SalePrice ~ (as.factor(Neighborhood) + LotArea + GrLivArea +
+                        YearBuilt)^2
+form7 <- SalePrice ~ (as.factor(Neighborhood) + LotArea + GrLivArea +
+                        YearBuilt)^3
+
+# print formulas
+form_list <- sapply(list(form1,form2,form3,form4,form5,form6,form7), function(f) paste(deparse(f), collapse=""))
+model_names <- paste0("Model ", seq(1,7))
+tab1 <- data.frame(model_names, form_list)
+kbl(tab1, col.names=c("", "Formula")) %>%
+  kable_styling("striped", full_width=T) %>%
+  column_spec(1, width="1in")
+```
+
+Models 1-3 are very simple models that only include one regressor: Neighborhood, number of square feet of the house, and a measure of overall quality of the house, respectively.  I suspect that each of these regressors are useful for predicting house prices, but that more complicated models are likely to predict better than these simple models.  Model 4 includes neighborhood, lot size, square feet, and the year the house was built.  Model 6 includes the same regressors but also all of their interactions and squared terms (this ends up including 103 regressors, which seems like a lot especially when we have just 1000 observations), and Model 7 includes the same but also all of their interactions, second order interactions, and cubic terms (this ends up being 176 total regressors).  Model 5 adds to Model 4 lot shape, land contour, and land slope.  It is less clear to me if these variables will be predictive of the price at which a house sells, but perhaps worth considering.
+
+I estimated each of these models using a standard regression and additionally estimated models 5 and 7 using Lasso and ridge regressions.
+
+## Results using training data
+
+To start with, I estimated each model using the training data only and computed $R^2$, adjusted $R^2$, AIC, BIC, and the cross-validation criteria (using 10-fold cross-validation).  These results are provided next.
+
+```{r, cache=TRUE}
+load("house_price_train.RData")
+train <- house_price_train
+
+# assign folds for cross validation
+set.seed(1234)
+J <- 10
+n <- nrow(train)
+train$fold <- sample(1:J, size=n, replace=TRUE)
+
+# function to compute model selection criteria
+mod_sel <- function(form) {
+  reg <- lm(form, data=train)
+  r.squared <- summary(reg)$r.squared
+  adj.r.squared <- summary(reg)$adj.r.squared
+  uhat <- resid(reg)
+  ssr <- sum(uhat^2)
+  k <- length(coef(reg))
+  n <- nrow(train)
+  aic <- 2*k + n*log(ssr)
+  bic <- log(n)*k + n*log(ssr)
+  cv <- cross_val(form)
+  c(r.squared, adj.r.squared, aic, bic, cv)
+}
+
+# function for cross validation
+cross_val <- function(form) {
+  Ypred <- rep(NA, n)
+  for (j in 1:J) {
+    cv_data <- subset(train, fold != j)
+    cv_reg <- lm(form, data=cv_data)
+    Ypred[train$fold==j] <- predict(cv_reg, newdata=subset(train, fold==j))
+  }
+  Y <- train$SalePrice
+  cv <- sqrt(mean( (Y-Ypred)^2))
+  cv
+}
+
+
+# report results for models 1-7
+results <- suppressWarnings(as.data.frame(t(sapply(list(form1, form2, form3, form4, form5, form6,form7), mod_sel))))
+colnames(results) <- c("r.squared", "adj.r.squared", "aic", "bic", "cv")
+
+# improve formatting
+results$aic <- results$aic/1000
+results$bic <- results$bic/1000
+results <- round(results, 2)
+results$cv <- round(results$cv, digits=0)
+
+# function for cross validation for lasso/ridge
+cross_val_lr <- function(form, alpha) {
+  Ypred <- rep(NA, n)
+  for (j in 1:J) {
+    cv_model <- glmnetUtils::cv.glmnet(form, alpha=alpha,
+                          data=subset(train, fold!=j))
+    Y_pred <- predict(cv_model, newdata=train)[train$fold==j]
+    Ypred[train$fold==j] <- Y_pred
+  }
+  Y <- train$SalePrice
+  cv <- sqrt( mean( (Y-Ypred)^2) )
+
+  cv
+}
+
+# not returning r-squared, etc., but want to
+# put these in the same table.  This is just a
+# simple function to match the formatting from
+# earlier
+mod_sel_lr <- function(form, alpha=1) {
+  cv <- cross_val_lr(form, alpha)
+  c(NA, NA, NA, NA, cv)
+}
+
+# lasso
+lasso_results <- as.data.frame(t(sapply(list(form5, form7), mod_sel_lr, alpha=1)))
+colnames(lasso_results) <- c("r.squared", "adj.r.squared", "aic", "bic", "cv")
+
+lasso_results$cv <- round(lasso_results$cv, 0)
+
+# ridge
+ridge_results <- as.data.frame(t(sapply(list(form5, form7), mod_sel_lr, alpha=0)))
+colnames(ridge_results) <- c("r.squared", "adj.r.squared", "aic", "bic", "cv")
+
+# improve formatting
+ridge_results$cv <- round(ridge_results$cv, 0)
+
+# all results
+cnames <- c("Reg 1", "Reg 2", "Reg 3", "Reg 4", "Reg 5", "Reg 6", "Reg 7",
+            "Lasso 5", "Lasso 7",
+            "Ridge 5", "Ridge 7")
+train_results <- rbind.data.frame(results,
+                                  lasso_results,
+                                  ridge_results)
+train_results[is.na(train_results)] <- ""
+train_results[7,5] <- "much bigger"
+print_df <- data.frame(model=cnames,train_results)
+kbl(print_df) %>%
+  kable_styling("striped", full_width=T)
+```
+
+Interestingly, the model selection criteria do not agree on which model will predict the best.  That said, there are some interesting patterns.
+
+* None of the three simple models (Models 1-3) are chosen by any selection criteria.
+
+* Adjusted $R^2$ is highest for Model 7, which is the most complicated model.
+
+* AIC is also lowest for Model 7 [recall: AIC tends to pick more complicated models, so this is perhaps not too surprising].
+
+* BIC is lowest for Model 5 (which was the one that included some regressors like lot shape that were not clear if they would matter or not).  Among Models 4, 6, and 7, BIC was lowest for Model 4 (which is a smaller model than the one chosen by AIC).
+
+* Using cross-validation, the model that performs the best is Model 5 with Model 4 a close second.  Model 7 does very poorly under cross validation, likely due to over-fitting.
+
+Based on the above discussion, if I were forced to use a particular model to pick house prices, I would go with Model 5 and maybe also consider Model 4.  I put the most weight on the cross-validation results, and, therefore, based on the poor performance of Models 6 and 7 under cross-validation, I wouldn't put much weight on these even though they seemed to do well under some of the criteria.
+
+For Lasso and ridge regression, it is interesting to note that they both perform pretty well using the model 7 (the most complicated model).  This suggests that they are able to avoid the over-fitting problem when model 7 is estimated using a regression.  That said, all the machine learning approaches still seem to perform somewhat worse than model 5.  One last thing that is interesting is that, for both Lasso and ridge regression, they perform better using model 5 than model 7.  I think that this suggests that it is more important to include the extra regressors in model 5 (related to building type and features of the lot) than it is to possibly include interactions and higher order terms as in model 7.
+
+## Results using testing data
+
+To conclude, I want to check on how the models that were considered in the previous section will work on out-of-sample data.
+
+These results are provided in the next table (which is sorted by how well the model performed overall).
+
+```{r}
+# out of sample predictions
+load("house_price_test.RData")
+test <- house_price_test
+test$fold <- -99 # just match training data, used below
+
+test_mse <- function(form) {
+  train_reg <- lm(form, data=train)
+  Y <- test$SalePrice
+  Y_pred <- predict(train_reg, newdata=test)
+  mse <- sqrt( mean( (Y-Y_pred)^2) )
+  mse
+}
+
+test_mse_lr <- function(form, alpha=1) {
+  cv_model <- glmnetUtils::cv.glmnet(form, alpha=alpha, data=train)
+  n_test <- nrow(test)
+  test_Y_pred <- predict(cv_model, newdata=rbind.data.frame(test,train))[1:n_test]
+  test_Y <- test$SalePrice
+  mse <- sqrt(mean( (test_Y - test_Y_pred)^2))
+  mse
+}
+
+
+out_regs <- suppressWarnings(unlist(lapply(list(form1,form2,form3,form4,form5,form6,form7), test_mse)))
+out_lassos <- unlist(lapply(list(form5, form7), test_mse_lr, alpha=1))
+out_ridges <- unlist(lapply(list(form5, form7), test_mse_lr, alpha=0))
+
+cnames <- c("Reg 1", "Reg 2", "Reg 3", "Reg 4", "Reg 5", "Reg 6", "Reg 7",
+            "Lasso 5", "Lasso 7",
+            "Ridge 5", "Ridge 7")
+
+out <- c(out_regs, out_lassos, out_ridges)
+out_res <- cbind.data.frame(model=cnames, cv=round(out,0))
+out_res <- out_res[order(out_res[,2]),]
+out_res[length(cnames),2] <- "much bigger"
+rownames(out_res) <- NULL
+kbl(out_res) %>%
+    kable_styling("striped", full_width=T)
+```
+
+These are interesting results.
+
+* The headline result is that Regression 6 did the best predicting out of sample.  In light of the earlier discussion, this is at least mildly surprising.  It is also at least somewhat surprising that it seems to predict better than the Lasso and ridge regression estimators as well.
+
+* The next 2 best models are different versions of Models 7 coming from either ridge or Lasso.  It is not surprising that these models do well, as this case (a large number of possible regressors) is exactly the case where Lasso or ridge should work well / be able to pick up on important interaction or higher order terms without including so many (in the case of Lasso) that are irrelevant.  My guess would have been that these would be the models that would have performed best overall.
+
+* 3 of the next 4 best models are the regression, Lasso, and ridge version of Model 5.  It is not surprising that these are lumped together because this is a relatively small model.  This model is the one that performed in the best according to cross-validation using the testing data only.  I probably would have still guessed that it would perform worse than the Lasso/ridge versions of the very complicated models, but it is not surprising that it is coming in right behind.  So this part seems very much in line with expectations from using the training data.
+
+* Regression 4 performs similarly and comes next.  This coincides with our results from the testing data.
+
+* Regression 3 does the best out of the models that only include one regressor.  This aligns with our results from the previous section using testing data only.  It is also probably not surprising as this is the one that uses the qualitative assessment of the house's quality.
+
+* Finally, Regression 7 does very poorly.  This is the one that also did very poorly under cross-validation in the previous section.  It is very likely due to overfitting.
+
+Overall, these results were broadly consistent with what we were expecting based on the results in the previous section with the one exception that Regression 6 performing best overall is at least mildly surprising.
+
+## Conclusion: How well did the predictions actually work?
+
+As a final thing to consider, I thought I'd ask myself the question: "Am I making reasonably good house price predictions?"
+
+If I were actually trying to predict house prices for a job, I would have used Lasso for Model 7 (though probably trying out some different specifications just to make sure I wasn't getting crazy results).
+
+To think about this, I used Model 7 and calculated the absolute value of how much my prediction "missed" the actual sale price.  I plotted a histogram of that next.
+
+```{r, warn=FALSE, message=FALSE}
+lasso_reg <- glmnetUtils::cv.glmnet(form5, data=train, alpha=1)
+test_Y <- test$SalePrice
+test_Y_pred <- predict(lasso_reg, newdata=test)
+miss <- test_Y - test_Y_pred
+absmiss <- abs(miss)/1000
+plot_df <- data.frame(absmiss=absmiss)
+ggplot(plot_df, aes(x=absmiss)) +
+  geom_histogram() +
+  theme_bw() +
+  xlab("absolute value of prediction miss in thousands of $")
+mad <- median(absmiss)
+frac_close <- mean( 1*(absmiss < 10) )
+```
+
+The median of the absolute value of how much the predication missed by (i.e., this is a measure of a typical ``miss''), is about \$18,000.  As another way of thinking about this, I calculated the fraction of prediction misses that were less than \$10,000 --- for this right at 30\% of my predictions were less that \$10,000 off.
+
+To me, it seems like these predictions are reasonably good.  They are not so good that I am going to move to Ames and start trying to buy houses that my Lasso model predicts will sell for much more than they are listed for, but they also seem to be doing reasonably well.   I think if I spent a few more days working on this that I could start getting predictions that would warrant me recommending to my house-buying boss that we should at least take a closer look at particular houses.

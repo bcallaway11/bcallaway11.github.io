@@ -1,0 +1,113 @@
+---
+title: "Project 1"
+format: 
+  html:
+    theme: united
+    self-contained: true
+    css: "../style.css"
+---
+
+
+**Due: ** Friday, Nov. 14 at the beginning of class.  
+
+For this project, we are going to try to predict house prices.  The data that we are going to use for the project comes from a fairly well known database of house selling prices from Ames, Iowa.
+
+### Data
+
+A description of the data is available in the file `data_description.txt` which is posted on the course website.
+
+There are two data files:
+
+* `house_price_train.RData` --- use this data to train / pick the model that you want to estimate.  The outcome of interest is `SalePrice`.  Otherwise, you are free to use whatever available variables you would like or think are important.
+
+* `house_price_test.RData` --- this data has the same columns as in `house_price_train.RData`, but is out-of-sample (i.e., it is new data).  Use this *only* in the second step below. 
+
+### What to do:
+
+Step 1: Using the `house_price_train.RData` data, I want you to try at least 5 different models. Using only this data, I want you to rank these models from 1-5 in terms of which ones you think will predict house prices the best along with some explanation of why.  **Do not use `house_price_test.RData` at all for this step.**
+
+Step 2: Estimate a model (you can choose which regressors to include, but I recommend either the most complicated model that you estimated in Step 1 or a more complicated model) using Lasso and Ridge regression.
+
+Step 3: Then, using the `house_price_test.RData` data, I would like for you to come up with a prediction for the selling price of each house in that data.  For each model from Steps 1 and 2, I'd like for you to compute
+\begin{align*}
+	\frac{1}{n} \sum_{i=1}^n (Y_i - \tilde{Y}_i)^2
+\end{align*}
+where $Y_i$ is the actual sale price and $\tilde{Y}_i$ is the predicted sale price coming from each model.  Then, rank each model according to how well it predicts house selling prices in the test data according to the above criteria.
+
+Step 4: Discuss your results.  In particular, discuss how well your rankings from the first step compared to rankings for out of sample predictions.
+
+### What to turn in
+
+4-6 pages document that should include:  
+
+* a description of the models that you estimate
+
+* a ranking of the models based on step 1
+
+* an explanation for this ranking
+
+* a ranking based on the out-of-sample predictions from step 2
+
+* a discussion of how well your model rankings from step 1 match up to your model rankings from step 2
+
+* at least one relevant plot
+
+### Some things to note
+
+* The data is somewhat "messier" than we have typically worked with.  Dealing with this sort of data is part of the challenge of the project.
+
+### Grading Criteria
+| | |
+|----|---|
+| Estimate 5 models and rank them according to model selection criteria | 5pts |
+| Estimate (reasonably "complicated") model using Lasso and Ridge regression | 5pts |
+| Rank all 7 models by out sample prediction quality | 5pts |
+| Discussion, clarity of arguments, etc. | 5pts |
+
+
+### Hints
+
+One challenge with the project is that there are a large number of categorical variables and some of values of these categoric variables occur infrequently.  Infrequent categories can occur both for the training and testing data, so I am going to merge them together before checking/adjusting, so that they stay "aligned" with each other.  
+
+```{r}
+#| eval: false
+full_data <- rbind.data.frame(house_price_train, house_price_test)
+```
+
+Here is some code to check the number of times particular values of a categorical variable (I will do this for `Neighborhood` but you could alternatively do the same thing for other categorical variables in the data) occur:
+
+```{r}
+#| eval: false
+table(full_data$Neighborhood)
+```
+
+And here is some code to merge infrequently occuring categories into an aggregated category called other
+
+```{r}
+#| eval: false
+# Set a threshold for infrequent categories
+threshold <- 10
+
+# Count occurrences of each level
+category_counts <- table(full_data$Neighborhood)
+
+# Identify levels to merge into "Other"
+infrequent_levels <- names(category_counts[category_counts < threshold])
+
+# Replace infrequent levels with "Other"
+full_data$Neighborhood <- as.character(full_data$Neighborhood) # Convert to character to allow modifications
+full_data$Neighborhood[full_data$Neighborhood %in% infrequent_levels] <- "Other"
+
+# Convert back to factor
+full_data$Neighborhood <- factor(full_data$Neighborhood)
+
+# Check result
+print(full_data)
+table(full_data$Neighborhood)
+
+# split back into training and testing data
+n_train <- nrow(house_price_train)
+house_price_train <- full_data[1:n_train,]
+house_price_test <- full_data[(n_train+1):nrow(full_data), ]
+```
+
