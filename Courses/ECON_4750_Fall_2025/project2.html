@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ECON 4750 Course Material</title>
+<title>Project 2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3061,7 +3061,7 @@ font-weight: bold;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">ECON 4750 Course Material</h1>
+<h1 class="title">Project 2</h1>
 </div>
 
 
@@ -3078,92 +3078,53 @@ font-weight: bold;
 </header>
 
 
-<p><a href="syllabus.pdf">Syllabus</a></p>
-<p><a href="https://bcallaway11.github.io/econ_4750_notes/">Course Notes</a></p>
-<section id="homeworks" class="level1">
-<h1>Homeworks</h1>
-<p><a href="hw1.html">HW 1</a>, due Friday, Aug. 29, [[<a href="hw1_sol.html">Solutions</a>]]</p>
-<p><a href="hw2.html">HW 2</a>, due Friday, Sept. 19, [[<a href="hw2_sol.html">Solutions</a>]]</p>
-<p><a href="hw3.html">HW 3</a>, due Friday, Oct. 10, [[<a href="hw3_sol.html">Solutions</a>]]</p>
-<p><a href="hw4.html">HW 4</a>, due Friday, Oct. 24, [[<a href="hw4_sol.html">Solutions</a>]]</p>
-</section>
-<section id="extra-materials-for-midterm-1" class="level1">
-<h1>Extra Materials for Midterm 1</h1>
-<p><a href="midterm1_study_guide.html">Midterm 1 Study Guide</a></p>
-<p><a href="midterm1_extra_questions.html">Midterm 1 Extra Questions</a>, [[<a href="midterm1_extra_questions_sol.html">Solutions</a>]]</p>
-</section>
-<section id="extra-materials-for-midterm-2" class="level1">
-<h1>Extra Materials for Midterm 2</h1>
-<p><a href="midterm2_study_guide.html">Midterm 2 Study Guide</a></p>
-<p><a href="midterm2_extra_questions.html">Midterm 2 Extra Questions</a>, [[<a href="midterm2_extra_questions_sol.html">Solutions</a>]]</p>
-<!--
-
-# Extra Materials for Final Exam
-
--->
-</section>
-<section id="projects" class="level1">
-<h1>Projects</h1>
-<p><a href="project1.html">Project 1</a>, due Monday, Nov. 17</p>
+<p><strong>Due: </strong> You can turn through ELC any time before 11:59pm on Tuesday Dec. 2.</p>
+<p>For this project, we are going to try to evaluate the causal effect of a job training program. The data comes from Lalonde (1986) which was a highly influential study in economics about the difficulties of using observational data to estimate causal effects.</p>
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data">Data</h3>
+<p>There are two data files:</p>
 <ul>
-<li><p><a href="house_price_train.RData">Training data</a></p></li>
-<li><p><a href="house_price_test.RData">Test data</a></p></li>
-<li><p><a href="data_description.txt">Data description</a></p></li>
+<li><p><code>jtrain_observational.dta</code> — this contains observational data for evaluating the effect of the job training program. <strong><em>Use this in the first step below</em></strong></p></li>
+<li><p><code>jtrain_experimental.dta</code> — this contains experimental data for evaluating the effect of the job training program. <strong>Use this <em>only</em> in the second step below.</strong></p></li>
 </ul>
-<p><a href="project2.html">Project 2</a>, due Tuesday, Dec. 2 by 11:59pm, turn in via ELC</p>
+<p>The key outcome variable in each dataset is <code>re78</code>, which is real earnings in 1978, and <code>train</code>, which is equal to 1 for individuals that participated in the job training program and 0 otherwise (the job training program actually took place between 1975 and 1978, timing varied somewhat across individuals). A number of additional variables are available in each dataset, and descriptions of the available data is available in <code>jtrain_observational__description.txt</code> and <code>jtrain_experimental_description.txt</code> which are posted on ELC (there are very slight differences in the available variables in each dataset).</p>
+</section>
+<section id="what-to-do" class="level3">
+<h3 class="anchored" data-anchor-id="what-to-do">What to do:</h3>
+<p>Part 1: Using the <code>jtrain_observational.dta</code> data, I want you to try to deliver an esimate of the causal effect of the job training program on earnings. You are free to use whatever approach you think is most appropriate to deliver this estimate.</p>
+<p>Part 2: Using the data <code>jtrain_experimental.dta</code> data, I want you to estimate the causal effect of job training on earnings. This is experimental data, so in principle, this estimate should be very credible. Therefore, I want you to compare your estimate from the first part to the one in this part. Are they close to each other? <strong>Please do not do this part until you have fully completed Part 1; you will not be graded on how close your estimate from Part 1 is to the one in Part 2, but I would like for you to get a sense of whether or not your approach from Part 1 seemed to work.</strong></p>
+</section>
+<section id="what-to-turn-in" class="level3">
+<h3 class="anchored" data-anchor-id="what-to-turn-in">What to turn in</h3>
 <ul>
-<li><a href="jtrain_observational.dta">jtrain_observational.dta</a>   [[<a href="jtrain_observational_description.txt">description</a>]]   |   <a href="jtrain_experimental.dta">jtrain_experimental.dta</a>   [[<a href="jtrain_experimental_description.txt">description</a>]]</li>
+<li><p>3-5 pages</p></li>
+<li><p>In part 1, report the difference in average earnings between individuals that participated in job training on those that didn’t. Do you think this difference should be interpreted as the causal effect? Explain.</p></li>
+<li><p>In part 1, report a table of summary statistics (i.e., averages of available, relevant data separately for individuals that participated in job training and those that didn’t). Are there big differences? Do they matter?</p></li>
+<li><p>In part 1, propose the best approach that you can come up with for estimating the causal effects of the job training program. I strongly encourage you to completely think through the model you want to estimate in this step before proceeding to the next step.</p></li>
+<li><p>In part 1, implement the approach you proposed and report an estimate of the causal effect.</p></li>
+<li><p>In part 1 (and before moving to part 2), how confident do you feel in your estimate of the causal effect? Before moving to part 2, discuss any doubts that you might have and whether or not you think you might have over- or under-estimated the causal effect.</p></li>
+<li><p>In part 2, explain how you can use the experimental data to come up with a credible estimate of the causal effect of the job training program (and why this works).</p></li>
+<li><p>In part 2, compare your estimate from part 1 with the one you get in part 2. Are they close to each other? Provide some discussion relating (i) how confident you were in your estimates from part 1 to (ii) how close they are to the estimates from part 2.</p></li>
 </ul>
 </section>
-<section id="additional-course-materials" class="level1">
-<h1>Additional Course Materials</h1>
-<ul>
-<li><p>First Week Slides: <a href="l1_short.html">What is Econometrics?</a></p></li>
-<li><p><a href="firm_data.csv">firm_data.csv</a> | <a href="firm_data.RData">firm_data.RData</a> | <a href="firm_data.dta">firm_data.dta</a></p></li>
-</ul>
-</section>
-<section id="data" class="level1">
-<h1>Data</h1>
-<p><strong>This list only includes data that needs to be downloaded from the course website. Other data is listed in the Course Notes along with steps to access the data and a link to a description of the data.</strong></p>
-<ul>
-<li><p><a href="data/acs.RData">acs</a> [<a href="data/acs_description.txt">description</a>]</p></li>
-<li><p><a href="data/banks.RData">banks</a> [<a href="data/banks_description.txt">description</a>]</p></li>
-<li><p><a href="data/birthweight_smoking.dta">Birthweight_Smoking</a> [<a href="https://www.princeton.edu/~mwatson/Stock-Watson_3u/Students/EE_Datasets/Birthweight_Smoking_Description.pdf">description</a>]</p></li>
-<li><p><a href="data/diamond_train.RData">diamond_train</a> [<a href="https://www.kaggle.com/shivam2503/diamonds/">description</a>]</p></li>
-<li><p><a href="data/diamond_test.RData">diamond_test</a> [<a href="https://www.kaggle.com/shivam2503/diamonds/">description</a>]</p></li>
-<li><p><a href="data/fertilizer_2000.RData">fertilizer_2000</a> [<a href="data/fertilizer_description.txt">description</a>]</p></li>
-<li><p><a href="data/fertilizer_panel.RData">fertilizer_panel</a> [<a href="data/fertilizer_description.txt">description</a>]</p></li>
-<li><p><a href="data/house.RData">house</a> [<a href="data/house_description.txt">description</a>]</p></li>
-<li><p><a href="data/intergenerational_mobility.RData">intergenerational_mobility</a> [<a href="data/intergenerational_mobility_description.txt">description</a>]</p></li>
-<li><p><a href="data/Lead_Mortality.RData">Lead_Mortality</a> [<a href="http://www.princeton.edu/~mwatson/Stock-Watson_3u/Students/EE_Datasets/Lead_Mortality_Description.pdf">description</a>]</p></li>
-<li><p><a href="data/mlda.RData">mlda</a> [<a href="data/mlda_description.txt">description</a>]</p></li>
-<li><p><a href="data/mutual_funds.RData">mutual_funds</a> [<a href="data/mutual_funds_description.txt">description</a>]</p></li>
-<li><p><a href="data/rand_hie.RData">rand_hie</a> [<a href="data/rand_hie_description.txt">description</a>]</p></li>
-<li><p><a href="data/titanic_training.csv">titanic_training</a> [<a href="https://www.kaggle.com/c/titanic/data">description</a>]</p></li>
-<li><p><a href="data/titanic_testing.csv">titanic_testing</a> [<a href="https://www.kaggle.com/c/titanic/data">description</a>]</p></li>
-<li><p><a href="data/us_data.RData">us_data</a> [<a href="data/us_data_description.txt">description</a>]</p></li>
-</ul>
-</section>
-<section id="code-challenges" class="level1">
-<h1>Code Challenges</h1>
-<p>None yet…</p>
-<!--
-## 11:30 Standings
-
-
-
-::: {.cell}
-
-:::
-
-
-
-| Pineapple Pizzas | Mint Chocolate Chips | Strawberry Milkshakes | Boneless | Drums | Flats | Professor |
-|:----------------:|:--------------------:|:---------------------:|:--------:|:-----:|:-----:|:---------:|
-| 0                | 0                    | 1                     | 0        | 0     | 0     | 0         |
-
-
--->
+<section id="grading-criteria" class="level3">
+<h3 class="anchored" data-anchor-id="grading-criteria">Grading Criteria</h3>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>Part 1</td>
+<td>10pts</td>
+</tr>
+<tr class="even">
+<td>Part 2 - Estimates of causal effects</td>
+<td>5pts</td>
+</tr>
+<tr class="odd">
+<td>Discussion of results, overall clarity of arguments</td>
+<td>5pts</td>
+</tr>
+</tbody>
+</table>
 </section>
 
 </main>
