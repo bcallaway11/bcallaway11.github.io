@@ -28,6 +28,17 @@ permalink: /students/
 ## Ph.D. Main Advisor
 
 <div class="student-box">
+<h3><a href="https://ddyal.github.io/"><strong>Derek Dyal</strong></a>, University of Georgia, in progress</h3>
+<ul>
+  <li><strong>Co-authored Papers:</strong>
+    <ul>
+      <li>Beyond Parallel Trends: An Identification-Strategy-Robust Approach to Causal Inference with Panel Data (with Pedro H.C. Sant'Anna and Emmanuel Tsyawo)</li>
+      <li>Causal Inference for Aggregated Treatment (with Carolina Caetano and Gregorio Caetano)</li>
+    </ul>
+</ul>
+</div>
+
+<div class="student-box">
 <h3><strong>Chengye Jia</strong>, Temple University, Ph.D. 2021</h3>
 <ul>
   <li><strong>Dissertation:</strong> Essays on Microeconometrics and Labor Economics</li>
@@ -88,6 +99,14 @@ permalink: /students/
 </div>
 
 ## Ph.D. Dissertation Committee Member
+
+<div class="student-box">
+<h3><a href="https://sites.google.com/view/dpoudel/"><strong>Dixit Poudel</strong></a>, University of Georgia, Ph.D. 2025</h3>
+<ul>
+  <li><strong>Dissertation:</strong> Emerging Issues in Economic Development: Digitalization, Disaster Resilience and Nutrition</li>
+  <li><strong>First Placement:</strong> Postdoctoral Associate, Applied Economics, University of Georgia</li>
+</ul>
+</div>
 
 <div class="student-box">
 <h3><a href="https://hsantanna.org/"><strong>Hugo Sant'Anna</strong></a>, University of Georgia, Ph.D. 2025</h3>
