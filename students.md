@@ -35,6 +35,7 @@ permalink: /students/
       <li>Beyond Parallel Trends: An Identification-Strategy-Robust Approach to Causal Inference with Panel Data (with Pedro H.C. Sant'Anna and Emmanuel Tsyawo)</li>
       <li>Causal Inference for Aggregated Treatment (with Carolina Caetano and Gregorio Caetano)</li>
     </ul>
+  </li>
 </ul>
 </div>
 
