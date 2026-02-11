@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ECON 8080 Course Material</title>
+<title>Topic 1: Linear Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3079,7 +3079,7 @@ color: teal;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">ECON 8080 Course Material</h1>
+<h1 class="title">Topic 1: Linear Regression</h1>
 </div>
 
 
@@ -3096,39 +3096,54 @@ color: teal;
 </header>
 
 
-<p><a href="syllabus.pdf">Syllabus</a></p>
-<section id="homeworks" class="level1">
-<h1>Homeworks</h1>
-<p>HW 1 will just involve a homework quiz on Jan. 27. [[<a href="8070_Review.pdf">Study Guide</a>]]</p>
+<section id="material-covered-in-class" class="level1">
+<h1>Material covered in class</h1>
+<p><a href="high-level-regression.pdf">Lecture Notes 1: Introductory Regression Notes</a></p>
 <ul>
-<li>You can find extra details for the material on the study in the 8070 materials below as well as a few additional topics that are not covered in those notes <a href="8070_Materials/8070_extra_materials.pdf">here</a></li>
+<li><p>Properties of Estimators</p></li>
+<li><p>Consistency and Asymptotic Normality of OLS</p></li>
+<li><p>Inference</p></li>
+<li><p>Monte Carlo Simulations</p></li>
 </ul>
-<p><a href="hw2.html">HW 2</a> (Due: Feb. 12)</p>
+<p><a href="additional_regression_notes.pdf">Lecture Notes 2: Additional Regression Notes</a></p>
 <ul>
-<li>Additional data for HW 2: <a href="cps09mar.dta">cps09mar.dta</a> [<a href="cps09mar_description.pdf">description</a>]</li>
+<li><p>Bias and Variance of OLS</p></li>
+<li><p>Gauss-Markov Theorem, GLS, and FGLS</p></li>
+<li><p>Frisch-Waugh-Lovell Theorem (only the population version will be covered on the midterm)</p></li>
+<li><p>Wald Statistic</p></li>
+<li><p>Functions of Parameters</p></li>
+</ul>
+<!--
+
+Note: My lecture notes follow very closely from Bruce Hansen's book.  His book is excellent and much better than I could write.  I provide these here for your convenience, mainly so you can have a copy of the notes that I use to teach from and so you have a reminder of the material that we cover in class (which is mostly subset of the material covered in the book).
+
+
+* [Lecture Notes 1: Conditional Expectation and Projection](01_linear_regression_1.pdf) (These notes cover chapter 2 in the book.  Please read the entire chapter, but pay particular attention to the sections covered in the notes.)
+
+<!--  - [Some additional simulations/explanations about omitted variable bias](omitted_variable_bias_simulations.html) -->
+<ul>
+<li><p><a href="01_linear_regression_2.pdf">Lecture Notes 2: Why Linear Regression?</a> (These notes are mainly independent of the textbook though related to H: 2.30).</p></li>
+<li><p><a href="01_linear_regression_3.pdf">Lecture Notes 3: The Algebra of Least Squares</a> (These notes cover chapter 3 in the book. Please read the entire chapter, but pay particular attention to the sections covered in the notes.)</p></li>
+<li><p><a href="01_linear_regression_4.pdf">Lecture Notes 4: Least Squares Regression</a> (These notes cover chapter 4 in the book. Please read the entire chapter, but pay particular attention to the sections covered in the notes.)</p></li>
+<li><p><a href="01_linear_regression_5.pdf">Lecture Notes 5: Asymptotic Theory for Least Squares</a> (These notes cover chapters 6 and 7 in the book. Please read the entire chapters, but pay particular attention to the sections covered in the notes.)</p></li>
 </ul>
 </section>
-<section id="course-material" class="level1">
-<h1>Course Material</h1>
-<p><a href="8070_materials.html">Preliminary Materials from ECON 8070</a></p>
+<section id="additional-material" class="level1">
+<h1>Additional material</h1>
+<p><strong>Preliminary Reading</strong></p>
+<p>As you have time over the first couple of weeks of the semester, you should read Chapter 1 of the textbook as well as Appendix A and B.</p>
+<p>Please pay particular attention to the following sections:</p>
+<p>A.1, A.3-A.6, A.10-A.11, A.20</p>
+<p>as well as the following: <a href="01_matrix_algebra.pdf">Review Notes for Matrix Algebra</a></p>
+<p>The material that we will cover in this topic mainly comes from chapters 2, 3, 4, 6, and 7 of the textbook.</p>
 </section>
-<section id="additional-material-for-midterm-1" class="level1">
-<h1>Additional Material for Midterm 1</h1>
-<p>The main topic for the midterm is Lecture Notes 1 and 2 in the Linear Regression topic. Questions from the review material HW 1 quiz are also fair game (you can expect 20-25% of the midterm coming from this part), and a lot of that material is background material for answering questions about the material in the lecture notes.</p>
-<p>We will cover the following topics:</p>
-<p>(<span style="color: red; font-weight: bold;">Note:</span> Some of the material will be updated/expanded as we move through the semester. Some of the topics at the end of the semester are tentative.)</p>
-<ol start="0" type="1">
-<li><p><a href="00_introduction_to_R.html">Introduction to R</a></p></li>
-<li><p><a href="01_linear_regression.html">Linear Regression</a></p></li>
-<li><p><a href="02_resampling_methods.html">Resampling Methods</a></p></li>
-<li><p><a href="03_nonlinear_models.html">Introduction to Nonlinear Models</a></p></li>
-<li><p><a href="04_alternative_causal_inference.html">Alternative Approaches to Causal Inference</a></p></li>
-<li><p><a href="05_panel_data_causal_inference.html">Panel Data Approaches to Causal Inference</a></p></li>
-<li><p><a href="06_GMM.html">Generalized Method of Moments</a></p></li>
-<li><p>If we have time, an introduction to [Nonparametric Regression]</p></li>
-<li><p>If we have time, an introduction to [Empirical Likelihood Estimation]</p></li>
-<li><p>If we have time, an introduction to [Quantile Regression]</p></li>
-</ol>
+<section id="additional-comments" class="level1">
+<h1>Additional comments</h1>
+<ul>
+<li><p>We are not covering the material in chapter 5 at all</p></li>
+<li><p>The material in chapter 6 should be a review for you.</p></li>
+</ul>
+<p>–&gt;</p>
 </section>
 
 </main>
