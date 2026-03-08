@@ -24,11 +24,11 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 **Recent Updates:**
 
+* [Slides for Workshop at the University of Iowa](bcallaway11.github.io/iowa)
+
 * New paper: [Beyond Parallel Trends: An Identification-Strategy-Robust Approach to Causal Inference with Panel Data](https://arxiv.org/abs/2511.21977) (with Derek Dyal, Pedro H.C. Sant'Anna, and Emmanuel Tsyawo)
 
 * New [contdid R package](https://bcallaway11.github.io/contdid/) for estimating treatment effects in difference-in-differences designs with a continuous treatment
-
-* [Slides for Rice Seminar](/files/presentations/25-Rice/staggered_ife.html)
 
 <br>
 
