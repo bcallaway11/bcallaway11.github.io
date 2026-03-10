@@ -24,7 +24,7 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 **Recent Updates:**
 
-* [Slides for Workshop at the University of Iowa](bcallaway11.github.io/iowa)
+* [Slides for Workshop at the University of Iowa](https://bcallaway11.github.io/iowa)
 
 * New paper: [Beyond Parallel Trends: An Identification-Strategy-Robust Approach to Causal Inference with Panel Data](https://arxiv.org/abs/2511.21977) (with Derek Dyal, Pedro H.C. Sant'Anna, and Emmanuel Tsyawo)
 
