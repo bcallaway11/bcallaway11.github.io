@@ -53,7 +53,7 @@ permalink: /research/
 
 ## Working Papers
 
-* [**Difference-in-Differences with "Bad Controls"**](https://arxiv.org/abs/2608.03881) [[Supplementary Appendix](/files/badcontrols/CCPS_2026_SA_v1.pdf)]] (with Carolina Caetano, Stroud Payne, and Hugo Sant'Anna)
+* [**Difference-in-Differences with "Bad Controls"**](https://arxiv.org/abs/2608.03881) [[Supplementary Appendix](/files/badcontrols/CCPS_2026_SA_v1.pdf)] (with Carolina Caetano, Stroud Payne, and Hugo Sant'Anna)
 
 * [**Beyond Parallel Trends: An Identification-Strategy-Robust Approach to Causal Inference with Panel Data**](https://arxiv.org/abs/2511.21977) (with Derek Dyal, Pedro H.C. Sant'Anna, and Emmanuel Tsyawo)
 
