@@ -8,7 +8,7 @@ permalink: /code/
 
 These are the main packages that I have developed and actively maintain.
 
-**1. R `did` Package** [[Website](http://bcallaway11.github.io/did/)][[CRAN](https://cran.r-project.org/web/packages/did/index.html)]
+**1. R `did` Package** [[Website](https://bcallaway11.github.io/did/)][[CRAN](https://cran.r-project.org/web/packages/did/index.html)]
 
 This package contains tools for computing average treatment effect parameters in a difference in differences framework with more than two periods and with variation in treatment timing; it is based on Callaway and Sant'Anna (2021).  The main parameters are group-time average treatment effects which are the average treatment effect for a particular group at a a particular time.  These can be aggregated into a fewer number of treatment effect parameters, and the package provides aggregations into overall average treatment effects, dynamic treatment effects (event studies), group-specific treatment effects, and calendar time-specific treatment effects, or combinations of these.  There are also functions for pre-testing the parallel trends assumption (the main assumption underlying DID), and plotting group-time average treatment effects and/or particular aggregations of interest.
 
@@ -31,6 +31,10 @@ The `contdid` package contains code for estimating treatment effects in differen
 **6. R `twfeweights` Package** [[Github](https://github.com/bcallaway11/twfeweights)]
 
 The `twfeweights` computes (implicit) regression weights in TWFE regressions with multiple periods and specifications that include covariates.
+
+**7. R `badcontrols` Package** [[Github](https://github.com/hugosantanna/badcontrols)]
+
+The `badcontrols` package provides code to implement difference-in-differences identification strategies when one of the covariates is itself affected by the treatment (aka a bad control).
 
 **7. R `BMisc` Package** [[Website](http://bcallaway11.github.io/BMisc/)][[CRAN](https://cran.r-project.org/web/packages/BMisc/index.html)]
 

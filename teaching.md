@@ -6,9 +6,9 @@ permalink: /teaching/
 
 **Regular Teaching**
 
-Introduction to Econometrics, 2017-2025
+Introduction to Econometrics, 2017-2026
 
-Ph.D. Probability and Statistics, 2019 & 2022
+Ph.D. Probability and Statistics, 2019, 2022, 2026
 
 Ph.D. 2nd Semester Econometrics, 2017-2026
 

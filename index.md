@@ -24,11 +24,11 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 **Recent Updates:**
 
+* New paper: [Difference-in-Differences with "Bad Controls"](https://arxiv.org/abs/2608.03881) with Carolina Caetano, Stroud Payne, and Hugo Sant'Anna
+
 * [Slides for Workshop at the University of Virginia](https://bcallaway11.github.io/virginia)
 
 * New paper: [Beyond Parallel Trends: An Identification-Strategy-Robust Approach to Causal Inference with Panel Data](https://arxiv.org/abs/2511.21977) (with Derek Dyal, Pedro H.C. Sant'Anna, and Emmanuel Tsyawo)
-
-* New [contdid R package](https://bcallaway11.github.io/contdid/) for estimating treatment effects in difference-in-differences designs with a continuous treatment
 
 <br>
 
@@ -36,7 +36,7 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 Email: brantly.callaway [at] uga [dot] edu
 
-B422 Amos Hall
+B314 Amos Hall
 
 Athens, GA 30605
 
