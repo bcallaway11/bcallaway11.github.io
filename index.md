@@ -24,9 +24,9 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 **Recent Updates:**
 
-* New paper: [Difference-in-Differences with "Bad Controls"](https://arxiv.org/abs/2608.03881) with Carolina Caetano, Stroud Payne, and Hugo Sant'Anna
+* [Slides for Mini-Course on Panel Data Causal Inference with Continuous Treatments at the University of Louisiana-Lafayette](https://bcallaway11.github.io/ull)
 
-* [Slides for Workshop at the University of Virginia](https://bcallaway11.github.io/virginia)
+* New paper: [Difference-in-Differences with "Bad Controls"](https://arxiv.org/abs/2608.03881) with Carolina Caetano, Stroud Payne, and Hugo Sant'Anna
 
 * New paper: [Beyond Parallel Trends: An Identification-Strategy-Robust Approach to Causal Inference with Panel Data](https://arxiv.org/abs/2511.21977) (with Derek Dyal, Pedro H.C. Sant'Anna, and Emmanuel Tsyawo)
 
