@@ -24,7 +24,7 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 **Recent Updates:**
 
-* [Slides for Mini-Course on Panel Data Causal Inference with Continuous Treatments at the University of Louisiana-Lafayette](https://bcallaway11.github.io/ull)
+* [Slides on Difference-in-Differences with a Continuous Treatment](files/presentations/26-ULL/01_continuous-treatment.html) from Mini-Course at the University of Louisiana-Lafayette
 
 * New paper: [Difference-in-Differences with "Bad Controls"](https://arxiv.org/abs/2608.03881) with Carolina Caetano, Stroud Payne, and Hugo Sant'Anna
 
