@@ -300,6 +300,95 @@ ul.student__papers {
   }
 }
 
+/* --- Post side panel (_layouts/single.html) --------------------------------
+   Posts with `toc: true` and/or a `notation:` front matter list get a panel
+   holding the table of contents and the notation. On wide screens it sits in
+   the right margin beside the centered column and, with `toc_sticky: true`,
+   stays in view while scrolling. The float's negative right margin equals
+   its width plus the gap, so it takes no room from the column and the text
+   does not wrap around it. Narrower screens have no room in the margin, so
+   the panel sits above the post instead. These replace the theme's own
+   sidebar rules, which assume the reserved right column removed above.
+*/
+$side-panel-width: 260px;
+$side-panel-gap: 32px;
+/* column + a panel's width on each side (keeps the column centered) + scrollbar */
+$side-panel-min-screen: $content-max-width + 2 * ($side-panel-width + $side-panel-gap) + 16px;
+
+.page__content .sidebar__right,
+.page__content .sidebar__right.sticky {
+  position: static;
+  float: none;
+  width: auto;
+  margin: 0 0 1.5em;
+  padding: 0;
+
+  .toc,
+  .side-notation {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    box-shadow: none;
+    margin-bottom: 1em;
+  }
+
+  .nav__title {
+    margin: 0;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.7em;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: $link-color;
+    background: #f7f7f7;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .side-notation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.7em;
+  }
+
+  .side-notation li {
+    margin: 0 0 0.5em;
+    line-height: 1.4;
+    overflow-x: auto;
+  }
+
+  /* symbol on its own line, short description in muted text below it */
+  .side-notation__sym,
+  .side-notation__desc {
+    display: block;
+  }
+
+  .side-notation__desc {
+    color: #6f777d;
+    font-size: 0.9em;
+  }
+
+  /* tighter than the theme's TOC rows so TOC + notation fit on one screen */
+  .toc__menu a {
+    padding: 0.15rem 0.75rem;
+  }
+}
+
+@media (min-width: $side-panel-min-screen) {
+  .page__content .sidebar__right,
+  .page__content .sidebar__right.sticky {
+    float: right;
+    width: $side-panel-width;
+    margin-right: -($side-panel-width + $side-panel-gap);
+  }
+
+  .page__content .sidebar__right.sticky {
+    position: sticky;
+    top: 2em;
+    max-height: calc(100vh - 4em);
+    overflow-y: auto;
+  }
+}
+
 /* On phones, shrink the photo so the text beside it isn't squeezed */
 @media (max-width: $small) {
   .profile-photo {

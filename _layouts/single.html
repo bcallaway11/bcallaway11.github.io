@@ -1,6 +1,20 @@
 ---
 layout: default
 ---
+{%- comment -%}
+=============================================================================
+     Title: Single page/post layout
+     Description: Minimal Mistakes' single layout, plus a side panel for
+                  posts: the table of contents (`toc: true`) and a notation
+                  box built from a `notation:` front matter list. Each item
+                  has `sym` (math in $$...$$, shown inline on its own line)
+                  and `desc` (markdown, shown below it). Styled in
+                  assets/css/main.scss under "Post side panel".
+     Author: Brant Callaway
+     Last update: 2026-10-30
+     Date created: unknown (copied from Minimal Mistakes)
+=============================================================================
+{%- endcomment -%}
 
 {% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
   {% include page__hero.html %}
@@ -32,12 +46,30 @@ layout: default
       {% endunless %}
 
       <section class="page__content" itemprop="text">
-        {% if page.toc %}
+        {% if page.toc or page.notation %}
           <aside class="sidebar__right {% if page.toc_sticky %}sticky{% endif %}">
+            {% if page.toc %}
             <nav class="toc">
-              <header><h4 class="nav__title"><i class="fas fa-{{ page.toc_icon | default: 'file-alt' }}"></i> {{ page.toc_label | default: site.data.ui-text[site.locale].toc_label | default: "On this page" }}</h4></header>
+              <header><h4 class="nav__title">{{ page.toc_label | default: "Contents" }}</h4></header>
               {% include toc.html sanitize=true html=content h_min=1 h_max=6 class="toc__menu" skip_no_ids=true %}
             </nav>
+            {% endif %}
+            {% if page.notation %}
+            <div class="side-notation">
+              <header><h4 class="nav__title">Notation</h4></header>
+              <ul>
+                {% for item in page.notation %}
+                {%- comment -%} sym is passed to MathJax directly with inline
+                     \( \) delimiters, since kramdown would turn a line that is
+                     only $$...$$ into centered display math {%- endcomment -%}
+                <li>
+                  <span class="side-notation__sym">{{ item.sym | replace_first: "$$", "\(" | replace: "$$", "\)" }}</span>
+                  <span class="side-notation__desc">{{ item.desc | markdownify | remove: "<p>" | remove: "</p>" | strip }}</span>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
           </aside>
         {% endif %}
         {{ content }}
