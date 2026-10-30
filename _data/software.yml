@@ -1,0 +1,106 @@
+# =============================================================================
+# Title: Software
+# Description: Source data for the Code page (code.md), rendered by
+#              _includes/software.html. Each section is a list of packages.
+# Author: Brant Callaway
+# Last update: 2026-10-29
+# Date created: 2026-10-29
+# =============================================================================
+#
+# Fields for each package:
+#   name        : package name (the title links to the first entry in links)
+#   description : one or two sentences
+#   links       : list of {label, url}
+
+# --- Main packages -----------------------------------------------------------
+main:
+  - name: "did"
+    description: "Difference-in-differences with multiple time periods and variation in treatment timing. Computes group-time average treatment effects and aggregates them into event studies and other summary parameters, with pre-tests and plots. Based on Callaway and Sant'Anna (2021)."
+    links:
+      - {label: "Website", url: "https://bcallaway11.github.io/did/"}
+      - {label: "CRAN", url: "https://cran.r-project.org/web/packages/did/index.html"}
+
+  - name: "ife"
+    description: "Treatment effects in interactive fixed effects models with a small number of time periods. Code for Callaway and Karami (2023) and Callaway and Tsyawo (staggered adoption with non-parallel trends)."
+    links:
+      - {label: "GitHub", url: "https://github.com/bcallaway11/ife"}
+
+  - name: "ptetools"
+    description: "Generic tools for panel data causal inference. The backbone for many of my other packages, and useful for extending panel data methods to new settings."
+    links:
+      - {label: "Website", url: "https://bcallaway11.github.io/ptetools"}
+      - {label: "CRAN", url: "https://cran.r-project.org/web/packages/ptetools/index.html"}
+
+  - name: "qte"
+    description: "Quantile treatment effects (QTE and QTET) under difference-in-differences, changes-in-changes, and selection-on-observables assumptions, including the estimators from Callaway and Li (2019) and Callaway, Li, and Oka (2018)."
+    links:
+      - {label: "Website", url: "http://bcallaway11.github.io/qte/"}
+      - {label: "CRAN", url: "https://cran.r-project.org/web/packages/qte/index.html"}
+
+  - name: "contdid"
+    description: "Difference-in-differences with a continuous treatment. Based on Callaway, Goodman-Bacon, and Sant'Anna (2026)."
+    links:
+      - {label: "Website", url: "http://bcallaway11.github.io/contdid"}
+      - {label: "CRAN", url: "https://cran.r-project.org/web/packages/contdid/index.html"}
+
+  - name: "twfeweights"
+    description: "Computes the implicit regression weights in TWFE regressions with multiple periods, including specifications with covariates."
+    links:
+      - {label: "GitHub", url: "https://github.com/bcallaway11/twfeweights"}
+
+  - name: "badcontrols"
+    description: "Difference-in-differences when one of the covariates is itself affected by the treatment (a “bad control”)."
+    links:
+      - {label: "GitHub", url: "https://github.com/hugosantanna/badcontrols"}
+
+  - name: "BMisc"
+    description: "Functions I use across my research and packages, including panel data helpers, distribution and quantile functions, formula utilities, and summary statistics."
+    links:
+      - {label: "Website", url: "http://bcallaway11.github.io/BMisc/"}
+      - {label: "CRAN", url: "https://cran.r-project.org/web/packages/BMisc/index.html"}
+
+# --- Utility packages --------------------------------------------------------
+utility:
+  - name: "revealEquations"
+    description: "Reveal math line-by-line in Quarto or Xaringan presentations."
+    links:
+      - {label: "GitHub", url: "https://github.com/bcallaway11/revealEquations"}
+
+  - name: "kotlarski"
+    description: "Implements Kotlarski's result (as in Li and Vuong, 1998) to estimate the distribution of a latent variable from repeated measurements of it."
+    links:
+      - {label: "GitHub", url: "https://github.com/bcallaway11/kotlarski"}
+
+  - name: "ugametrics"
+    description: "Code for my courses, mainly regression adjustment estimators of treatment effects."
+    links:
+      - {label: "GitHub", url: "https://github.com/bcallaway11/ugametrics"}
+
+# --- Additional packages -----------------------------------------------------
+additional:
+  - name: "ppe"
+    description: "Policy evaluation during a pandemic, based on Callaway and Li (2023). Its functionality has been merged into ptetools, but the original examples remain here."
+    links:
+      - {label: "GitHub", url: "https://github.com/bcallaway11/ppe"}
+
+  - name: "csabounds"
+    description: "Bounds on the distribution and quantiles of the treatment effect, and the ATT conditional on the previous outcome, from Callaway (2021)."
+    links:
+      - {label: "Website", url: "https://bcallaway11.github.io/csabounds/"}
+
+  - name: "ccfa"
+    description: "Counterfactual distributions with a continuous treatment, from Callaway and Huang (2020)."
+    links:
+      - {label: "Website", url: "https://WeigeHuangEcon.github.io/ccfa/"}
+      - {label: "GitHub", url: "https://github.com/WeigeHuangEcon/ccfa"}
+
+  - name: "distreg"
+    description: "Distribution regression."
+    links:
+      - {label: "Website", url: "http://bcallaway11.github.io/distreg/"}
+      - {label: "GitHub", url: "https://github.com/bcallaway11/distreg"}
+
+  - name: "qrme"
+    description: "Quantile regression and other nonlinear models with measurement error in both the outcome and the treatment, from Callaway, Li, Murtazashvili, and Tsyawo (2026)."
+    links:
+      - {label: "GitHub", url: "https://github.com/bcallaway11/qrme"}

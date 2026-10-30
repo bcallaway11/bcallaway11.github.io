@@ -1,5 +1,31 @@
 <!-- start custom head snippets -->
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+<!-- Web fonts (applied in assets/css/main.scss): IBM Plex Mono for headings,
+     nav, and list-style entries; IBM Plex Sans for paragraphs and lists.
+     Loading them here means every visitor sees the same fonts, rather than
+     whatever their browser falls back to. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;0,700;1,400;1,700&family=IBM+Plex+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+
+<!-- MathJax 2 (kramdown emits \( \) and \[ \] delimiters, which v2 reads by
+     default). Loaded straight from cdnjs since cdn.mathjax.org is retired.
+     Macros used across posts are defined once here, so posts don't need
+     their own \newcommand lines (those rendered as a blank paragraph). -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      E: "\\mathbb{E}",
+      P: "\\mathrm{P}",
+      L: "\\mathrm{L}",
+      indicator: ["\\mathbf{1}\\{#1\\}", 1],
+      independent: "\\mathrel{\\perp\\!\\!\\!\\perp}"
+    }
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
 <!-- insert favicons. use https://realfavicongenerator.net/ -->
 

@@ -13,6 +13,10 @@ output:
     variant: gfm+tex_math_dollars
 permalink: /posts/cs-code-slow
 title: Is our code slow…?
+# Posts page listing (posts.md): section, one-line summary, paper link
+post_type: informal
+summary: >-
+  A short post on the computation speed of the [`did` R package](https://bcallaway11.github.io/did/).
 ---
 
 I just ran into the [`did_imputation` Stata

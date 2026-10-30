@@ -1,0 +1,59 @@
+{%- comment -%}
+=============================================================================
+     Title: Research page entry
+     Description: Renders one paper from _data/papers.yml as: title, then a
+                  coauthor line, a venue/status line, and a line of extra
+                  links. Usage: include paper.html with paper=p (see research.md)
+     Author: Brant Callaway
+     Last update: 2026-10-29
+     Date created: 2026-10-28
+=============================================================================
+{%- endcomment -%}
+{%- assign p = include.paper -%}
+
+{%- comment -%}
+  Coauthors as "with A", "with A and B", or "with A, B, and C". Names found in
+  _data/coauthors.yml with a URL become links.
+{%- endcomment -%}
+{%- capture authors -%}
+  {%- if p.coauthors and p.coauthors.size > 0 -%}
+    with
+    {%- for name in p.coauthors -%}
+      {%- assign site_url = site.data.coauthors[name] -%}
+      {%- if forloop.first -%}{%- elsif forloop.last and forloop.length == 2 %} and{% elsif forloop.last %}, and{% else %},{% endif %}
+      {% if site_url and site_url != "" %}<a class="coauthor" href="{{ site_url }}">{{ name }}</a>{% else %}{{ name }}{% endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- capture venue -%}
+  {%- if p.venue %}<em>{{ p.venue }}</em>{% if p.details %}, {{ p.details }}{% endif %}{% endif -%}
+  {%- if p.status %}{{ p.status }}{% endif -%}
+{%- endcapture -%}
+
+<div class="paper">
+  <div class="paper__title">
+    {%- if p.url %}<a href="{{ p.url | relative_url }}">{{ p.title }}</a>{% else %}{{ p.title }}{% endif -%}
+  </div>
+  {%- if authors != "" %}
+  <div class="paper__info">{{ authors }}</div>
+  {%- endif %}
+  {%- if venue != "" %}
+  <div class="paper__info paper__venue">{{ venue }}</div>
+  {%- endif %}
+  {%- if p.links or p.code %}
+  <div class="paper__links">
+    {%- for link in p.links -%}
+      {%- unless forloop.first %} · {% endunless -%}
+      <a href="{{ link.url | relative_url }}">{{ link.label }}</a>
+    {%- endfor -%}
+    {%- for c in p.code -%}
+      {%- if p.links or forloop.index > 1 %} · {% endif -%}
+      <a href="{{ c.url }}">Code: {{ c.label }}</a>
+    {%- endfor -%}
+  </div>
+  {%- endif %}
+  {%- if p.note %}
+  <div class="paper__info">{{ p.note }}</div>
+  {%- endif %}
+</div>

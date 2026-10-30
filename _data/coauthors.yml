@@ -1,0 +1,41 @@
+# =============================================================================
+# Title: Coauthor websites
+# Description: Maps each coauthor's name (exactly as written in
+#              _data/papers.yml) to their website. Names with an empty URL
+#              are shown as plain text on the Research page; fill one in and
+#              the name becomes a link everywhere it appears.
+# Author: Brant Callaway
+# Last update: 2026-10-30
+# Date created: 2026-10-28
+# =============================================================================
+
+# --- URLs taken from elsewhere on this site --------------------------------
+"Pedro H.C. Sant'Anna": "https://psantanna.com"
+"Andrew Goodman-Bacon": "https://goodman-bacon.com"
+"Carolina Caetano": "http://carolinacaetano.net/"
+"Hugo Sant'Anna": "https://hsantanna.org/"
+"Emmanuel Tsyawo": "https://estsyawo.github.io/"
+"Derek Dyal": "https://ddyal.github.io/"
+"Weige Huang": "https://darren1988.wixsite.com/weigehuang"
+"Afrouz Azadikhah Jahromi": "https://www.widener.edu/about/faculty-directory/afrouz-jahromi"
+
+# --- URLs found 2026-10-30 (personal site where one exists) ----------------
+"Tong Li": "https://my.vanderbilt.edu/tlwebpage/"
+"Andrew Baker": "https://andrew-charles-baker.github.io/"
+"Scott Cunningham": "https://www.scunning.com/"
+"Tatsushi Oka": "https://oka-econ.github.io/"
+"William Collins": "https://my.vanderbilt.edu/williamcollins/"
+"Stroud Payne": "https://sites.google.com/view/stroud-payne"
+"Gregorio Caetano": "https://gregoriocaetano.net/"
+"Alper Arslan": "https://sites.google.com/site/halperarslan"
+"Joel Rodrigue": "https://joelrodrigue.com/"
+"Yuya Sasaki": "https://sites.google.com/site/yuyasasaki"
+"Karen Yan": "https://econ.gatech.edu/people/person/karen-yan"
+"Chengye Jia": "https://chengye-jia.github.io/"
+
+# --- Intentionally blank (no current website; shown as plain text) ---------
+# Irina Murtazashvili and Sonia Karami have left academia. No page was found
+# for Yong Tan (searched 2026-10-30).
+"Irina Murtazashvili": ""
+"Sonia Karami": ""
+"Yong Tan": ""

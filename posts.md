@@ -4,23 +4,23 @@ title: Posts
 permalink: /posts/
 ---
 
-# Informal Posts on Coding / Econometrics / Etc.
+{% comment %}
+  Built automatically from _posts/. A post appears here when its front
+  matter has `post_type: informal` or `post_type: summary`, plus an optional
+  one-line `summary` and, for research summaries, a `paper_url`. Each entry
+  is rendered by _includes/post-entry.html, newest first.
+{% endcomment %}
 
-* [Interpreting regressions under unconfoundedness](/posts/unconfoundedness-regressions) How to interpret $\alpha$ in the regression $Y_i = \alpha D_i + X_i'\beta + e_i$ under unconfoundedness and if there is treatment effect heterogeneity.
+## Informal Posts on Coding / Econometrics / Etc.
 
-* [Proof of de Chaisemartin and d’Haultfoeuille (2020) under staggered treatment adoption](/posts/dCdH) Explains the TWFE regression weighting scheme in DID applications in a simplified setting with staggered treatment adoption.
+<div class="paper-list">
+{% assign informal = site.posts | where: "post_type", "informal" %}
+{% for p in informal %}{% include post-entry.html post=p %}{% endfor %}
+</div>
 
-* [Base periods in event studies](https://bcallaway11.github.io/posts/event-study-universal-v-varying-base-period) Comparing varying and universal base periods in event studies
+## Short Research Summaries
 
-* [Is our code slow...?](/posts/cs-code-slow) A short post on the computation speed of the [`did` R package](https://bcallaway11.github.io/did/).
-
-# Short Research Summaries
-
-* [Short summary](/posts/did-chapter) of my DID chapter in the *Handbook of Labor, Human Resources and Population Economics*.
-
-* [Five minute summary](/posts/fms-did-time-varying-covariates) of [Difference in differences with time-varying covariates](https://arxiv.org/abs/2202.02903)
-
-* [Five minute summary](/posts/five-minute-did-continuous-treatment) of [Difference-in-Differences with a Continuous Treatment](https://arxiv.org/abs/2107.02637)
-
-* [Five minute summary](/posts/five-minute-pandemic-policy) of [Policy Evaluation during a Pandemic](https://arxiv.org/abs/2105.06927)
-
+<div class="paper-list">
+{% assign summaries = site.posts | where: "post_type", "summary" %}
+{% for p in summaries %}{% include post-entry.html post=p %}{% endfor %}
+</div>

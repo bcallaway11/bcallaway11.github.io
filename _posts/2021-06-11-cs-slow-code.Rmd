@@ -13,6 +13,10 @@ categories:
   - R
   - did package
 comments: true
+# Posts page listing (posts.md): section, one-line summary, paper link
+post_type: informal
+summary: >-
+  A short post on the computation speed of the [`did` R package](https://bcallaway11.github.io/did/).
 ---
 
 I just ran into the [`did_imputation` Stata command](https://github.com/borusyak/did_imputation) which, mainly, contains the code for implementing the ideas in Borusyak, Jaravel, and Spiess (2021).  Interestingly, the new package provides calls to recent alternatives to two-way fixed effects in de Chaisemartin and D'Haultfoeuille (2020), Sun and Abraham (2020), and Callaway and Sant'Anna (2020) --- so you can see estimates all in the same plot:

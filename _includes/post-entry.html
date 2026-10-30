@@ -1,0 +1,24 @@
+{%- comment -%}
+=============================================================================
+     Title: Posts page entry
+     Description: Renders one post as: title (linked to the post), then the
+                  month and year with its one-line summary, then a link to
+                  the paper for research summaries. Uses the same styles as
+                  Research page entries. Usage: include post-entry.html
+                  with post=p (see posts.md)
+     Author: Brant Callaway
+     Last update: 2026-10-30
+     Date created: 2026-10-30
+=============================================================================
+{%- endcomment -%}
+{%- assign p = include.post -%}
+<div class="paper">
+  <div class="paper__title"><a href="{{ p.url | relative_url }}">{{ p.title }}</a></div>
+  <div class="paper__info">
+    <span class="paper__venue">{{ p.date | date: "%B %Y" }}</span>
+    {%- if p.summary %} · {{ p.summary | markdownify | remove: "<p>" | remove: "</p>" | strip }}{% endif -%}
+  </div>
+  {%- if p.paper_url %}
+  <div class="paper__links"><a href="{{ p.paper_url }}">Paper</a></div>
+  {%- endif %}
+</div>

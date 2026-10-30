@@ -1,0 +1,270 @@
+# =============================================================================
+# Title: Research papers
+# Description: Source data for the Research page (research.md), rendered by
+#              _includes/paper.html. Each section is a list of papers.
+# Author: Brant Callaway
+# Last update: 2026-10-30
+# Date created: 2026-10-28
+# =============================================================================
+#
+# Fields for each paper (all optional except title):
+#   title     : paper title
+#   url       : main link for the title (journal page, arXiv, or PDF)
+#   coauthors : list of names; each must match a key in _data/coauthors.yml
+#               to be linked
+#   venue     : journal or book (shown in italics)
+#   details   : volume/issue/pages/year, shown after the venue
+#   status    : for working papers, e.g. "Submitted" (shown in place of venue)
+#   links     : list of {label, url} shown in the small row under the paper
+#   code      : list of {label, url} for software, shown at the end of that row
+#   note      : one line of extra text shown under the paper
+#   topic     : key from `topics` below, for the Topic view of the Research
+#               page (working papers and publications only)
+#   selected  : true for the handful of papers in the Selected view
+
+# --- Topics --------------------------------------------------------------------
+# Order and headings for the Topic view of the Research page.
+topics:
+  - {key: did, label: "Difference-in-Differences"}
+  - {key: parallel_trends, label: "Relaxing Parallel Trends"}
+  - {key: distributional, label: "Distributional Effects"}
+  - {key: pandemic, label: "COVID-19"}
+  - {key: other_econometrics, label: "Other Econometrics Papers"}
+  - {key: empirical, label: "Empirical Papers"}
+
+# --- Publications ------------------------------------------------------------
+publications:
+  - title: "Difference-in-Differences with a Continuous Treatment"
+    topic: did
+    selected: true
+    url: "https://www.aeaweb.org/articles?id=10.1257/aer.20240137"
+    coauthors: ["Andrew Goodman-Bacon", "Pedro H.C. Sant'Anna"]
+    venue: "American Economic Review"
+    details: "forthcoming, 2026"
+    links:
+      - {label: "arXiv", url: "https://arxiv.org/abs/2107.02637"}
+      - {label: "5-minute summary", url: "/posts/five-minute-did-continuous-treatment"}
+      - {label: "Slides", url: "/files/DID-Continuous-Treatment/slides/did_reading_group.html"}
+      - {label: "Appendix", url: "https://psantanna.com/files/CGBS_supp_v4.pdf"}
+    code:
+      - {label: "contdid", url: "https://bcallaway11.github.io/contdid/"}
+
+  - title: "Distributional Effects with Two-Sided Measurement Error: An Application to Intergenerational Income Mobility"
+    topic: other_econometrics
+    url: "https://www.sciencedirect.com/science/article/pii/S0304407626000898"
+    coauthors: ["Tong Li", "Irina Murtazashvili", "Emmanuel Tsyawo"]
+    venue: "Journal of Econometrics"
+    details: "2026"
+    links:
+      - {label: "arXiv", url: "https://arxiv.org/abs/2107.09235"}
+      - {label: "Appendix", url: "/files/Two-Sided-Measurement-Error/CLMT_R2_Supplementary_Appendix.pdf"}
+    code:
+      - {label: "qrme", url: "https://bcallaway11.github.io/qrme/"}
+
+  - title: "Difference-in-Differences Designs: A Practitioner’s Guide"
+    topic: did
+    url: "https://www.aeaweb.org/articles?id=10.1257/jel.20251650"
+    coauthors: ["Andrew Baker", "Scott Cunningham", "Andrew Goodman-Bacon", "Pedro H.C. Sant'Anna"]
+    venue: "Journal of Economic Literature"
+    details: "Vol. 64, No. 2, pp. 498–557, 2026"
+    links:
+      - {label: "arXiv", url: "https://arxiv.org/abs/2503.13323"}
+
+  - title: "Evaluating Policies Early in a Pandemic: Bounding Policy Effects with Nonrandomly Missing Data"
+    topic: pandemic
+    url: "https://doi.org/10.1162/rest_a_01306"
+    coauthors: ["Tong Li"]
+    venue: "Review of Economics and Statistics"
+    details: "Vol. 107, No. 3, pp. 803–819, 2025"
+    links:
+      - {label: "arXiv", url: "https://arxiv.org/abs/2005.09605"}
+      - {label: "Appendix", url: "/files/CL-Covid-Bounds/Callaway_Li_Covid_Bounds_2022_Supplementary_Appendix.pdf"}
+
+  - title: "Event Studies with a Continuous Treatment"
+    topic: did
+    url: "https://doi.org/10.1257/pandp.20241047"
+    coauthors: ["Andrew Goodman-Bacon", "Pedro H.C. Sant'Anna"]
+    venue: "AEA Papers & Proceedings"
+    details: "Vol. 114, pp. 601–605, 2024"
+    links:
+      - {label: "Pre-print", url: "https://psantanna.com/files/CGBS_AEAPP.pdf"}
+
+  - title: "Policy Evaluation during a Pandemic"
+    topic: pandemic
+    url: "https://doi.org/10.1016/j.jeconom.2023.03.009"
+    coauthors: ["Tong Li"]
+    venue: "Journal of Econometrics"
+    details: "Vol. 236, No. 1, 2023"
+    links:
+      - {label: "arXiv", url: "https://arxiv.org/abs/2105.06927"}
+      - {label: "5-minute summary", url: "/posts/five-minute-pandemic-policy"}
+      - {label: "Appendix", url: "/files/pandemic-policy/Callaway_Li_2023_Supplementary_Appendix.pdf"}
+    code:
+      - {label: "ppe", url: "https://github.com/bcallaway11/ppe"}
+
+  - title: "Difference-in-Differences for Policy Evaluation"
+    topic: did
+    url: "https://link.springer.com/referenceworkentry/10.1007/978-3-319-57365-6_352-1"
+    venue: "Handbook of Labor, Human Resources and Population Economics"
+    details: "ed. K.F. Zimmermann, pp. 1–61, 2023"
+    links:
+      - {label: "Draft", url: "/files/Callaway-Chapter-2022/main.pdf"}
+      - {label: "Replication code", url: "https://github.com/bcallaway11/did_chapter"}
+
+  - title: "Treatment Effects in Interactive Fixed Effects Models with a Small Number of Time Periods"
+    topic: parallel_trends
+    url: "https://doi.org/10.1016/j.jeconom.2022.02.001"
+    coauthors: ["Sonia Karami"]
+    venue: "Journal of Econometrics"
+    details: "Vol. 233, No. 1, pp. 184–208, 2023"
+    links:
+      - {label: "arXiv", url: "https://arxiv.org/abs/2006.15780"}
+      - {label: "Appendix", url: "/files/IFE/Callaway_Karami_2022_appendix.pdf"}
+    code:
+      - {label: "ife", url: "https://github.com/bcallaway11/ife"}
+
+  - title: "Heterogeneous Effects of Job Displacement on Earnings"
+    topic: empirical
+    url: "https://doi.org/10.1007/s00181-020-01961-w"
+    coauthors: ["Afrouz Azadikhah Jahromi"]
+    venue: "Empirical Economics"
+    details: "Vol. 62, No. 1, pp. 213–245, 2022"
+    links:
+      - {label: "arXiv", url: "https://arxiv.org/abs/2006.04968"}
+
+  - title: "Difference-in-Differences with Multiple Time Periods"
+    topic: did
+    selected: true
+    url: "https://doi.org/10.1016/j.jeconom.2020.12.001"
+    coauthors: ["Pedro H.C. Sant'Anna"]
+    venue: "Journal of Econometrics"
+    details: "Vol. 225, No. 2, pp. 200–230, 2021"
+    links:
+      - {label: "arXiv", url: "https://arxiv.org/abs/1803.09015"}
+      - {label: "Appendix", url: "https://pedrohcgs.github.io/files/Callaway_SantAnna_2020_supp.pdf"}
+    code:
+      - {label: "did", url: "https://bcallaway11.github.io/did/"}
+
+  - title: "Bounds on Distributional Treatment Effect Parameters using Panel Data with an Application on Job Displacement"
+    topic: distributional
+    url: "https://doi.org/10.1016/j.jeconom.2020.02.005"
+    venue: "Journal of Econometrics"
+    details: "Vol. 222, No. 2, pp. 861–881, 2021"
+    links:
+      - {label: "arXiv", url: "https://arxiv.org/abs/2008.08117"}
+      - {label: "Appendix", url: "/files/DTE/supplementary-appendix.pdf"}
+    code:
+      - {label: "csabounds", url: "https://bcallaway11.github.io/csabounds/"}
+
+  - title: "Distributional Effects of a Continuous Treatment with an Application on Intergenerational Mobility"
+    topic: distributional
+    url: "http://dx.doi.org/10.1111/obes.12355"
+    coauthors: ["Weige Huang"]
+    venue: "Oxford Bulletin of Economics and Statistics"
+    details: "Vol. 82, No. 4, pp. 808–842, 2020"
+    links:
+      - {label: "Working paper", url: "/files/Callaway-Huang-2018/cfa2.pdf"}
+      - {label: "SSRN", url: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3078187"}
+      - {label: "Appendix", url: "/files/Callaway-Huang-2018/supplementary-appendix.pdf"}
+    code:
+      - {label: "ccfa", url: "https://weigehuangecon.github.io/ccfa/"}
+
+  - title: "Quantile Treatment Effects in Difference in Differences Models with Panel Data"
+    topic: distributional
+    url: "http://qeconomics.org/ojs/index.php/qe/article/view/704"
+    coauthors: ["Tong Li"]
+    venue: "Quantitative Economics"
+    details: "Vol. 10, No. 4, pp. 1579–1618, 2019"
+    links:
+      - {label: "Working paper", url: "/files/Callaway-Li-2019/panel-treatment-effects.pdf"}
+      - {label: "SSRN", url: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3013341"}
+      - {label: "Appendix", url: "/files/Callaway-Li-2019/supplementary-appendix.pdf"}
+      - {label: "Replication files", url: "/files/Callaway-Li-2019/Callaway-Li-2019-replication-files.zip"}
+    code:
+      - {label: "qte (panel_qtt)", url: "http://bcallaway11.github.io/qte/"}
+
+  - title: "Local Intergenerational Elasticities"
+    topic: empirical
+    url: "http://www.accessecon.com/Pubs/EB/2019/Volume39/EB-19-V39-I2-P88.pdf"
+    coauthors: ["Weige Huang"]
+    venue: "Economics Bulletin"
+    details: "Vol. 39, No. 2, pp. 919–928, 2019"
+    links:
+      - {label: "SSRN", url: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3233873"}
+      - {label: "Appendix", url: "http://www.accessecon.com/pubs/EB/tempPDF/file_Supplemental_0_0_120174_temp.pdf"}
+
+  - title: "Quantile Treatment Effects in Difference in Differences Models under Dependence Restrictions and with only Two Time Periods"
+    topic: distributional
+    url: "https://www.sciencedirect.com/science/article/pii/S0304407618301027"
+    coauthors: ["Tong Li", "Tatsushi Oka"]
+    venue: "Journal of Econometrics"
+    details: "Vol. 206, No. 2, pp. 395–413, 2018"
+    links:
+      - {label: "arXiv", url: "https://arxiv.org/pdf/1702.03618.pdf"}
+    code:
+      - {label: "qte (ddid)", url: "http://bcallaway11.github.io/qte/"}
+
+  - title: "Unions, Workers, and Wages at the Peak of the American Labor Movement"
+    topic: empirical
+    url: "https://www.sciencedirect.com/science/article/pii/S0014498317300451"
+    coauthors: ["William Collins"]
+    venue: "Explorations in Economic History"
+    details: "Vol. 68, pp. 95–118, 2018"
+    links:
+      - {label: "NBER", url: "http://www.nber.org/papers/w23516"}
+
+# --- Working papers ----------------------------------------------------------
+working_papers:
+  - title: "Difference-in-Differences with “Bad Controls”"
+    topic: did
+    url: "https://arxiv.org/abs/2608.03881"
+    coauthors: ["Carolina Caetano", "Stroud Payne", "Hugo Sant'Anna"]
+    links:
+      - {label: "Appendix", url: "/files/badcontrols/CCPS_2026_SA_v1.pdf"}
+    code:
+      - {label: "badcontrols", url: "https://hugosantanna.github.io/badcontrols/"}
+
+  - title: "Beyond Parallel Trends: An Identification-Strategy-Robust Approach to Causal Inference with Panel Data"
+    topic: parallel_trends
+    selected: true
+    url: "https://arxiv.org/abs/2511.21977"
+    coauthors: ["Derek Dyal", "Pedro H.C. Sant'Anna", "Emmanuel Tsyawo"]
+
+  - title: "Causal Inference for Aggregated Treatment"
+    topic: other_econometrics
+    url: "https://arxiv.org/abs/2506.22885"
+    coauthors: ["Carolina Caetano", "Gregorio Caetano", "Derek Dyal"]
+    status: "Submitted"
+
+  - title: "Testing the Effects of an Unobservable Factor: Do Marriage Prospects Affect College Major Choice?"
+    topic: empirical
+    url: "https://arxiv.org/abs/2410.19947"
+    coauthors: ["Alper Arslan", "Tong Li"]
+    status: "Submitted"
+
+  - title: "Treatment Effects in Staggered Adoption Designs with Non-Parallel Trends"
+    topic: parallel_trends
+    selected: true
+    url: "https://arxiv.org/abs/2308.02899"
+    coauthors: ["Emmanuel Tsyawo"]
+
+  - title: "Regulation, Emissions, and Productivity: Evidence from China’s Eleventh Five-Year Plan"
+    topic: empirical
+    url: "https://www.bankofcanada.ca/wp-content/uploads/2024/03/swp2024-7.pdf"
+    coauthors: ["Tong Li", "Joel Rodrigue", "Yuya Sasaki", "Yong Tan"]
+    status: "Revise and resubmit"
+
+  - title: "Difference-in-Differences when Parallel Trends Holds Conditional on Covariates"
+    topic: did
+    selected: true
+    url: "/files/DID-Covariates/Caetano_Callaway_2026.pdf"
+    coauthors: ["Carolina Caetano"]
+    status: "Conditionally accepted"
+    links:
+      - {label: "arXiv", url: "https://arxiv.org/abs/2406.15288"}
+      - {label: "Appendix", url: "/files/DID-Covariates/CC2026_Supplementary_Appendix.pdf"}
+
+# --- Work in progress --------------------------------------------------------
+work_in_progress:
+  - title: "Inference on Counterfactual Transition Matrices"
+    coauthors: ["Chengye Jia", "Karen Yan"]

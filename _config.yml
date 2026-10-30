@@ -14,9 +14,9 @@ defaults:
       type: posts
     values:
       layout: single
-      author_profile: true
+      author_profile: false
       comments: true
-defaults:
+      show_date: true
   # _pages
   - scope:
       path: ""
@@ -32,4 +32,27 @@ plugins:
   - jekyll-feed
   - jemoji
   - jekyll-include-cache
+
+# Keep post sources (R Markdown / Quarto), unfinished drafts, and editor
+# backups out of the published site; only the rendered .md posts are built.
+# Setting `exclude` replaces Jekyll's default list, so those are repeated here.
+exclude:
+  - "_posts/*.Rmd"
+  - "_posts/*.qmd"
+  - "_posts/*.R"
+  - "_posts/*.bib"
+  - "_drafts/*.Rmd"
+  - "_drafts/*.qmd"
+  - "*~"
+  - _archive
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
 

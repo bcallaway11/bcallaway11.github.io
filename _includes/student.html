@@ -1,0 +1,69 @@
+{%- comment -%}
+=============================================================================
+     Title: Students page entry
+     Description: Renders one student from _data/students.yml as: name, then
+                  degree line (muted), then labeled lines for dissertation and
+                  placement, then a short list of joint papers. Uses the same styles as
+                  Research page entries. Usage: include student.html with
+                  student=s (see students.md)
+     Author: Brant Callaway
+     Last update: 2026-10-30
+     Date created: 2026-10-30
+=============================================================================
+{%- endcomment -%}
+{%- assign s = include.student -%}
+
+{%- comment -%}
+  The name used in papers.yml/coauthors.yml (usually the same as s.name).
+  Name link: an explicit url wins, otherwise look the name up in
+  _data/coauthors.yml so links only need to be maintained in one place.
+{%- endcomment -%}
+{%- assign key = s.coauthor_name | default: s.name -%}
+{%- assign site_url = s.url | default: site.data.coauthors[key] -%}
+
+{%- comment -%}
+  Joint papers: every paper in _data/papers.yml that lists this student as a
+  coauthor, so the Students page can't fall out of sync with Research.
+{%- endcomment -%}
+{%- assign all_papers = site.data.papers.publications
+    | concat: site.data.papers.working_papers
+    | concat: site.data.papers.work_in_progress -%}
+{%- assign joint = "" | split: "" -%}
+{%- for p in all_papers -%}
+  {%- if p.coauthors contains key -%}{%- assign joint = joint | push: p -%}{%- endif -%}
+{%- endfor -%}
+
+<div class="paper">
+  <div class="paper__title">
+    {%- if site_url and site_url != "" %}<a href="{{ site_url }}">{{ s.name }}</a>{% else %}{{ s.name }}{% endif -%}
+    <span class="student__degree">, {{ s.school }}, {{ s.degree }} {{ s.year }}</span>
+  </div>
+  {%- if s.dissertation %}
+  <div class="paper__info"><span class="student__label">Dissertation:</span> {{ s.dissertation }}</div>
+  {%- endif %}
+  {%- if s.thesis %}
+  <div class="paper__info"><span class="student__label">Thesis:</span> {{ s.thesis }}</div>
+  {%- endif %}
+  {%- if s.placement %}
+  <div class="paper__info"><span class="student__label">First placement:</span> {{ s.placement }}</div>
+  {%- endif %}
+  {%- if s.phd_program %}
+  <div class="paper__info"><span class="student__label">Ph.D. program:</span> {{ s.phd_program }}</div>
+  {%- endif %}
+  {%- if s.current %}
+  <div class="paper__info"><span class="student__label">Current position:</span> {{ s.current }}</div>
+  {%- endif %}
+  {%- if joint.size > 0 %}
+  <div class="paper__info"><span class="student__label">Joint work:</span></div>
+  <ul class="paper__info student__papers">
+    {%- for p in joint %}
+    <li>
+      {%- if p.url %}<a href="{{ p.url | relative_url }}">{{ p.title }}</a>{% else %}{{ p.title }}{% endif -%}
+      {%- comment -%} Year is the last comma-separated piece of `details` in papers.yml {%- endcomment -%}
+      {%- if p.venue %}, <em>{{ p.venue }}</em>{% endif -%}
+      {%- if p.details %}, {{ p.details | split: ", " | last }}{% endif -%}
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- endif %}
+</div>

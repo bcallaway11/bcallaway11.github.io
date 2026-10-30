@@ -13,9 +13,11 @@ categories:
   - Policy Evaluation
   - Panel Data
   - TWFE Regressions
+# Posts page listing (posts.md): section, one-line summary, paper link
+post_type: summary
+paper_url: https://arxiv.org/abs/2202.02903
 ---
 
-$$\newcommand{\E}{\mathbb{E}}$$
 
 My colleague [Carol Caetano](http://carolinacaetano.net/), and two UGA grad students [Hugo Sant'Anna Rodrigues](https://entr.uga.edu/directory/people/hugo-rodrigues) and Stroud Payne just posted [a new working paper](https://arxiv.org/abs/2202.02903) about DID with time varying covariates.  This is a topic that has been in the back of my mind for a long time --- and I get a lot of [questions](https://github.com/bcallaway11/did/issues/71) about time varying covariates from people using the [`did` package](https://bcallaway11.github.io/did/).  
 

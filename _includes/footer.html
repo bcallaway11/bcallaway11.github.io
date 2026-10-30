@@ -4,8 +4,10 @@
       <li><strong>{{ site.data.ui-text[site.locale].follow_label }}</strong></li>
     {% endif %}
 
-    {% if site.footer.links %}
-      {% for link in site.footer.links %}
+    {% comment %} Fall back to the profile links in _data/authors.yml so they live in one place {% endcomment %}
+    {% assign footer_links = site.footer.links | default: site.data.authors[site.author].links %}
+    {% if footer_links %}
+      {% for link in footer_links %}
         {% if link.label and link.url %}
           <li><a href="{{ link.url }}" rel="nofollow noopener noreferrer"><i class="{{ link.icon | default: 'fas fa-link' }}" aria-hidden="true"></i> {{ link.label }}</a></li>
         {% endif %}

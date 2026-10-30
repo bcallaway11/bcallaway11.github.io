@@ -4,8 +4,6 @@ output:
   md_document:
     variant: "gfm+tex_math_dollars"
     preserve_yaml: TRUE
-include-before:
-- '$$\newcommand{\E}{\mathbb{E}}$$'
 author: "brant"
 date: '2021-08-06'
 layout: single
@@ -16,11 +14,11 @@ categories:
   - Continuous Treatment
   - Panel Data
 comments: true
+# Posts page listing (posts.md): section, one-line summary, paper link
+post_type: summary
+paper_url: https://arxiv.org/abs/2107.02637
 ---
 
-<style>
-s {text-decoration:none; color: red;}
-</style>
 
 [Andrew Goodman-Bacon](https://goodman-bacon.com), [Pedro Sant'Anna](https://pedrohcgs.github.io), and I have just posted a new working paper [Differences in Differences with a Continuous Treatment](https://arxiv.org/abs/2107.02637).  In the paper, we are interested in DID strategies when a treatment variable is multi-valued/continuous, and, in particular, trying to answer questions like:
 

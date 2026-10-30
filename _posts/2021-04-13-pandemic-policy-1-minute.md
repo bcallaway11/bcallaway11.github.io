@@ -14,6 +14,9 @@ output:
     variant: gfm+tex_math_dollars
 permalink: /posts/five-minute-pandemic-policy
 title: "Five Minute Summary: Policy Evaluation during a Pandemic"
+# Posts page listing (posts.md): section, one-line summary, paper link
+post_type: summary
+paper_url: https://arxiv.org/abs/2105.06927
 ---
 
 ## Introduction

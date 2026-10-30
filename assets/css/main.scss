@@ -1,8 +1,43 @@
---- 
-# Only the main Sass file needs front matter (the dashes are enough) 
---- 
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+/* =============================================================================
+   Title: Site stylesheet
+   Description: Loads the Minimal Mistakes theme and applies site-wide
+                overrides (fonts, base font size).
+   Author: Brant Callaway
+   Last update: 2026-10-30
+   Date created: unknown
+   ============================================================================= */
 
 @charset "utf-8";
+
+/* --- Fonts ---------------------------------------------------------------
+   These must be set BEFORE importing the theme, because the theme's
+   variables are `!default` and only apply when nothing is set already.
+   The site is built around IBM Plex Mono, loaded from Google Fonts in
+   _includes/head/custom.html. The theme builds every font group (body,
+   headings, nav, captions, code) from these variables, so setting them
+   all to one stack makes the site monospace by default. Running prose
+   (paragraphs and lists) is switched to IBM Plex Sans further below, since
+   long paragraphs are hard to read in a monospace font.
+*/
+$site-font: "IBM Plex Mono", Menlo, Consolas, monospace;
+$prose-font: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+$primary-sans-serif: $site-font;
+$primary-serif: $site-font;
+$header-font-family: $site-font;
+$monospace: $site-font;
+
+/* --- Link colors -----------------------------------------------------------
+   Dark navy links (calmer than the theme's teal), UGA red on hover. Visited
+   links keep the same color so the site looks consistent.
+*/
+$uga-red: #ba0c2f;
+$link-color: #1f4e79;
+$link-color-hover: $uga-red;
+$link-color-visited: $link-color;
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
@@ -14,35 +49,289 @@ See: https://github.com/mmistakes/minimal-mistakes/issues/1219#issuecomment-3268
 Anything you place after this point will therefore "cascade and override" the previous CSS styles.
 */
 
-/*
-GS: Decrease font sizes of the entire website.
-Defaults for small, medium, large, and x-large screens are:
-16, 18, 20, and 22px, in that order. All other font sizes are "em"
-[typography unit](https://en.wikipedia.org/wiki/Em_(typography)) multipliers of these pixel
-(px) values, and are therefore relative to and changed by these singular pixel values.
-See: https://github.com/mmistakes/minimal-mistakes/issues/1219#issuecomment-326809412
-- It looks like the screen pixel sizes to move into each new "size" category are defined in
-  the "Breakpoints" section of "_variables.scss"?
-*/
-html {
-  font-size: 12px; // change to whatever
+/* Thin, light underline so links are recognizable without looking heavy;
+   it turns solid (in the hover color) on hover. */
+a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: rgba($link-color, 0.35);
 
-  @include breakpoint($small) {
-    font-size: 12px; // change to whatever
-  }
-
-  @include breakpoint($medium) {
-    font-size: 14px; // change to whatever
-  }
-
-  @include breakpoint($large) {
-    font-size: 16px; // change to whatever
-  }
-
-  @include breakpoint($x-large) {
-    font-size: 18px; // change to whatever
+  &:hover {
+    text-decoration-color: currentColor;
   }
 }
 
+/* Paragraphs and lists in page content use the proportional companion font.
+   Headings, nav, footer, and the Research/Code page entries (which are
+   divs, not paragraphs) stay monospace; inline code keeps its own font. */
+.page__content {
+  p,
+  li,
+  blockquote,
+  dd {
+    font-family: $prose-font;
+  }
+}
 
+/* --- Single-column layout ------------------------------------------------
+   The theme floats .page to the right of a reserved left sidebar column on
+   large screens. Undo that and center the content at a readable width
+   (long lines of text are hard to read).
+*/
+$content-max-width: 800px;
 
+.page {
+  @include breakpoint($large) {
+    float: none;
+    width: 100%;
+    max-width: $content-max-width;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 0;
+  }
+
+  @include breakpoint($x-large) {
+    width: 100%;
+    padding-right: 0;
+  }
+}
+
+/* --- Home page profile header (_includes/profile-header.html) -----------
+   Rectangular photo floated right so the name and intro text wrap beside it.
+*/
+.profile-photo {
+  float: right;
+  width: 260px;
+  margin: 0.25em 0 1em 1.5em;
+  border-radius: $border-radius;
+}
+
+.profile-name {
+  margin-top: 0;
+}
+
+/* --- Research and Code page entries --------------------------------------
+   Shared by _includes/paper.html and _includes/software.html.
+   Semi-bold title, then coauthors/description, venue (muted), and a smaller
+   line of extra links. Titles are colored but not underlined (bold colored text
+   already reads as a link). Coauthor links use the normal text color with
+   the light underline, so they're findable but quieter than the titles.
+*/
+.paper {
+  margin-bottom: 1.5em;
+  line-height: 1.5;
+}
+
+.paper__title {
+  font-weight: 600;
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.paper__info,
+.paper__links {
+  font-size: 0.8em;
+}
+
+.paper__venue {
+  color: $muted-text-color;
+}
+
+a.coauthor {
+  color: $text-color;
+  text-decoration-color: rgba($text-color, 0.35);
+
+  &:hover {
+    color: $link-color-hover;
+  }
+}
+
+/* Year column for dated lists (Research publications). The year sits in a
+   narrow muted column beside the entry, shown once per year as on a CV.
+   On phones the column is dropped and the year sits above its group. */
+.dated-entry {
+  display: flex;
+  gap: 1.25em;
+}
+
+/* Wide enough for "Working" as well as four-digit years */
+.dated-entry__year {
+  flex: 0 0 4.5em;
+  color: $muted-text-color;
+  line-height: 1.5;
+}
+
+.dated-entry__body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+@media (max-width: $small) {
+  .dated-entry {
+    display: block;
+  }
+
+  .dated-entry__year:empty {
+    display: none;
+  }
+
+  .dated-entry__year {
+    margin-bottom: 0.25em;
+  }
+}
+
+/* Research page Year/Topic switch: two small text buttons, the active one
+   in navy and underlined, styled like links rather than theme buttons. */
+.sort-toggle {
+  font-size: 0.8em;
+  margin-bottom: 1.5em;
+}
+
+.sort-toggle__label {
+  color: $muted-text-color;
+  margin-right: 0.5em;
+}
+
+.sort-toggle__btn {
+  font: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-right: 0.9em;
+  color: $muted-text-color;
+  cursor: pointer;
+
+  &[aria-pressed="true"] {
+    color: $link-color;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  &:hover {
+    color: $link-color-hover;
+  }
+}
+
+/* Lead-in sentence above the Selected view */
+.selected-note {
+  font-size: 0.8em;
+  color: $muted-text-color;
+  font-style: italic;
+  margin-bottom: 1.5em;
+}
+
+/* Topic headings in the Topic view: smaller than section headings */
+.topic-heading {
+  font-size: 1em;
+  margin: 1.75em 0 0.9em;
+}
+
+/* Students page (_includes/student.html): muted labels ("Dissertation:")
+   so the values stand out, and joint papers as a tight indented list
+   instead of the theme's full-size, widely spaced bullets. */
+.student__label {
+  color: $muted-text-color;
+}
+
+/* School and degree share the name's line, but in regular weight and muted
+   so the name still reads as the heading. */
+.student__degree {
+  font-weight: 400;
+  color: $muted-text-color;
+}
+
+ul.student__papers {
+  margin: 0 0 0 1.2em;
+  padding-left: 0;
+
+  li {
+    margin-bottom: 0;
+  }
+}
+
+/* --- Blog posts ------------------------------------------------------------
+   Highlight classes used inside posts (they used to live in a <style> block
+   in each post, in older colors). Red flags a key point or "view", navy
+   labels a definition-style block, and blockquotes are light boxes for
+   notation and citation notes.
+*/
+.page__content {
+  .alert {
+    color: $uga-red;
+    font-weight: 600;
+  }
+
+  .alert-blue,
+  span.citation,
+  span.notation {
+    color: $link-color;
+    font-weight: 600;
+  }
+
+  /* <s> is used in older posts as red emphasis, not strikethrough */
+  s {
+    text-decoration: none;
+    color: $uga-red;
+  }
+
+  blockquote {
+    background-color: #f7f7f7;
+    border-left: 4px solid $link-color;
+    padding: 0.75em 1em;
+    margin: 1.25em 0;
+    font-style: normal;
+  }
+
+  div.citation {
+    border: 1px solid #ccc;
+    padding: 1em 1.25em;
+    margin: 1.5em 0;
+  }
+
+  .csl-entry {
+    margin-bottom: 0.5em;
+  }
+}
+
+/* On phones, shrink the photo so the text beside it isn't squeezed */
+@media (max-width: $small) {
+  .profile-photo {
+    width: 40%;
+    margin-left: 1em;
+  }
+}
+
+/*
+Base font size. All other font sizes are "em" multipliers of these pixel
+values, so changing them scales the whole site. Theme defaults for
+phone/small/medium/large/x-large screens are 16/16/18/20/22px; these are
+a bit larger on small screens and a bit smaller on very wide ones.
+See: https://github.com/mmistakes/minimal-mistakes/issues/1219#issuecomment-326809412
+Breakpoint widths are defined in the "Breakpoints" section of "_variables.scss".
+*/
+html {
+  font-size: 17px;
+
+  @include breakpoint($small) {
+    font-size: 17px;
+  }
+
+  @include breakpoint($medium) {
+    font-size: 18px;
+  }
+
+  @include breakpoint($large) {
+    font-size: 19px;
+  }
+
+  @include breakpoint($x-large) {
+    font-size: 20px;
+  }
+}

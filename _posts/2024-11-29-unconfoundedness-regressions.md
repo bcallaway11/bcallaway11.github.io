@@ -11,48 +11,13 @@ layout: single
 math: mathjax
 css: /assets/css/brant.css
 permalink: /posts/unconfoundedness-regressions
+# Posts page listing (posts.md): section, one-line summary, paper link
+post_type: informal
+summary: >-
+  How to interpret $$\alpha$$ in the regression $$Y_i = \alpha D_i + X_i'\beta + e_i$$ under unconfoundedness and if there is treatment effect heterogeneity.
 ---
 
-<style>
-/* brant customizations */
-.alert {
-  color: #BA0C2F;
-  font-weight: 400;
-}
-.alert-blue {
-  color: #00A3AD;
-  font-weight: 400;
-}
-span.citation {
-  color: #007acc;
-  font-weight: bold;
-}
-span.notation {
-  color: #007acc;
-  font-weight: bold;
-}
-.csl-entry {
-  margin-bottom: 0.5em;
-}
-div.citation {
-  border: 3px solid #ccc;
-  padding: 25px;
-  margin-top: 25px;
-  margin-bottom: 25px;
-}
-blockquote {
-  background-color: #f9f9f9; /* Light gray background */
-  border-left: 5px solid #ccc; /* Gray border on the left */
-  padding: 15px; /* Add some padding inside */
-  margin: 20px 0; /* Space around the block */
-  font-style: normal; /* Override italic if applied by default */
-}
-</style>
 
-$$\newcommand{\E}{\mathbb{E}}$$
-$$\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$
-$$\newcommand{\L}{\mathrm{L}}$$ $$\renewcommand{\P}{\mathrm{P}}$$
-$$\newcommand{\independent}{\mathrel{\perp\!\!\!\perp}}$$
 
 > <span class="notation">Notation:</span>
 >
@@ -89,9 +54,13 @@ treatment using the following regression:
 
 $$Y_i = \alpha D_i + X_i'\beta + e_i$$
 
+## Two Ways to View the Regression
+
 There are a couple of different ways we could view this regression.
 
-<span class="alert">View \#1:</span> The regression model is correctly
+### View 1 — The Regression Is Correctly Specified
+
+The regression model is correctly
 specified in the sense that $$\E[Y|X,D] = \alpha D + X'\beta$$.
 
 In this case, $$\alpha=ATT$$, and you can just run the regression and
@@ -108,13 +77,17 @@ treatment effects do not vary with $$X$$. This type of strong auxiliary
 assumption/condition is what much recent work in econometrics has tried
 to avoid and is probably implausible in most applications.
 
-<span class="alert">View \#2:</span> The regression model is a linear
+### View 2 — The Regression Is a Linear Approximation
+
+The regression model is a linear
 approximation to a possibly more complicated, nonlinear conditional
 expectation.
 
 This view allows for systematic treatment effect heterogeneity, i.e.,
 that $$ATT(X)$$ can vary across different values of $$X$$. However, this
 view begs the question: how exactly should we interpret $$\alpha$$?
+
+## Decomposing the Regression Coefficient
 
 This is the question that the papers mentioned above have tried to
 answer. To proceed, let’s start with a decomposition of $$\alpha$$:
@@ -128,9 +101,10 @@ You can see this sort of decomposition in Hahn (2023). It basically
 follows by apply Frisch-Waugh-Lovell and then using the law of iterated
 expectations and re-arranging terms. Let’s discuss the decomposition in
 three parts: the weights, the misspecification bias, and the weighted
-average of $ATT(X)$’s.
+average of $$ATT(X)$$’s.
 
-<span class="alert-blue">Decomposition Component 1: The weights</span>
+### The Weights
+
 Let’s start with the weights $$w_1(X)$$ and $$w_0(X)$$. First, the
 weights are functions of $$X$$ and have mean 1 (this may not be obvious
 from the expression, but it turns out that it is easy to show, mainly by
@@ -145,8 +119,9 @@ most complicated term is a linear projection, which we can directly
 estimate by running a regresson of $$D$$ on $$X$$ and recovering
 predicted values.
 
-<span class="alert-blue">Decomposition Component 2: Misspecification
-bias</span> Next, let’s look at the misspecification bias term. Ideally,
+### Misspecification Bias
+
+Next, let’s look at the misspecification bias term. Ideally,
 we would like this term to be equal to 0. And there are two cases where
 it will be:
 
@@ -155,7 +130,7 @@ it will be:
 
 2.  The implicit regression weights, $$w_1(X)$$ and $$w_0(X)$$ are
     covariate balancing weights in the sense that balance the
-    distribution of $X$ between the treated and untreated groups, or,
+    distribution of $$X$$ between the treated and untreated groups, or,
     equivalently, that $$\E[w_1(X) g(X) | D=1] = \E[w_0(X) g(X) | D=0]$$
     for any function $$g$$.
 
@@ -192,8 +167,9 @@ The previous argument is heuristic, but, taking the two arguments above
 together, it suggests to me to that the misspecification bias term is
 probably small in most applications.
 
-<span class="alert-blue">Decomposition Component 3: Weighted average of
-$$ATT(X)$$</span> Finally, let us move to the weighted average of
+### Weighted Average of $$ATT(X)$$
+
+Finally, let us move to the weighted average of
 $$ATT(X)$$ term. If the main target of our analysis is $$ATT$$, then the
 ideal weights would be $$w(X)=1$$, so that $$\alpha = ATT$$.
 
@@ -221,7 +197,7 @@ across $$X$$, then any weighted average of $$ATT(X)$$ will be equal to
 $$ATT$$. At the opposite extreme, if $$ATT(X)$$ varies a lot across
 $$X$$, then the weights will matter a lot.
 
-# References
+## References
 
 <div id="refs" class="references csl-bib-body hanging-indent"
 entry-spacing="0">
@@ -283,7 +259,7 @@ Review of Economics and Statistics* 104 (3): 501--509.
 
 </div>
 
-> <span class="citation">Citation:</span>
+> Citation
 >
 > <pre>
 > @online{callaway-unconfoundedness-regressions-2024,

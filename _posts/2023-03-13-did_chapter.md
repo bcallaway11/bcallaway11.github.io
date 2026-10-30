@@ -14,6 +14,11 @@ categories:
   - Panel Data
   - Event Study
 comments: true
+# Posts page listing (posts.md): section, one-line summary, paper link
+post_type: summary
+summary: >-
+  Short summary of my DID chapter in the *Handbook of Labor, Human Resources and Population Economics*.
+paper_url: https://link.springer.com/referenceworkentry/10.1007/978-3-319-57365-6_352-1
 ---
 
 My chapter on difference-in-differences just published in the *Handbook

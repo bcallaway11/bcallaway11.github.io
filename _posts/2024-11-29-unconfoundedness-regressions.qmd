@@ -15,49 +15,13 @@ bibliography: refs.bib
 math: mathjax
 css: /assets/css/brant.css
 permalink: /posts/unconfoundedness-regressions
+# Posts page listing (posts.md): section, one-line summary, paper link
+post_type: informal
+summary: >-
+  How to interpret $$\alpha$$ in the regression $$Y_i = \alpha D_i + X_i'\beta + e_i$$ under unconfoundedness and if there is treatment effect heterogeneity.
 ---
 
-<style>
-/* brant customizations */
-.alert {
-  color: #BA0C2F;
-  font-weight: 400;
-}
-.alert-blue {
-  color: #00A3AD;
-  font-weight: 400;
-}
-span.citation {
-  color: #007acc;
-  font-weight: bold;
-}
-span.notation {
-  color: #007acc;
-  font-weight: bold;
-}
-.csl-entry {
-  margin-bottom: 0.5em;
-}
-div.citation {
-  border: 3px solid #ccc;
-  padding: 25px;
-  margin-top: 25px;
-  margin-bottom: 25px;
-}
-blockquote {
-  background-color: #f9f9f9; /* Light gray background */
-  border-left: 5px solid #ccc; /* Gray border on the left */
-  padding: 15px; /* Add some padding inside */
-  margin: 20px 0; /* Space around the block */
-  font-style: normal; /* Override italic if applied by default */
-}
-</style>
 
-$$\newcommand{\E}{\mathbb{E}}$$
-$$\newcommand{\indicator}[1]{ \mathbf{1}\{#1\} }$$
-$$\newcommand{\L}{\mathrm{L}}$$
-$$\renewcommand{\P}{\mathrm{P}}$$
-$$\newcommand{\independent}{\mathrel{\perp\!\!\!\perp}}$$
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -85,9 +49,13 @@ and consider what happens when we try to estimate causal effects of the treatmen
 
 $$Y_i = \alpha D_i + X_i'\beta + e_i$$
 
+## Two Ways to View the Regression
+
 There are a couple of different ways we could view this regression.
 
-[View #1: ]{.alert} The regression model is correctly specified in the sense that $$\E[Y|X,D] = \alpha D + X'\beta$$.
+### View 1 — The Regression Is Correctly Specified
+
+The regression model is correctly specified in the sense that $$\E[Y|X,D] = \alpha D + X'\beta$$.
 
 In this case, $$\alpha=ATT$$, and you can just run the regression and interpret the coefficient on $$D$$ as the $$ATT$$.
 
@@ -95,9 +63,13 @@ My sense is that this is not the view of most modern empirical work, where it se
 
 For example, if the model is correctly specified, it would rule out certain forms of systematic treatment effect heterogeneity.  In particular, notice that, for any value of the covariates $$X$$, $$ATT(X) = \E[Y|X,D=1] - \E[Y|X,D=0] = \alpha$$. That is, average treatment effects do not vary with $$X$$.  This type of strong auxiliary assumption/condition is what much recent work in econometrics has tried to avoid and is probably implausible in most applications.
 
-[View #2: ]{.alert} The regression model is a linear approximation to a possibly more complicated, nonlinear conditional expectation.
+### View 2 — The Regression Is a Linear Approximation
+
+The regression model is a linear approximation to a possibly more complicated, nonlinear conditional expectation.
 
 This view allows for systematic treatment effect heterogeneity, i.e., that $$ATT(X)$$ can vary across different values of $$X$$.  However, this view begs the question: how exactly should we interpret $$\alpha$$?
+
+## Decomposing the Regression Coefficient
 
 This is the question that the papers mentioned above have tried to answer.  To proceed, let's start with a decomposition of $$\alpha$$:
 
@@ -106,19 +78,23 @@ $$ \alpha = \underbrace{\E\Big[w_1(X) ATT(X) \Big| G=1\Big]}_{\textrm{weighted a
 where
 $$ w_1(X) := \frac{\big(1-\L(D|X)\big) \pi}{\E\big[(D-\L(D|X))^2\big]}~~~~\textrm{and}~~~~w_0(X) := \frac{\L(D|X)(1-\pi)}{\E\big[(D-\L(D|X))^2\big]} $$
 
-You can see this sort of decomposition in @hahn-2023.  It basically follows by apply Frisch-Waugh-Lovell and then using the law of iterated expectations and re-arranging terms.  Let's discuss the decomposition in three parts: the weights, the misspecification bias, and the weighted average of $ATT(X)$'s.
+You can see this sort of decomposition in @hahn-2023.  It basically follows by apply Frisch-Waugh-Lovell and then using the law of iterated expectations and re-arranging terms.  Let's discuss the decomposition in three parts: the weights, the misspecification bias, and the weighted average of $$ATT(X)$$'s.
 
-[Decomposition Component 1: The weights]{.alert-blue} Let's start with the weights $$w_1(X)$$ and $$w_0(X)$$.  First, the weights are functions of $$X$$ and have mean 1 (this may not be obvious from the expression, but it turns out that it is easy to show, mainly by using the law of iterated expectations on the demoninators).
+### The Weights
+
+Let's start with the weights $$w_1(X)$$ and $$w_0(X)$$.  First, the weights are functions of $$X$$ and have mean 1 (this may not be obvious from the expression, but it turns out that it is easy to show, mainly by using the law of iterated expectations on the demoninators).
 
 Second, notice that it's possible that these weights can be negative, given that $$\L(D|X)$$, a linear probability model, is not constrained to be between 0 and 1.
 
 Third, it's easy to calculate the sample analog of the weights as the most complicated term is a linear projection, which we can directly estimate by running a regresson of $$D$$ on $$X$$ and recovering predicted values.
 
-[Decomposition Component 2: Misspecification bias]{.alert-blue} Next, let's look at the misspecification bias term.  Ideally, we would like this term to be equal to 0.  And there are two cases where it will be:
+### Misspecification Bias
+
+Next, let's look at the misspecification bias term.  Ideally, we would like this term to be equal to 0.  And there are two cases where it will be:
 
 1. The conditional expectation of $$Y$$ given $$X$$ and $$D=0$$ really is linear, i.e., $$\E[Y|X,D=0] = \L_0(Y|X)$$.
 
-2. The implicit regression weights, $$w_1(X)$$ and $$w_0(X)$$ are covariate balancing weights in the sense that balance the distribution of $X$ between the treated and untreated groups, or, equivalently, that $$\E[w_1(X) g(X) | D=1] = \E[w_0(X) g(X) | D=0]$$ for any function $$g$$.
+2. The implicit regression weights, $$w_1(X)$$ and $$w_0(X)$$ are covariate balancing weights in the sense that balance the distribution of $$X$$ between the treated and untreated groups, or, equivalently, that $$\E[w_1(X) g(X) | D=1] = \E[w_0(X) g(X) | D=0]$$ for any function $$g$$.
 
 Since the first condition is kind of obvious, let's focus on the second one.  One case where this condition is guaranteed to hold is when the propensity score is linear, i.e., $$p(D=1|X) = \L(D|X)$$.  For example, one way that you can get rid of this misspecification bias term (as in @angrist-1998) is when all the covariates are discrete and the model is fully saturated in the covariates; then linearity of the propensity score holds by construction.
 
@@ -130,7 +106,9 @@ For condition 2, even absent assuming that the propensity score is linear (which
 
 The previous argument is heuristic, but, taking the two arguments above together, it suggests to me to that the misspecification bias term is probably small in most applications.
 
-[Decomposition Component 3: Weighted average of $$ATT(X)$$]{.alert-blue} Finally, let us move to the weighted average of $$ATT(X)$$ term.  If the main target of our analysis is $$ATT$$, then the ideal weights would be $$w(X)=1$$, so that $$\alpha = ATT$$.
+### Weighted Average of $$ATT(X)$$
+
+Finally, let us move to the weighted average of $$ATT(X)$$ term.  If the main target of our analysis is $$ATT$$, then the ideal weights would be $$w(X)=1$$, so that $$\alpha = ATT$$.
 
 The weights $$w_1(X)$$ are not equal to 1 and, relative to this baseline, have some drawbacks.  First, as discussed above, the weights can be negative.  This means that, for certain values of the covariates, the contribution of $$ATT(X)$$ to $$\alpha$$ can have the wrong sign (this case can be ruled out in some situations: e.g., by assuming that the propensity score is linear, or, alternatively, it is possible to directly calculate the weights and check if they are negative).
 
@@ -138,9 +116,9 @@ Second, the weighted average provided here is connected to what @sloczynski-2022
 
 How much does the weighting scheme matter?  It depends crucially on how much treatment effect heterogeneity there is.  If $$ATT(X)$$ is constant across $$X$$, then any weighted average of $$ATT(X)$$ will be equal to $$ATT$$. At the opposite extreme, if $$ATT(X)$$ varies a lot across $$X$$, then the weights will matter a lot.
 
-# References
+## References
 
-> [Citation:]{.citation}
+> Citation
 >
 > <pre>
 > @online{callaway-unconfoundedness-regressions-2024,

@@ -1,0 +1,22 @@
+---
+layout: null
+permalink: /cv/
+sitemap: false
+---
+{% comment %}
+  The menu's CV link goes straight to the PDF. This page only keeps the old
+  /cv/ address working by forwarding visitors there.
+{% endcomment %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CV | {{ site.title }}</title>
+  <link rel="canonical" href="{{ '/files/Callaway-CV.pdf' | absolute_url }}">
+  <meta http-equiv="refresh" content="0; url={{ '/files/Callaway-CV.pdf' | relative_url }}">
+  <meta name="robots" content="noindex">
+</head>
+<body>
+  <p>Redirecting to <a href="{{ '/files/Callaway-CV.pdf' | relative_url }}">my CV</a>.</p>
+</body>
+</html>

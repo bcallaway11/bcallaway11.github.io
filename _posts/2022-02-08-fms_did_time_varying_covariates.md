@@ -14,9 +14,11 @@ output:
 permalink: /posts/fms-did-time-varying-covariates
 title: "Five Minute Summary: Difference in differences with time-varying
   covariates"
+# Posts page listing (posts.md): section, one-line summary, paper link
+post_type: summary
+paper_url: https://arxiv.org/abs/2202.02903
 ---
 
-$$\newcommand{\E}{\mathbb{E}}$$
 
 My colleague [Carol Caetano](http://carolinacaetano.net/), and two UGA
 grad students [Hugo Sant’Anna

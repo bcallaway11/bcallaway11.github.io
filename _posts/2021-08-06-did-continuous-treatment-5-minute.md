@@ -7,8 +7,6 @@ categories:
 - Panel Data
 comments: true
 date: 2021-08-06
-include-before:
-- $$\newcommand{\E}{\mathbb{E}}$$
 layout: single
 output:
   md_document:
@@ -17,13 +15,12 @@ output:
 permalink: /posts/five-minute-did-continuous-treatment
 title: "Five Minute Summary: Difference in Differences with a Continuous
   Treatment"
+# Posts page listing (posts.md): section, one-line summary, paper link
+post_type: summary
+paper_url: https://arxiv.org/abs/2107.02637
 ---
 
-$$\newcommand{\E}{\mathbb{E}}$$
 
-<style>
-s {text-decoration:none; color: red;}
-</style>
 
 [Andrew Goodman-Bacon](https://goodman-bacon.com), [Pedro
 Sant’Anna](https://pedrohcgs.github.io), and I have just posted a new

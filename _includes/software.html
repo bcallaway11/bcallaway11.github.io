@@ -1,0 +1,29 @@
+{%- comment -%}
+=============================================================================
+     Title: Code page entry
+     Description: Renders one package from _data/software.yml as: name (linked
+                  to its first link), a short description, and a line of
+                  links. Uses the same styles as Research page entries.
+                  Usage: include software.html with pkg=s (see code.md)
+     Author: Brant Callaway
+     Last update: 2026-10-29
+     Date created: 2026-10-29
+=============================================================================
+{%- endcomment -%}
+{%- assign s = include.pkg -%}
+<div class="paper">
+  <div class="paper__title">
+    {%- if s.links and s.links.size > 0 %}<a href="{{ s.links[0].url }}">{{ s.name }}</a>{% else %}{{ s.name }}{% endif -%}
+  </div>
+  {%- if s.description %}
+  <div class="paper__info">{{ s.description }}</div>
+  {%- endif %}
+  {%- if s.links %}
+  <div class="paper__links">
+    {%- for link in s.links -%}
+      {%- unless forloop.first %} · {% endunless -%}
+      <a href="{{ link.url }}">{{ link.label }}</a>
+    {%- endfor -%}
+  </div>
+  {%- endif %}
+</div>

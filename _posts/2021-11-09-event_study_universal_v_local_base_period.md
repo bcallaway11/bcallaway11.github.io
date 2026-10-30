@@ -14,6 +14,10 @@ output:
     variant: gfm+tex_math_dollars
 permalink: /posts/event-study-universal-v-varying-base-period
 title: Universal vs. Varying Base Period in Event Studies
+# Posts page listing (posts.md): section, one-line summary, paper link
+post_type: informal
+summary: >-
+  Comparing varying and universal base periods in event studies.
 ---
 
 ## Introduction

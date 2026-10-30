@@ -1,0 +1,14 @@
+<!-- =============================================================================
+     Title: Home page profile header
+     Description: Name heading and photo at the top of the home page. The photo
+                  floats to the right of the intro text. Name and photo come
+                  from _data/authors.yml so they are edited in one place.
+                  (The profile links are shown in the site footer instead;
+                  see _includes/footer.html.)
+     Author: Brant Callaway
+     Last update: 2026-10-28
+     Date created: 2026-10-28
+     ============================================================================= -->
+{%- assign author = site.data.authors[site.author] -%}
+<img class="profile-photo" src="{{ author.avatar | relative_url }}" alt="{{ author.name }}">
+<h1 class="profile-name">{{ author.name }}</h1>

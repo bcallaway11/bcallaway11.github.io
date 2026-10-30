@@ -1,0 +1,119 @@
+# =============================================================================
+# Title: Students
+# Description: Source data for the Students page (students.md), rendered by
+#              _includes/student.html. Each section is a list of students.
+# Author: Brant Callaway
+# Last update: 2026-10-30
+# Date created: 2026-10-30
+# =============================================================================
+#
+# Fields for each student (all optional except name):
+#   name          : student's name as shown on the page
+#   coauthor_name : name as written in _data/papers.yml and
+#                   _data/coauthors.yml, if different from `name`
+#   url           : website, used when the name isn't in coauthors.yml
+#   school        : university
+#   degree        : "Ph.D." or "M.A."
+#   year          : year the degree was completed, or "in progress"
+#   dissertation  : dissertation title (Ph.D.)
+#   thesis        : thesis title (M.A.)
+#   placement     : first placement
+#   phd_program   : Ph.D. program an M.A. student went on to
+#   current       : current position, if different from first placement
+#
+# Joint papers are not listed here. They are found automatically from the
+# coauthor lists in _data/papers.yml, so a new paper with a student shows up
+# on both the Research and Students pages.
+
+# --- Ph.D. main advisor --------------------------------------------------------
+phd_advisor:
+  - name: "Derek Dyal"
+    school: "University of Georgia"
+    degree: "Ph.D."
+    year: "in progress"
+
+  - name: "Chengye Jia"
+    school: "Temple University"
+    degree: "Ph.D."
+    year: "2021"
+    dissertation: "Essays on Microeconometrics and Labor Economics"
+    placement: "Assistant Professor, Shandong University of Finance and Economics"
+
+  - name: "Sonia Karami"
+    school: "Temple University"
+    degree: "Ph.D."
+    year: "2021"
+    dissertation: "Essays on Developing Treatment Effect Set-ups in Interactive Fixed Effects Models"
+    placement: "Data Scientist / Senior Quant, Federal Reserve Bank of Richmond"
+
+  - name: "Emmanuel Tsyawo"
+    school: "Temple University"
+    degree: "Ph.D."
+    year: "2020"
+    dissertation: "Estimating R&D Interaction Structures and Spillover Effects"
+    placement: "Assistant Professor, Mohammed VI Polytechnic University"
+    current: "Assistant Professor, University of Alabama"
+
+  - name: "Qin Wei"
+    school: "Temple University"
+    degree: "Ph.D."
+    year: "2020"
+    dissertation: "Essays on Banking Mergers and Acquisitions"
+    placement: "Depository Trust & Clearing Corporation"
+
+  # Hyphenated here (as in the CV's advising list), but not in papers.yml
+  - name: "Afrouz Azadikhah-Jahromi"
+    coauthor_name: "Afrouz Azadikhah Jahromi"
+    school: "Temple University"
+    degree: "Ph.D."
+    year: "2019"
+    dissertation: "Essays on Heterogeneous Treatment Effects in the Labor Market"
+    placement: "Assistant Professor, Widener University"
+
+  - name: "Weige Huang"
+    school: "Temple University"
+    degree: "Ph.D."
+    year: "2019"
+    dissertation: "Essays on Microeconometrics and Finance"
+    placement: "Assistant Professor, Wenlan School of Business, Zhongnan University of Economics and Law"
+    current: "Associate Professor, Shenzhen MSU-BIT University"
+
+# --- Ph.D. dissertation committee member ---------------------------------------
+phd_committee:
+  - name: "Dixit Poudel"
+    url: "https://sites.google.com/view/dpoudel/"
+    school: "University of Georgia"
+    degree: "Ph.D."
+    year: "2025"
+    dissertation: "Emerging Issues in Economic Development: Digitalization, Disaster Resilience and Nutrition"
+    placement: "Postdoctoral Associate, Applied Economics, University of Georgia"
+
+  - name: "Hugo Sant'Anna"
+    school: "University of Georgia"
+    degree: "Ph.D."
+    year: "2025"
+    dissertation: "Essays in Labor Economics: Environmental Shocks, Immigration, and Gender Wage Gap in Linked Employer-Employee Data"
+    placement: "Assistant Professor, University of Alabama at Birmingham"
+
+  - name: "Pablo Troncoso"
+    url: "https://sites.google.com/view/pablotroncoso"
+    school: "University of Georgia"
+    degree: "Ph.D."
+    year: "2023"
+    dissertation: "Essays in Formal Labor Supply and Intergenerational Mobility"
+    placement: "Instructional Assistant Professor, University of Houston"
+
+  - name: "Chenchen Xie"
+    school: "Temple University"
+    degree: "Ph.D."
+    year: "2021"
+    dissertation: "Essays on Microeconometrics and Business Economics"
+
+# --- M.A. main advisor -----------------------------------------------------------
+ma_advisor:
+  - name: "Stroud Payne"
+    school: "University of Georgia"
+    degree: "M.A."
+    year: "2022"
+    thesis: "Difference-in-Differences with Time-Varying Covariates and Empirical Applications"
+    phd_program: "Vanderbilt University"

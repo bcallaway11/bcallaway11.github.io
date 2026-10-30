@@ -1,0 +1,17 @@
+{%- comment -%}
+=============================================================================
+     Title: Dated paper entry
+     Description: Wraps one paper (rendered by _includes/paper.html) with a
+                  narrow label column on the left, holding a year or
+                  "Working". The caller passes an empty label to leave the
+                  column blank, so each label shows once per group as on a CV.
+                  Usage: include dated-entry.html paper=p label=year
+     Author: Brant Callaway
+     Last update: 2026-10-30
+     Date created: 2026-10-30
+=============================================================================
+{%- endcomment -%}
+<div class="dated-entry">
+  <div class="dated-entry__year">{{ include.label }}</div>
+  <div class="dated-entry__body">{% include paper.html paper=include.paper %}</div>
+</div>

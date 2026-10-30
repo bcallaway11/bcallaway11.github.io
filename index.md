@@ -2,27 +2,25 @@
 layout: single
 title:
 permalink: /
-author_profile: true
 ---
 
-<table style="width: 100%;">
-  <tr>
-	<td style="width: 90%; border-bottom:0px;"><h1>Brantly Callaway</h1></td>
-	<td style="width: 10%; border-bottom:0px;"><img src="assets/images/uga-logo.png"/></td>
-  </tr>
-</table>
+{% include profile-header.html %}
 
 I am the P. George Benson Associate Professor of Economics at the University of Georgia.
 
-My primary research interests are in Microeconometrics.  Most of my research has concerned how to use panel data (repeated observations on the same individual or firm over time) to think about causal effects of economic policies.  I have been particularly interested in developing methods related to understanding how effects of policies vary across different individuals.  I am also interested in applications in labor economics.  Specifically, I have worked on understanding the effects of job displacement, minimum wage policies, intergenerational mobility, and unions.
+My primary research interests are in causal inference with panel data. A large part of my work has been on difference-in-differences, including settings with variation in treatment timing, continuous treatments, and covariates.
+
+Currently, I am mainly working on ways to relax assumptions like parallel trends that underlie difference-in-differences and related approaches.
+
+I have also developed methods to understand treatment effect heterogeneity beyond average effects, such as distributional and quantile treatment effects.
+
+I am currently an Associate Editor at the *Journal of Econometrics*, the *Econometrics Journal*, and *Econometric Reviews*.
 
 At UGA, I teach courses on econometrics, both to graduate and undergraduate students.
 
 **<a href="files/Callaway-CV.pdf">Curriculum Vitae</a>**
 
-<br>
-
-**Recent Updates:**
+## Recent Updates
 
 * [Slides on Difference-in-Differences with a Continuous Treatment](files/presentations/26-ULL/01_continuous-treatment.html) from Mini-Course at the University of Louisiana-Lafayette
 
@@ -30,9 +28,7 @@ At UGA, I teach courses on econometrics, both to graduate and undergraduate stud
 
 * New paper: [Beyond Parallel Trends: An Identification-Strategy-Robust Approach to Causal Inference with Panel Data](https://arxiv.org/abs/2511.21977) (with Derek Dyal, Pedro H.C. Sant'Anna, and Emmanuel Tsyawo)
 
-<br>
-
-**Contact Information:**
+## Contact Information
 
 Email: brantly.callaway [at] uga [dot] edu
 
