@@ -2378,7 +2378,12 @@ Date created: 2026-11-04
 -->
 <p>Due: Turn in hard copy at the beginning of class on Wednesday, November 11.</p>
 <p>For the coding parts, turn in both your code and its output, and keep your answers concise. You should code the estimators, standard errors, and test statistics yourself rather than using built-in functions, though you are welcome to use built-in functions to check your answers. Use the asymptotic (normal or chi-square) distributions from class to compute critical values and p-values, and treat each dataset as an iid sample.</p>
-<p><strong>Data:</strong> The <code>Fertility</code>, <code>Fertility_subset</code>, and <code>acs</code> datasets are available in the <a href="https://bcallaway11.github.io/Courses/ECON_8070_Fall_2026/index.html#data">Data section</a> of the course website. <code>Fertility_subset</code> is a random sample of 1,000 women from <code>Fertility</code>, with the same variables.</p>
+<p><strong>Data:</strong></p>
+<ul>
+<li><code>Fertility</code>: <a href="https://bcallaway11.github.io/Courses/ECON_8070_Fall_2026/Fertility.RData">RData</a> [<a href="https://bcallaway11.github.io/Courses/ECON_8070_Fall_2026/Fertility_description.txt">description</a>]</li>
+<li><code>Fertility_subset</code>: <a href="https://bcallaway11.github.io/Courses/ECON_8070_Fall_2026/Fertility_subset.RData">RData</a> (a random sample of 1,000 women from <code>Fertility</code>, with the same variables)</li>
+<li><code>acs</code>: <a href="https://bcallaway11.github.io/Courses/ECON_8070_Fall_2026/acs.RData">RData</a> [<a href="https://bcallaway11.github.io/Courses/ECON_8070_Fall_2026/acs_description.txt">description</a>]</li>
+</ul>
 <section id="question-1" class="level2">
 <h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
 <p>For this question, use the <code>Fertility</code> data, which comes from the 1980 U.S. Census and contains married women aged 21-35 with at least two children. We will use the variable <code>boy1st</code>, which is equal to 1 if a woman’s first child is a boy and 0 otherwise. Let <span class="math inline">\(p = \mathbb{E}[\texttt{boy1st}]\)</span>, and consider testing <span class="math inline">\(\mathbb{H}_0 : p = 0.5\)</span>.</p>
